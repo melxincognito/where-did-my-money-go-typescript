@@ -57,30 +57,70 @@ export const PurchaseInputForm: FC<Props> = ({ passItems }) => {
 const App: FC = () => {
   let purchases: Array<{ purchaseName: string; purchaseAmount: number }> = [];
 
-  const [currentPurchase, setCurrentPurchase] = useState<string>("");
-  const [currentPurchaseAmount, setCurrentPurchaseAmount] = useState<number>();
+  const [purchaseName, setPurchaseName] = useState<string>("");
+  const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
+  //let purchaseCategory: Array<{ index: number; categoryName: string }>;
 
-  const grabShit = (inputPurchaseName: string, purchaseAmount: number) => {
-    if (inputPurchaseName.length > 5 && purchaseAmount > 0) {
-      setCurrentPurchase(inputPurchaseName);
-      setCurrentPurchaseAmount(purchaseAmount);
+  const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
+    setPurchaseName(e.target.value);
+  };
 
-      purchases.push({
-        purchaseName: currentPurchase,
-        purchaseAmount: Number(currentPurchaseAmount),
-      });
+  const handleChangePurchaseAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    setPurchaseAmount(Number(e.target.value));
+  };
 
-      return purchases;
-    } else {
-      return;
-    }
+  const addToPurchasesArray = (name: string, amount: number) => {
+    purchases.push({ purchaseName: name, purchaseAmount: amount });
+    setPurchaseAmount(0);
+    setPurchaseName("");
   };
 
   return (
     <div className="App">
-      <PurchaseInputForm passItems={grabShit} />
-
+      <div>
+        <div
+          style={{
+            display: "grid",
+            justifyContent: "center",
+          }}
+        >
+          <input
+            placeholder="Purchase Name"
+            value={purchaseName}
+            onChange={handleChangePurchaseName}
+          />
+          <input
+            placeholder="Purchase Amount"
+            value={purchaseAmount}
+            onChange={handleChangePurchaseAmount}
+          />
+        </div>
+        <button
+          onClick={() => addToPurchasesArray(purchaseName, purchaseAmount)}
+        >
+          {" "}
+          submit purchase
+        </button>
+        <div>
+          <h1>{purchaseName}</h1>
+          <h1>{purchaseAmount}</h1>
+        </div>
+      </div>
       <button onClick={() => console.log(purchases)}> click me</button>
+      <div>
+        {purchases.length > 0 ? (
+          <>nothing to show</>
+        ) : (
+          purchases.map((item) => (
+            <>
+              <PurchaseTile
+                name={item.purchaseName}
+                amount={item.purchaseAmount}
+              />
+            </>
+          ))
+        )}
+      </div>
     </div>
   );
 };
