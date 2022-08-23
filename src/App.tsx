@@ -56,24 +56,28 @@ export const PurchaseInputForm: FC<Props> = ({ passItems }) => {
 };
 
 const App: FC = () => {
+  // purchases is an array of objects that takes in a purchase name and purchase amount
   let purchases: Array<{ purchaseName: string; purchaseAmount: number }> = [];
 
+  // purchaseName state expects a string to be passed
   const [purchaseName, setPurchaseName] = useState<string>("");
-  const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
-  //let purchaseCategory: Array<{ index: number; categoryName: string }>;
 
+  // purchaseAmount state expects a number to get passed
+  const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
+
+  // event has to declare the type in order to work as a function
   const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
     setPurchaseName(e.target.value);
   };
-
+  // event has to declare the type in order to work as a function
   const handleChangePurchaseAmount = (e: ChangeEvent<HTMLInputElement>) => {
     setPurchaseAmount(Number(e.target.value));
   };
 
   const addToPurchasesArray = (name: string, amount: number) => {
-    purchases.push({ purchaseName: name, purchaseAmount: amount });
-    setPurchaseAmount(0);
-    setPurchaseName("");
+    purchases.push({ purchaseName: name, purchaseAmount: Number(amount) });
+
+    return purchases;
   };
 
   return (
@@ -109,6 +113,8 @@ const App: FC = () => {
         </div>
       </div>
       <button onClick={() => console.log(purchases)}> click me</button>
+
+      <div></div>
     </div>
   );
 };
