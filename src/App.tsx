@@ -2,6 +2,7 @@ import React, { FC, useState, ChangeEvent } from "react";
 import "./App.css";
 
 import { PurchaseTile } from "./components/PurchaseTile";
+import { Navigation } from "./components/Navigation";
 
 interface Purchases {
   purchase: string;
@@ -77,6 +78,7 @@ const App: FC = () => {
 
   return (
     <div className="App">
+      <Navigation />
       <div>
         <div
           style={{
@@ -107,20 +109,6 @@ const App: FC = () => {
         </div>
       </div>
       <button onClick={() => console.log(purchases)}> click me</button>
-      <div>
-        {purchases.length > 0 ? (
-          <>nothing to show</>
-        ) : (
-          purchases.map((item) => (
-            <>
-              <PurchaseTile
-                name={item.purchaseName}
-                amount={item.purchaseAmount}
-              />
-            </>
-          ))
-        )}
-      </div>
     </div>
   );
 };
