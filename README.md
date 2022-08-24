@@ -11,46 +11,48 @@
    <li>There's a lot of throwaway code in here ATM I used this project to learn TypeScript</li>
  
 </ul>
- 
+
 ## Preview
- 
+
+[See live application](https://6305aac866ca152a76d61936--precious-pixie-9c2bf8.netlify.app/)
+
 Purchase input form with all submitted purchases displayed directly below along with displayed purchase totals.
- 
+
 ![Alt text](./public/money-1.png?raw=true)
- 
+
 Purchases sorted into their purchase categories along with the purchase category totals.
 ![Alt text](./public/money-2.png?raw=true)
- 
+
 ## Getting Started
- 
+
 ### 1. Clone the repository and install the dependencies using NPM.
- 
+
 ```
 git clone https://github.com/melxincognito/where-did-my-money-go-typescript.git
 cd where-did-my-money-go
 npm i
 ```
- 
+
 ### 2. Run the app locally
- 
+
 ```
 npm start
 ```
- 
+
 ### 3. Run all automated tests
- 
+
 ```
 npm test
 ```
- 
+
 ### 4. View application locally
- 
+
 Open your browser to <b>localhost:3000</b> to view the application locally
- 
+
 ## Dependencies
- 
+
 Dependencies List:
- 
+
 <ul>
 <li>typescript 4.7.4</li>
 <li>react 18.2.0</li>
