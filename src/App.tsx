@@ -664,7 +664,7 @@ const styles = {
     justifyContent: "center",
   },
   paper: {
-    padding: "1rem",
+    padding: { xs: "1rem 3rem", md: "1rem" },
     backgroundColor: "secondary.main",
     color: "#404040",
     display: "grid",
