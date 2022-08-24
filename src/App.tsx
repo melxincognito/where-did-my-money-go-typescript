@@ -5,7 +5,6 @@ import {
   Checkbox,
   Button,
   Paper,
-  Box,
   InputLabel,
   MenuItem,
   FormControl,
