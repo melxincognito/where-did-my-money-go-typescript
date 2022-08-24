@@ -1,20 +1,22 @@
-import React, { FC, useState, ChangeEvent } from "react";
+import { FC, useState, ChangeEvent } from "react";
 import "./App.css";
 import {
   TextField,
   Checkbox,
   Button,
-  Paper,
   InputLabel,
   MenuItem,
   FormControl,
   Box,
 } from "@mui/material";
-import { PurchaseTile } from "./components/PurchaseTile";
 import { Navigation } from "./components/Navigation";
 import { Purchase } from "./Interfaces";
 import { nanoid } from "nanoid";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import { PurchasesList } from "./components/PurchasesList";
+import { PurchaseTotals } from "./components/PurchaseTotals";
+import { PurchaseCategoriesList } from "./components/PurchaseCategoriesList";
 
 const purchaseCategories: Array<string> = [
   "Housing",
@@ -318,6 +320,7 @@ const App: FC = () => {
   return (
     <div className="App">
       <Navigation />
+
       <div style={styles.inputForm}>
         <div
           style={{
@@ -390,254 +393,41 @@ const App: FC = () => {
           submit purchase
         </Button>
       </div>
-      <div style={styles.purchasesList}>
-        <h1> All Purchases</h1>
-        <div style={styles.purchases}>
-          {purchases.map((purchase, index) => (
-            <>
-              <PurchaseTile
-                key={index}
-                category={purchase.category}
-                id={purchase.id}
-                name={purchase.purchase}
-                amount={purchase.amount}
-                isNecessity={purchase.isNecessity}
-                deletePurchase={() =>
-                  deletePurchase(
-                    purchase.id,
-                    purchase.amount,
-                    purchase.isNecessity,
-                    purchase.category
-                  )
-                }
-              />
-            </>
-          ))}
-        </div>
-      </div>
-      <Box
-        sx={{
-          display: { xs: "grid", md: "flex" },
-          gap: "3rem",
-          justifyContent: "center",
-          alignContent: "center",
-          marginTop: "2rem",
-        }}
-      >
-        <Paper sx={styles.paper}>
-          Total purchases amount: <div>${totalPurchasesAmount}</div>
-        </Paper>
-        <Paper sx={styles.paper}>
-          Necessary purchases amount: <div>${necessaryPurchasesAmount} </div>
-        </Paper>
-        <Paper sx={styles.paper}>
-          Wants purchases amount: <div>${wantsPurchasesAmount} </div>
-        </Paper>
-      </Box>
 
-      <Box id="purchase categories list" sx={styles.purchaseCategoryContainer}>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Housing Purchases</h1>
-            <h3>${housingPurchasesTotal}</h3>
-          </div>
+      <PurchasesList purchases={purchases} deletePurchase={deletePurchase} />
+      {/* PURCHASE TOTALS */}
 
-          {housingPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Transportation Purchases</h1>
-            <h3>${transportationPurchasesTotal}</h3>
-          </div>
+      <PurchaseTotals
+        totalPurchasesAmount={totalPurchasesAmount}
+        necessaryPurchasesAmount={necessaryPurchasesAmount}
+        wantsPurchasesAmount={wantsPurchasesAmount}
+      />
 
-          {transportationPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Medical Purchases</h1>
-            <h3>${medicalPurchasesTotal} </h3>
-          </div>
-
-          {medicalPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Food Purchases</h1>
-            <h3> ${foodPurchasesTotal}</h3>
-          </div>
-
-          {foodPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Entertainment Purchases</h1>
-            <h3>${entertainmentPurchasesTotal} </h3>
-          </div>
-
-          {entertainmentPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Pets Purchases</h1>
-            <h3>${petsPurchasesTotal} </h3>
-          </div>
-
-          {petsPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
-        <Box sx={styles.purchaseCategoryTile}>
-          <div style={{ color: "white" }}>
-            <h1>Other Purchases</h1>
-            <h3> ${otherPurchasesTotal} </h3>
-          </div>
-
-          {otherPurchasesList.map((purchase, index) => (
-            <PurchaseTile
-              key={index}
-              category={purchase.category}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
-            />
-          ))}
-        </Box>
+      {/* PURCHASE CATEGORIES*/}
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <PurchaseCategoriesList
+          housingPurchasesList={housingPurchasesList}
+          transportationPurchasesList={transportationPurchasesList}
+          medicalPurchasesList={medicalPurchasesList}
+          foodPurchasesList={foodPurchasesList}
+          entertainmentPurchasesList={entertainmentPurchasesList}
+          petsPurchasesList={petsPurchasesList}
+          otherPurchasesList={otherPurchasesList}
+          housingPurchasesTotal={housingPurchasesTotal}
+          foodPurchasesTotal={foodPurchasesTotal}
+          medicalPurchasesTotal={medicalPurchasesTotal}
+          transportationPurchasesTotal={transportationPurchasesTotal}
+          entertainmentPurchasesTotal={entertainmentPurchasesTotal}
+          petsPurchasesTotal={petsPurchasesTotal}
+          otherPurchasesTotal={otherPurchasesTotal}
+          deletePurchase={deletePurchase}
+        />
       </Box>
     </div>
   );
 };
 
 const styles = {
-  purchaseCategoryContainer: {
-    display: { xs: "grid", md: "flex" },
-    margin: "1rem",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  },
-
-  purchaseCategoryTile: {
-    width: { xs: "90%", md: "43%" },
-    height: "400px",
-    backgroundColor: "#141414",
-    display: "grid",
-    justifyContent: "center",
-    justifyItems: "center",
-    overflow: "scroll",
-    gap: "1rem",
-    margin: "1rem",
-    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
-    borderRadius: "30px",
-    paddingBottom: "1rem",
-  },
   inputForm: {
     backgroundColor: "#FFE4E4",
     padding: "1rem",
@@ -646,85 +436,6 @@ const styles = {
     borderRadius: "30px",
     display: "grid",
   },
-  purchasesList: {
-    display: "grid",
-    backgroundColor: "pink",
-    margin: "1rem",
-    borderRadius: "30px",
-    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
-    justifyContent: "center",
-    height: "32vh",
-    overflow: "scroll",
-    paddingBottom: "2rem",
-  },
-  purchases: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "1rem",
-    justifyContent: "center",
-  },
-  paper: {
-    padding: { xs: "1rem 3rem", md: "1rem" },
-    backgroundColor: "secondary.main",
-    color: "#404040",
-    display: "grid",
-  },
 } as const;
 
 export default App;
-
-/*
-interface Props {
-  passItems(
-    inputPurchaseName: string,
-    inputPurchaseAmount: number,
-    inputNecessaryPurchase: boolean
-  ): any;
-}
-
-export const PurchaseInputForm: FC<Props> = ({ passItems }) => {
-  const [purchaseName, setPurchaseName] = useState<string>("");
-  const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
-  const [necessaryPurchase, setNecessaryPurchase] = useState<boolean>(false);
-  //let purchaseCategory: Array<{ index: number; categoryName: string }>;
-
-  const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
-    setPurchaseName(e.target.value);
-  };
-
-  const handleChangePurchaseAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    setPurchaseAmount(Number(e.target.value));
-  };
-
-  return (
-    <div>
-      <div
-        style={{
-          display: "grid",
-          justifyContent: "center",
-        }}
-      >
-        <input
-          placeholder="Purchase Name"
-          onChange={handleChangePurchaseName}
-        />
-        <input
-          placeholder="Purchase Amount"
-          onChange={handleChangePurchaseAmount}
-        />
-      </div>
-      <button
-        onClick={passItems(purchaseName, purchaseAmount, necessaryPurchase)}
-      >
-        {" "}
-        submit purchase
-      </button>
-      <div>
-        <h1>{purchaseName}</h1>
-        <h1>{purchaseAmount}</h1>
-      </div>
-    </div>
-  );
-};
-
-*/
