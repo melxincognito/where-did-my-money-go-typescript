@@ -8,6 +8,7 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
+  Box,
 } from "@mui/material";
 import { PurchaseTile } from "./components/PurchaseTile";
 import { Navigation } from "./components/Navigation";
@@ -326,11 +327,11 @@ const App: FC = () => {
           }}
         >
           <h2 style={{ textDecoration: "underline" }}> Purchase Input Form</h2>
-          <div
-            style={{
-              display: "flex",
+          <Box
+            sx={{
+              display: { xs: "grid", md: "flex" },
               gap: "2rem",
-              width: "130%",
+              width: { xs: "100%", md: "130%" },
             }}
           >
             <TextField
@@ -361,7 +362,7 @@ const App: FC = () => {
                 ))}
               </Select>
             </FormControl>
-          </div>
+          </Box>
 
           <div>
             <Checkbox
@@ -414,13 +415,12 @@ const App: FC = () => {
           ))}
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
+      <Box
+        sx={{
+          display: { xs: "grid", md: "flex" },
           gap: "3rem",
           justifyContent: "center",
           alignContent: "center",
-
           marginTop: "2rem",
         }}
       >
@@ -433,13 +433,10 @@ const App: FC = () => {
         <Paper sx={styles.paper}>
           Wants purchases amount: <div>${wantsPurchasesAmount} </div>
         </Paper>
-      </div>
+      </Box>
 
-      <div
-        id="purchase categories list"
-        style={styles.purchaseCategoryContainer}
-      >
-        <div style={styles.purchaseCategoryTile}>
+      <Box id="purchase categories list" sx={styles.purchaseCategoryContainer}>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Housing Purchases</h1>
             <h3>${housingPurchasesTotal}</h3>
@@ -463,8 +460,8 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-        <div style={styles.purchaseCategoryTile}>
+        </Box>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Transportation Purchases</h1>
             <h3>${transportationPurchasesTotal}</h3>
@@ -488,8 +485,8 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-        <div style={styles.purchaseCategoryTile}>
+        </Box>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Medical Purchases</h1>
             <h3>${medicalPurchasesTotal} </h3>
@@ -513,8 +510,8 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-        <div style={styles.purchaseCategoryTile}>
+        </Box>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Food Purchases</h1>
             <h3> ${foodPurchasesTotal}</h3>
@@ -538,8 +535,8 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-        <div style={styles.purchaseCategoryTile}>
+        </Box>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Entertainment Purchases</h1>
             <h3>${entertainmentPurchasesTotal} </h3>
@@ -563,8 +560,8 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-        <div style={styles.purchaseCategoryTile}>
+        </Box>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Pets Purchases</h1>
             <h3>${petsPurchasesTotal} </h3>
@@ -588,8 +585,8 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-        <div style={styles.purchaseCategoryTile}>
+        </Box>
+        <Box sx={styles.purchaseCategoryTile}>
           <div style={{ color: "white" }}>
             <h1>Other Purchases</h1>
             <h3> ${otherPurchasesTotal} </h3>
@@ -613,21 +610,22 @@ const App: FC = () => {
               }
             />
           ))}
-        </div>
-      </div>
+        </Box>
+      </Box>
     </div>
   );
 };
 
 const styles = {
   purchaseCategoryContainer: {
-    display: "flex",
+    display: { xs: "grid", md: "flex" },
     margin: "1rem",
     flexWrap: "wrap",
     justifyContent: "center",
   },
+
   purchaseCategoryTile: {
-    width: "43%",
+    width: { xs: "90%", md: "43%" },
     height: "400px",
     backgroundColor: "#141414",
     display: "grid",
