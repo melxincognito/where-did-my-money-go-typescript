@@ -1,10 +1,31 @@
 import React, { FC, useState, ChangeEvent } from "react";
 import "./App.css";
-import { TextField, Checkbox, Button } from "@mui/material";
+import {
+  TextField,
+  Checkbox,
+  Button,
+  Paper,
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+} from "@mui/material";
 import { PurchaseTile } from "./components/PurchaseTile";
 import { Navigation } from "./components/Navigation";
 import { Purchase } from "./Interfaces";
 import { nanoid } from "nanoid";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+const purchaseCategories: Array<string> = [
+  "Housing",
+  "Transportation",
+  "Medical",
+  "Food",
+  "Pets",
+  "Clothing",
+  "Entertainment",
+  "Other",
+];
 
 const App: FC = () => {
   const uniqueId: string = nanoid();
@@ -27,6 +48,12 @@ const App: FC = () => {
     useState<number>(0);
 
   const [wantsPurchasesAmount, setWantsPurchasesAmount] = useState<number>(0);
+
+  const [purchaseCategory, setPurchaseCategory] = useState<string>("");
+
+  const handleChangePurchaseCategory = (event: SelectChangeEvent) => {
+    setPurchaseCategory(event.target.value as string);
+  };
 
   // event has to declare the type in order to work as a function
   const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -103,17 +130,45 @@ const App: FC = () => {
             gap: "20px",
           }}
         >
-          <TextField
-            label="Purchase Name"
-            variant="outlined"
-            value={purchaseName}
-            onChange={handleChangePurchaseName}
-          />
-          <TextField
-            label="Purchase Amount"
-            value={purchaseAmount}
-            onChange={handleChangePurchaseAmount}
-          />
+          <h2 style={{ textDecoration: "underline" }}> Purchase Input Form</h2>
+          <div
+            style={{
+              display: "flex",
+              gap: "2rem",
+              width: "130%",
+              position: "relative",
+              left: "-5%",
+            }}
+          >
+            <TextField
+              label="Purchase Name"
+              value={purchaseName}
+              onChange={handleChangePurchaseName}
+              sx={{ backgroundColor: "white" }}
+            />
+            <TextField
+              sx={{ backgroundColor: "white" }}
+              label="Purchase Amount"
+              value={purchaseAmount}
+              onChange={handleChangePurchaseAmount}
+            />
+
+            <FormControl sx={{ width: "20%", textAlign: "left" }}>
+              <InputLabel>Purchase Category</InputLabel>
+              <Select
+                value={purchaseCategory}
+                label="Purchase Category"
+                onChange={handleChangePurchaseCategory}
+                sx={{ backgroundColor: "white" }}
+              >
+                {purchaseCategories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
           <div>
             <Checkbox
@@ -156,9 +211,17 @@ const App: FC = () => {
           ))}
         </div>
       </div>
-      <div>Total purchases amount ${totalPurchasesAmount}</div>
-      <div>Necessary purchases amount: ${necessaryPurchasesAmount}</div>
-      <div>Wants purchases amount: ${wantsPurchasesAmount}</div>
+      <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+        <Paper sx={styles.paper}>
+          Total purchases amount <div>${totalPurchasesAmount}</div>
+        </Paper>
+        <Paper sx={styles.paper}>
+          Necessary purchases amount: <div>${necessaryPurchasesAmount} </div>
+        </Paper>
+        <Paper sx={styles.paper}>
+          Wants purchases amount: <div>${wantsPurchasesAmount} </div>
+        </Paper>
+      </div>
     </div>
   );
 };
@@ -170,13 +233,16 @@ const styles = {
     margin: "1rem",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "30px",
+    display: "grid",
   },
   purchasesList: {
     display: "grid",
     backgroundColor: "pink",
-
+    margin: "1rem",
+    borderRadius: "30px",
+    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     justifyContent: "center",
-    height: "60vh",
+    height: "40vh",
     overflow: "scroll",
   },
   purchases: {
@@ -184,6 +250,12 @@ const styles = {
     flexWrap: "wrap",
     gap: "1rem",
     justifyContent: "center",
+  },
+  paper: {
+    padding: "1rem",
+    backgroundColor: "secondary.main",
+    color: "#404040",
+    display: "grid",
   },
 } as const;
 
