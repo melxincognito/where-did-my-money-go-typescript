@@ -29,7 +29,7 @@ interface PurchaseCategoriesListProps {
 interface PurchaseCategoriesTileProps {
   purchaseCategory: string;
   purchaseCategoryTotal: number;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 interface PurchaseCategoriesInformation {
