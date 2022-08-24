@@ -343,7 +343,7 @@ const App: FC = () => {
             <TextField
               sx={{ backgroundColor: "white" }}
               label="Purchase Amount"
-              value={purchaseAmount}
+              InputLabelProps={{ shrink: true }}
               onChange={handleChangePurchaseAmount}
             />
 
