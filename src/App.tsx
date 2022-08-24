@@ -1,6 +1,6 @@
 import React, { FC, useState, ChangeEvent } from "react";
 import "./App.css";
-
+import { TextField, Checkbox, Button } from "@mui/material";
 import { PurchaseTile } from "./components/PurchaseTile";
 import { Navigation } from "./components/Navigation";
 import { Purchase } from "./Interfaces";
@@ -14,13 +14,19 @@ const App: FC = () => {
   const [totalPurchasesAmount, setTotalPurchasesAmount] = useState<number>(0);
   const [necessaryPurchase, setNecessaryPurchase] = useState<boolean>(false);
 
-  // let purchases: Array<{ purchaseName: string; purchaseAmount: number }> = [];
-
-  // purchaseName state expects a string to be passed
   const [purchaseName, setPurchaseName] = useState<string>("");
 
-  // purchaseAmount state expects a number to get passed
   const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
+  const [neccesaryPurchasesList, setNecessaryPurchasesList] = useState<
+    Purchase[]
+  >([]);
+
+  const [wantPurchasesList, setWantPurchasesList] = useState<Purchase[]>([]);
+
+  const [necessaryPurchasesAmount, setNecessaryPurchasesAmount] =
+    useState<number>(0);
+
+  const [wantsPurchasesAmount, setWantsPurchasesAmount] = useState<number>(0);
 
   // event has to declare the type in order to work as a function
   const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +34,7 @@ const App: FC = () => {
   };
   // event has to declare the type in order to work as a function
   const handleChangePurchaseAmount = (e: ChangeEvent<HTMLInputElement>) => {
-    setPurchaseAmount(Number(e.target.value));
+    setPurchaseAmount(parseFloat(e.target.value));
   };
 
   const handleChangeSetNecessaryPurchase = (
@@ -56,6 +62,30 @@ const App: FC = () => {
     setPurchaseName("");
     setPurchaseAmount(0);
     setNecessaryPurchase(false);
+
+    if (isNecessity) {
+      setNecessaryPurchasesList([
+        ...neccesaryPurchasesList,
+        {
+          purchase: name,
+          amount: amount,
+          isNecessity: isNecessity,
+          id: id,
+        },
+      ]);
+      setNecessaryPurchasesAmount(necessaryPurchasesAmount + amount);
+    } else {
+      setWantPurchasesList([
+        ...wantPurchasesList,
+        {
+          purchase: name,
+          amount: amount,
+          isNecessity: isNecessity,
+          id: id,
+        },
+      ]);
+      setWantsPurchasesAmount(wantsPurchasesAmount + amount);
+    }
   };
 
   const deletePurchase = (id: string): void => {
@@ -65,34 +95,38 @@ const App: FC = () => {
   return (
     <div className="App">
       <Navigation />
-      <div>
+      <div style={styles.inputForm}>
         <div
           style={{
             display: "grid",
             justifyContent: "center",
+            gap: "20px",
           }}
         >
-          <input
-            placeholder="Purchase Name"
+          <TextField
+            label="Purchase Name"
+            variant="outlined"
             value={purchaseName}
             onChange={handleChangePurchaseName}
           />
-          <input
-            placeholder="Purchase Amount"
+          <TextField
+            label="Purchase Amount"
             value={purchaseAmount}
             onChange={handleChangePurchaseAmount}
           />
+
           <div>
-            <input
-              type="checkbox"
+            <Checkbox
               aria-label="necessary purchase indicator"
               checked={necessaryPurchase}
               onChange={handleChangeSetNecessaryPurchase}
             />
+
             <label> Necessary purchase?</label>
           </div>
         </div>
-        <button
+        <Button
+          variant="contained"
           onClick={() =>
             addToPurchasesArray(
               purchaseName,
@@ -102,40 +136,52 @@ const App: FC = () => {
             )
           }
         >
-          {" "}
           submit purchase
-        </button>
-        <div>
-          <h1>{purchaseName}</h1>
-          <h1>{purchaseAmount}</h1>
+        </Button>
+      </div>
+      <div style={styles.purchasesList}>
+        <h1> Purchases</h1>
+        <div style={styles.purchases}>
+          {purchases.map((purchase, index) => (
+            <>
+              <PurchaseTile
+                key={index}
+                id={purchase.id}
+                name={purchase.purchase}
+                amount={purchase.amount}
+                isNecessity={purchase.isNecessity}
+                deletePurchase={() => deletePurchase(purchase.id)}
+              />
+            </>
+          ))}
         </div>
       </div>
-      <button onClick={() => console.log(purchases)}> click me</button>
-
-      <div style={styles.purchasesList}>
-        {purchases.map((purchase, index) => (
-          <>
-            <PurchaseTile
-              key={index}
-              id={purchase.id}
-              name={purchase.purchase}
-              amount={purchase.amount}
-              isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
-            />
-          </>
-        ))}
-      </div>
-      <div> purchases amount ${totalPurchasesAmount}</div>
+      <div>Total purchases amount ${totalPurchasesAmount}</div>
+      <div>Necessary purchases amount: ${necessaryPurchasesAmount}</div>
+      <div>Wants purchases amount: ${wantsPurchasesAmount}</div>
     </div>
   );
 };
 
 const styles = {
+  inputForm: {
+    backgroundColor: "#FFE4E4",
+    padding: "1rem",
+    margin: "1rem",
+    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
+    borderRadius: "30px",
+  },
   purchasesList: {
+    display: "grid",
+    backgroundColor: "pink",
+
+    justifyContent: "center",
+    height: "60vh",
+    overflow: "scroll",
+  },
+  purchases: {
     display: "flex",
     flexWrap: "wrap",
-    backgroundColor: "red",
     gap: "1rem",
     justifyContent: "center",
   },
