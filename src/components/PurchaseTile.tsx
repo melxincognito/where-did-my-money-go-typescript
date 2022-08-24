@@ -7,6 +7,7 @@ export interface Props {
   name: string;
   amount: number;
   isNecessity: boolean;
+  category: string;
   deletePurchase: (id: string) => void;
 }
 
@@ -16,9 +17,10 @@ export const PurchaseTile: FC<Props> = ({
   amount,
   isNecessity,
   deletePurchase,
+  category,
 }) => {
   return (
-    <div style={styles.purchaseTile}>
+    <div style={styles.purchaseTile} id={category}>
       <div style={styles.headerContent}>
         <h2>{name}</h2> - <h3>${amount}</h3>{" "}
       </div>

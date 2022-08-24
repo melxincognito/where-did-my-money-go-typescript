@@ -21,9 +21,8 @@ const purchaseCategories: Array<string> = [
   "Transportation",
   "Medical",
   "Food",
-  "Pets",
-  "Clothing",
   "Entertainment",
+  "Pets",
   "Other",
 ];
 
@@ -51,6 +50,21 @@ const App: FC = () => {
 
   const [purchaseCategory, setPurchaseCategory] = useState<string>("");
 
+  const [housingPurchasesList, setHousingPurchasesList] = useState<Purchase[]>(
+    []
+  );
+  const [transportationPurchasesList, setTransportationPurchasesList] =
+    useState<Purchase[]>([]);
+  const [medicalPurchasesList, setMedicalPurchasesList] = useState<Purchase[]>(
+    []
+  );
+  const [foodPurchasesList, setFoodPurchasesList] = useState<Purchase[]>([]);
+  const [entertainmentPurchasesList, setEntertainmentPurchasesList] = useState<
+    Purchase[]
+  >([]);
+  const [petsPurchasesList, setPetsPurchasesList] = useState<Purchase[]>([]);
+  const [otherPurchasesList, setOtherPurchasesList] = useState<Purchase[]>([]);
+
   const handleChangePurchaseCategory = (event: SelectChangeEvent) => {
     setPurchaseCategory(event.target.value as string);
   };
@@ -74,7 +88,8 @@ const App: FC = () => {
     name: string,
     amount: number,
     isNecessity: boolean,
-    id: string
+    id: string,
+    category: string
   ) => {
     setPurchases([
       ...purchases,
@@ -83,12 +98,14 @@ const App: FC = () => {
         amount: amount,
         isNecessity: isNecessity,
         id: id,
+        category: category,
       },
     ]);
     setTotalPurchasesAmount(totalPurchasesAmount + amount);
     setPurchaseName("");
     setPurchaseAmount(0);
     setNecessaryPurchase(false);
+    setPurchaseCategory("");
 
     if (isNecessity) {
       setNecessaryPurchasesList([
@@ -98,6 +115,7 @@ const App: FC = () => {
           amount: amount,
           isNecessity: isNecessity,
           id: id,
+          category: category,
         },
       ]);
       setNecessaryPurchasesAmount(necessaryPurchasesAmount + amount);
@@ -109,9 +127,106 @@ const App: FC = () => {
           amount: amount,
           isNecessity: isNecessity,
           id: id,
+          category: category,
         },
       ]);
       setWantsPurchasesAmount(wantsPurchasesAmount + amount);
+    }
+    switch (category) {
+      case "Housing": {
+        setHousingPurchasesList([
+          ...housingPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+
+        break;
+      }
+      case "Transportation": {
+        setTransportationPurchasesList([
+          ...transportationPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+
+        break;
+      }
+      case "Medical": {
+        setMedicalPurchasesList([
+          ...medicalPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+        //statements;
+        break;
+      }
+      case "Food": {
+        setFoodPurchasesList([
+          ...foodPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+        break;
+      }
+      case "Entertainment": {
+        setEntertainmentPurchasesList([
+          ...entertainmentPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+        break;
+      }
+      case "Pets": {
+        setPetsPurchasesList([
+          ...petsPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+        break;
+      }
+      default: {
+        setOtherPurchasesList([
+          ...otherPurchasesList,
+          {
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          },
+        ]);
+        break;
+      }
     }
   };
 
@@ -136,8 +251,6 @@ const App: FC = () => {
               display: "flex",
               gap: "2rem",
               width: "130%",
-              position: "relative",
-              left: "-5%",
             }}
           >
             <TextField
@@ -153,7 +266,7 @@ const App: FC = () => {
               onChange={handleChangePurchaseAmount}
             />
 
-            <FormControl sx={{ width: "20%", textAlign: "left" }}>
+            <FormControl sx={{ minWidth: "200px", textAlign: "left" }}>
               <InputLabel>Purchase Category</InputLabel>
               <Select
                 value={purchaseCategory}
@@ -187,7 +300,8 @@ const App: FC = () => {
               purchaseName,
               purchaseAmount,
               necessaryPurchase,
-              uniqueId
+              uniqueId,
+              purchaseCategory
             )
           }
         >
@@ -201,6 +315,7 @@ const App: FC = () => {
             <>
               <PurchaseTile
                 key={index}
+                category={purchase.category}
                 id={purchase.id}
                 name={purchase.purchase}
                 amount={purchase.amount}
@@ -211,7 +326,16 @@ const App: FC = () => {
           ))}
         </div>
       </div>
-      <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "3rem",
+          justifyContent: "center",
+          alignContent: "center",
+
+          marginTop: "2rem",
+        }}
+      >
         <Paper sx={styles.paper}>
           Total purchases amount <div>${totalPurchasesAmount}</div>
         </Paper>
@@ -222,11 +346,134 @@ const App: FC = () => {
           Wants purchases amount: <div>${wantsPurchasesAmount} </div>
         </Paper>
       </div>
+
+      <div
+        id="purchase categories list"
+        style={styles.purchaseCategoryContainer}
+      >
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Housing Purchases</h1>
+          {housingPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Transportation Purchases</h1>
+          {transportationPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Medical Purchases</h1>
+          {medicalPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Food Purchases</h1>
+          {foodPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Entertainment Purchases</h1>
+          {entertainmentPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Pets Purchases</h1>
+          {petsPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+        <div style={styles.purchaseCategoryTile}>
+          <h1 style={{ color: "white" }}>Other Purchases</h1>
+          {otherPurchasesList.map((purchase, index) => (
+            <PurchaseTile
+              key={index}
+              category={purchase.category}
+              id={purchase.id}
+              name={purchase.purchase}
+              amount={purchase.amount}
+              isNecessity={purchase.isNecessity}
+              deletePurchase={() => deletePurchase(purchase.id)}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 const styles = {
+  purchaseCategoryContainer: {
+    display: "flex",
+    margin: "1rem",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  purchaseCategoryTile: {
+    width: "40%",
+    height: "700px",
+    backgroundColor: "#404040",
+    border: "1px solid black",
+    display: "grid",
+    justifyContent: "center",
+    overflow: "scroll",
+    gap: "1rem",
+    margin: "1rem",
+    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
+    borderRadius: "30px",
+  },
   inputForm: {
     backgroundColor: "#FFE4E4",
     padding: "1rem",
@@ -242,8 +489,9 @@ const styles = {
     borderRadius: "30px",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     justifyContent: "center",
-    height: "40vh",
+    height: "32vh",
     overflow: "scroll",
+    paddingBottom: "2rem",
   },
   purchases: {
     display: "flex",

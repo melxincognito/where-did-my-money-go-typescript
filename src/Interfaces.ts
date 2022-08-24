@@ -3,4 +3,5 @@ export interface Purchase {
   amount: number;
   isNecessity: boolean;
   id: string;
+  category: string;
 }
