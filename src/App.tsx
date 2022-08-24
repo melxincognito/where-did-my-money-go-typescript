@@ -630,11 +630,13 @@ const styles = {
     backgroundColor: "#141414",
     display: "grid",
     justifyContent: "center",
+    justifyItems: "center",
     overflow: "scroll",
     gap: "1rem",
     margin: "1rem",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "30px",
+    paddingBottom: "1rem",
   },
   inputForm: {
     backgroundColor: "#FFE4E4",
