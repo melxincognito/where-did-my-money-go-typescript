@@ -8,6 +8,7 @@
    <li>After a user submits a purchase using the form it is displayed below in the <b>All Purchases</b> section and its added purchase total is reflected in the <b>Total purchases amount</b>. Depending on other user inputs depends on how the input item is further displayed.</li>
    <li> If a user selects the purchase was a necessary purchase, the item card will be displayed with a <b>Necessary Purchase</b> tag and its total will get added to the <b>Necessary purchases amount</b>. If it was not selected as a necessary purchase, the item card will be displayed with a <b>Wants Purchase</b> tag and its total will be added to the <b> Wants purchases total</b>. </li>
    <li>Depending on what category the user selects will determine where its information is specifically displayed. For example, if a user selects the category “Housing” while entering a purchase, the purchase will be included in the “Housing Purchases” section and the purchase amount will be added to the housing purchases total. </li>
+   <li>There's a lot of throwaway code in here ATM I used this project to learn TypeScript</li>
  
 </ul>
  
@@ -51,14 +52,23 @@ Open your browser to <b>localhost:3000</b> to view the application locally
 Dependencies List:
  
 <ul>
-   <li>@testing-library/jest-dom</li>
-   <li>@testing-library/react</li>
-   <li>@testing-library/user-event </li>
-   <li>react 18.1.0 </li>
-   <li>react-dom 18.1.0 </li>
-   <li>@mui/material </li>
-   <li>@emotion/react </li>
-   <li>@emotion/styled </li>
-   <li>@mui/system </li>
-   <li>@mui/icons-material </li>
+<li>typescript 4.7.4</li>
+<li>react 18.2.0</li>
+<li>react-scripts </li>
+<li>react-router-dom</li>
+<li>react-dom</li>
+<li>@types/react-dom </li>
+<li>@types/react </li>
+<li>@types/node</li>
+<li>@types/jest</li>
+<li>@testing-library/user-event</li>
+<li>@testing-library/react </li>
+<li>@testing-library/jest-dom</li>
+<li>nanoid</li>
+<li>@mui/material </li>
+<li>@emotion/react </li>
+<li>@emotion/styled </li>
+<li>@mui/system </li>
+<li>@mui/icons-material </li>
+
 </ul>
