@@ -1,12 +1,13 @@
 import { FC } from "react";
+import { Box } from "@mui/material";
 
 export interface Props {}
 
 export const Navigation: FC<Props> = () => {
   return (
-    <div style={styles.navBarContainer}>
+    <Box sx={styles.navBarContainer}>
       <h1> Where did my money go?</h1>
-    </div>
+    </Box>
   );
 };
 
@@ -15,7 +16,7 @@ const styles = {
     left: 0,
     right: 0,
     top: 0,
-    height: "10vh",
+    height: { xs: "14vh", md: "10vh" },
     width: "100%",
     backgroundColor: "#191919",
     display: "flex",

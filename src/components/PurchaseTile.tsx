@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 export interface Props {
   id: string;
@@ -20,7 +20,7 @@ export const PurchaseTile: FC<Props> = ({
   category,
 }) => {
   return (
-    <div style={styles.purchaseTile} id={category}>
+    <Box sx={styles.purchaseTile} id={category}>
       <div style={styles.headerContent}>
         <h2 style={{ color: "#2D023F" }}>{name}</h2>{" "}
         <h3 style={{ color: "white", textDecoration: "underline" }}>
@@ -62,13 +62,13 @@ export const PurchaseTile: FC<Props> = ({
       >
         delete
       </Button>
-    </div>
+    </Box>
   );
 };
 
 const styles = {
   purchaseTile: {
-    width: "300px",
+    width: { xs: "200px", md: "300px" },
     height: "10rem",
     backgroundColor: "palevioletred",
     display: "grid",
