@@ -65,6 +65,16 @@ const App: FC = () => {
   const [petsPurchasesList, setPetsPurchasesList] = useState<Purchase[]>([]);
   const [otherPurchasesList, setOtherPurchasesList] = useState<Purchase[]>([]);
 
+  const [housingPurchasesTotal, setHousingPurchasesTotal] = useState<number>(0);
+  const [transportationPurchasesTotal, setTransportationPurchasesTotal] =
+    useState<number>(0);
+  const [medicalPurchasesTotal, setMedicalPurchasesTotal] = useState<number>(0);
+  const [foodPurchasesTotal, setFoodPurchasesTotal] = useState<number>(0);
+  const [entertainmentPurchasesTotal, setEntertainmentPurchasesTotal] =
+    useState<number>(0);
+  const [petsPurchasesTotal, setPetsPurchasesTotal] = useState<number>(0);
+  const [otherPurchasesTotal, setOtherPurchasesTotal] = useState<number>(0);
+
   const handleChangePurchaseCategory = (event: SelectChangeEvent) => {
     setPurchaseCategory(event.target.value as string);
   };
@@ -144,6 +154,7 @@ const App: FC = () => {
             category: category,
           },
         ]);
+        setHousingPurchasesTotal(housingPurchasesTotal + amount);
 
         break;
       }
@@ -158,6 +169,7 @@ const App: FC = () => {
             category: category,
           },
         ]);
+        setTransportationPurchasesTotal(transportationPurchasesTotal + amount);
 
         break;
       }
@@ -172,7 +184,7 @@ const App: FC = () => {
             category: category,
           },
         ]);
-        //statements;
+        setMedicalPurchasesTotal(medicalPurchasesTotal + amount);
         break;
       }
       case "Food": {
@@ -186,6 +198,7 @@ const App: FC = () => {
             category: category,
           },
         ]);
+        setFoodPurchasesTotal(foodPurchasesTotal + amount);
         break;
       }
       case "Entertainment": {
@@ -199,6 +212,7 @@ const App: FC = () => {
             category: category,
           },
         ]);
+        setEntertainmentPurchasesTotal(entertainmentPurchasesTotal + amount);
         break;
       }
       case "Pets": {
@@ -212,6 +226,7 @@ const App: FC = () => {
             category: category,
           },
         ]);
+        setPetsPurchasesTotal(petsPurchasesTotal + amount);
         break;
       }
       default: {
@@ -225,13 +240,79 @@ const App: FC = () => {
             category: category,
           },
         ]);
+        setOtherPurchasesTotal(otherPurchasesTotal + amount);
         break;
       }
     }
   };
 
-  const deletePurchase = (id: string): void => {
+  const deletePurchase = (
+    id: string,
+    amount: number,
+    isNecessity: boolean,
+    purchaseCategory: string
+  ): void => {
     setPurchases(purchases.filter((purchase) => purchase.id !== id));
+
+    setTotalPurchasesAmount(totalPurchasesAmount - amount);
+
+    if (isNecessity) {
+      setNecessaryPurchasesAmount(necessaryPurchasesAmount - amount);
+    } else {
+      setWantsPurchasesAmount(wantsPurchasesAmount - amount);
+    }
+
+    switch (purchaseCategory) {
+      case "Housing": {
+        setHousingPurchasesTotal(housingPurchasesTotal - amount);
+        setHousingPurchasesList(
+          housingPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+      case "Transportation": {
+        setTransportationPurchasesTotal(transportationPurchasesTotal - amount);
+        setTransportationPurchasesList(
+          transportationPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+      case "Medical": {
+        setMedicalPurchasesTotal(medicalPurchasesTotal - amount);
+        setMedicalPurchasesList(
+          medicalPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+      case "Food": {
+        setFoodPurchasesTotal(foodPurchasesTotal - amount);
+        setFoodPurchasesList(
+          foodPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+      case "Entertainment": {
+        setEntertainmentPurchasesTotal(entertainmentPurchasesTotal - amount);
+        setEntertainmentPurchasesList(
+          entertainmentPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+      case "Pets": {
+        setPetsPurchasesTotal(petsPurchasesTotal - amount);
+        setPetsPurchasesList(
+          petsPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+      default: {
+        setOtherPurchasesTotal(otherPurchasesTotal - amount);
+        setOtherPurchasesList(
+          otherPurchasesList.filter((purchase) => purchase.id !== id)
+        );
+        break;
+      }
+    }
   };
 
   return (
@@ -295,6 +376,7 @@ const App: FC = () => {
         </div>
         <Button
           variant="contained"
+          sx={{ borderRadius: "30px" }}
           onClick={() =>
             addToPurchasesArray(
               purchaseName,
@@ -309,7 +391,7 @@ const App: FC = () => {
         </Button>
       </div>
       <div style={styles.purchasesList}>
-        <h1> Purchases</h1>
+        <h1> All Purchases</h1>
         <div style={styles.purchases}>
           {purchases.map((purchase, index) => (
             <>
@@ -320,7 +402,14 @@ const App: FC = () => {
                 name={purchase.purchase}
                 amount={purchase.amount}
                 isNecessity={purchase.isNecessity}
-                deletePurchase={() => deletePurchase(purchase.id)}
+                deletePurchase={() =>
+                  deletePurchase(
+                    purchase.id,
+                    purchase.amount,
+                    purchase.isNecessity,
+                    purchase.category
+                  )
+                }
               />
             </>
           ))}
@@ -337,7 +426,7 @@ const App: FC = () => {
         }}
       >
         <Paper sx={styles.paper}>
-          Total purchases amount <div>${totalPurchasesAmount}</div>
+          Total purchases amount: <div>${totalPurchasesAmount}</div>
         </Paper>
         <Paper sx={styles.paper}>
           Necessary purchases amount: <div>${necessaryPurchasesAmount} </div>
@@ -352,7 +441,11 @@ const App: FC = () => {
         style={styles.purchaseCategoryContainer}
       >
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Housing Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Housing Purchases</h1>
+            <h3>${housingPurchasesTotal}</h3>
+          </div>
+
           {housingPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -361,12 +454,23 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Transportation Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Transportation Purchases</h1>
+            <h3>${transportationPurchasesTotal}</h3>
+          </div>
+
           {transportationPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -375,12 +479,23 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Medical Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Medical Purchases</h1>
+            <h3>${medicalPurchasesTotal} </h3>
+          </div>
+
           {medicalPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -389,12 +504,23 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Food Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Food Purchases</h1>
+            <h3> ${foodPurchasesTotal}</h3>
+          </div>
+
           {foodPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -403,12 +529,23 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Entertainment Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Entertainment Purchases</h1>
+            <h3>${entertainmentPurchasesTotal} </h3>
+          </div>
+
           {entertainmentPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -417,12 +554,23 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Pets Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Pets Purchases</h1>
+            <h3>${petsPurchasesTotal} </h3>
+          </div>
+
           {petsPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -431,12 +579,23 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
         <div style={styles.purchaseCategoryTile}>
-          <h1 style={{ color: "white" }}>Other Purchases</h1>
+          <div style={{ color: "white" }}>
+            <h1>Other Purchases</h1>
+            <h3> ${otherPurchasesTotal} </h3>
+          </div>
+
           {otherPurchasesList.map((purchase, index) => (
             <PurchaseTile
               key={index}
@@ -445,7 +604,14 @@ const App: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() => deletePurchase(purchase.id)}
+              deletePurchase={() =>
+                deletePurchase(
+                  purchase.id,
+                  purchase.amount,
+                  purchase.isNecessity,
+                  purchase.category
+                )
+              }
             />
           ))}
         </div>
@@ -462,10 +628,9 @@ const styles = {
     justifyContent: "center",
   },
   purchaseCategoryTile: {
-    width: "40%",
-    height: "700px",
-    backgroundColor: "#404040",
-    border: "1px solid black",
+    width: "43%",
+    height: "400px",
+    backgroundColor: "#141414",
     display: "grid",
     justifyContent: "center",
     overflow: "scroll",

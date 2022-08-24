@@ -8,7 +8,7 @@ export interface Props {
   amount: number;
   isNecessity: boolean;
   category: string;
-  deletePurchase: (id: string) => void;
+  deletePurchase: (id: string, amount: number, isNecessity: boolean) => void;
 }
 
 export const PurchaseTile: FC<Props> = ({
@@ -22,11 +22,44 @@ export const PurchaseTile: FC<Props> = ({
   return (
     <div style={styles.purchaseTile} id={category}>
       <div style={styles.headerContent}>
-        <h2>{name}</h2> - <h3>${amount}</h3>{" "}
+        <h2 style={{ color: "#2D023F" }}>{name}</h2>{" "}
+        <h3 style={{ color: "white", textDecoration: "underline" }}>
+          <span> ${amount} </span>
+        </h3>{" "}
       </div>
 
-      {isNecessity ? <> Necessary Purchase </> : <> Wants Purchase </>}
-      <Button variant="contained" onClick={() => deletePurchase(id)}>
+      {isNecessity ? (
+        <div
+          style={{
+            color: "black",
+            backgroundColor: "rgba(255, 255, 255, 0.88)",
+            marginBottom: "5px",
+            padding: "0.1rem 1rem",
+            borderRadius: "30px",
+          }}
+        >
+          {" "}
+          Necessary Purchase{" "}
+        </div>
+      ) : (
+        <div
+          style={{
+            color: "white",
+            backgroundColor: "rgba(0, 0, 0, 0.88)",
+            marginBottom: "5px",
+            padding: "0.1rem 1rem",
+            borderRadius: "30px",
+          }}
+        >
+          {" "}
+          Wants Purchase{" "}
+        </div>
+      )}
+      <Button
+        sx={{ borderRadius: "30px" }}
+        variant="contained"
+        onClick={() => deletePurchase(id, amount, isNecessity)}
+      >
         delete
       </Button>
     </div>
@@ -36,7 +69,7 @@ export const PurchaseTile: FC<Props> = ({
 const styles = {
   purchaseTile: {
     width: "300px",
-    height: "6rem",
+    height: "10rem",
     backgroundColor: "palevioletred",
     display: "grid",
     justifyContent: "center",
@@ -48,8 +81,8 @@ const styles = {
     borderRadius: "20px",
   },
   headerContent: {
-    display: "flex",
-    gap: "1rem",
+    display: "block",
+    justifyContent: "center",
     alignItems: "center",
   },
 } as const;
