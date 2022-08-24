@@ -1,7 +1,10 @@
 import { ChangeEvent, FC, useState } from "react";
 
 export interface Props {
-  childToParent(inputPurchaseName: string, inputPurchaseAmount: number): any;
+  childToParent: (
+    inputPurchaseName: string,
+    inputPurchaseAmount: number
+  ) => undefined;
 }
 
 export const PurchaseInputForm: FC<Props> = ({ childToParent }) => {
