@@ -47,7 +47,9 @@ const PurchaseCategoriesTile: FC<PurchaseCategoriesTileProps> = ({
     <div>
       <Box sx={styles.purchaseCategoryTile}>
         <div style={styles.purchaseCategoryTileHeader}>
-          <h1>{purchaseCategory} Purchases</h1>
+          <h1 style={styles.purchaseCategoryTileLabel}>
+            {purchaseCategory} Purchases
+          </h1>
           <h3>${purchaseCategoryTotal.toFixed(2)}</h3>
         </div>
 
@@ -157,7 +159,7 @@ const styles = {
   },
 
   purchaseCategoryTile: {
-    width: { xs: "20rem", md: "30rem" },
+    width: { xs: "23rem", md: "30rem" },
     height: "400px",
     backgroundColor: "#141414",
     display: "grid",
@@ -176,5 +178,8 @@ const styles = {
     display: "block",
     justifyContent: "center",
     justifyItems: "center",
+  },
+  purchaseCategoryTileLabel: {
+    textDecoration: "underline",
   },
 } as const;
