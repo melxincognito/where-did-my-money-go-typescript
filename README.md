@@ -1,4 +1,4 @@
-# Spending calculator
+# Spending Tracker
 
 ## Overview
 
