@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 
 import { PurchaseTile } from "../PurchaseTile";
 
@@ -20,9 +20,8 @@ export const PurchasesList: FC<Props> = ({ purchases, deletePurchase }) => {
       <h1 style={styles.allPurchasesHeader}> All Purchases</h1>
       <div style={styles.purchases}>
         {purchases.map((purchase, index) => (
-          <>
+          <Fragment key={index}>
             <PurchaseTile
-              key={index}
               category={purchase.category}
               id={purchase.id}
               name={purchase.purchase}
@@ -37,7 +36,7 @@ export const PurchasesList: FC<Props> = ({ purchases, deletePurchase }) => {
                 )
               }
             />
-          </>
+          </Fragment>
         ))}
       </div>
     </div>

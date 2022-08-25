@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { Purchase } from "../../Interfaces";
 import { Box } from "@mui/material";
 import { PurchaseTile } from "../PurchaseTile";
@@ -123,9 +123,8 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
           purchaseCategoryTotal={purchaseCategory.purchaseCategoryTotal}
         >
           {purchaseCategory.purchaseCategoryList.map((purchase, index) => (
-            <>
+            <Fragment key={index}>
               <PurchaseTile
-                key={index}
                 category={purchase.category}
                 id={purchase.id}
                 name={purchase.purchase}
@@ -140,7 +139,7 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
                   )
                 }
               />
-            </>
+            </Fragment>
           ))}
         </PurchaseCategoriesTile>
       ))}
