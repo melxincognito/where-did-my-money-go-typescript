@@ -22,41 +22,22 @@ export const PurchaseTile: FC<Props> = ({
   return (
     <Box sx={styles.purchaseTile} id={category}>
       <div style={styles.headerContent}>
-        <h2 style={{ color: "#2D023F" }}>{name}</h2>{" "}
-        <h3 style={{ color: "white", textDecoration: "underline" }}>
-          <span> ${amount.toFixed(2)} </span>
+        <h2 style={styles.purchaseNameFontTag}>
+          <span aria-label="Purchase name">{name}</span>
+        </h2>{" "}
+        <h3 style={styles.purchaseAmountFontTag}>
+          <span aria-label="Purchase amount"> ${amount.toFixed(2)} </span>
         </h3>{" "}
       </div>
 
       {isNecessity ? (
-        <div
-          style={{
-            color: "black",
-            backgroundColor: "rgba(255, 255, 255, 0.88)",
-            marginBottom: "5px",
-            padding: "0.1rem 1rem",
-            borderRadius: "30px",
-          }}
-        >
-          {" "}
-          Necessary Purchase{" "}
-        </div>
+        <div style={styles.necessaryPurchaseTile}> Necessary Purchase </div>
       ) : (
-        <div
-          style={{
-            color: "white",
-            backgroundColor: "rgba(0, 0, 0, 0.88)",
-            marginBottom: "5px",
-            padding: "0.1rem 1rem",
-            borderRadius: "30px",
-          }}
-        >
-          {" "}
-          Wants Purchase{" "}
-        </div>
+        <div style={styles.wantsPurchaseTile}> Wants Purchase </div>
       )}
       <Button
-        sx={{ borderRadius: "30px" }}
+        sx={styles.deletePurchaseButton}
+        aria-label="Delete purchase"
         variant="contained"
         onClick={() => deletePurchase(id, amount, isNecessity)}
       >
@@ -84,5 +65,29 @@ const styles = {
     display: "block",
     justifyContent: "center",
     alignItems: "center",
+  },
+  necessaryPurchaseTile: {
+    color: "black",
+    backgroundColor: "rgba(255, 255, 255, 0.88)",
+    marginBottom: "5px",
+    padding: "0.1rem 1rem",
+    borderRadius: "30px",
+  },
+  wantsPurchaseTile: {
+    color: "white",
+    backgroundColor: "rgba(0, 0, 0, 0.88)",
+    marginBottom: "5px",
+    padding: "0.1rem 1rem",
+    borderRadius: "30px",
+  },
+  purchaseNameFontTag: {
+    color: "#2D023F",
+  },
+  purchaseAmountFontTag: {
+    color: "white",
+    textDecoration: "underline",
+  },
+  deletePurchaseButton: {
+    borderRadius: "30px",
   },
 } as const;
