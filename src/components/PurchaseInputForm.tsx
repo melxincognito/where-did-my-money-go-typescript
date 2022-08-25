@@ -142,6 +142,8 @@ const styles = {
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "30px",
     display: "grid",
+    justifyContent: "center",
+    gap: "0.5rem",
   },
   contentContainer: {
     display: "grid",
@@ -162,11 +164,13 @@ const styles = {
   },
   textField: {
     backgroundColor: "white",
+    borderRadius: "5px",
   },
   categorySelector: {
     backgroundColor: "white",
   },
   submitPurchaseButton: {
     borderRadius: "30px",
+    padding: "0.7rem",
   },
 } as const;
