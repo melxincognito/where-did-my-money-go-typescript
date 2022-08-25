@@ -335,9 +335,9 @@ const App: FC = () => {
         necessaryPurchasesAmount={necessaryPurchasesAmount}
         wantsPurchasesAmount={wantsPurchasesAmount}
       />
-
       {/* PURCHASE CATEGORIES*/}
       <Box sx={{ display: "flex", justifyContent: "center" }}>
+        {/* Keep the box or the categories list isn't centered */}
         <PurchaseCategoriesList
           housingPurchasesList={housingPurchasesList}
           transportationPurchasesList={transportationPurchasesList}
