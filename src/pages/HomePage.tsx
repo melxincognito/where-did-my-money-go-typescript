@@ -3,7 +3,6 @@ import { FC, useState, ChangeEvent } from "react";
 import { Purchase } from "../Interfaces";
 import { nanoid } from "nanoid";
 import { SelectChangeEvent } from "@mui/material/Select";
-
 import { PurchasesList } from "../components/lists/PurchasesList";
 import { PurchaseTotals } from "../components/PurchaseTotals";
 import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
@@ -12,7 +11,7 @@ import { PurchaseInputForm } from "../components/PurchaseInputForm";
 import { Box } from "@mui/material";
 
 export const HomePage: FC = () => {
-  // uniqueId is used to generate a unique id for each purchase entered in the purchase input form
+  // uniqueId is used to generate the id for each purchase entered in the purchase input form
   const uniqueId: string = nanoid();
 
   // purchases is an array of objects that takes in a purchase name and purchase amount
@@ -65,12 +64,12 @@ export const HomePage: FC = () => {
     setPurchaseCategory(event.target.value as string);
   };
 
-  // event has to declare the type in order to work as a function
   const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
     setPurchaseName(e.target.value);
   };
-  // event has to declare the type in order to work as a function
+
   const handleChangePurchaseAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    // setting as a float because it's getting input as a string
     setPurchaseAmount(parseFloat(e.target.value));
   };
 
@@ -79,6 +78,7 @@ export const HomePage: FC = () => {
   ) => {
     setNecessaryPurchase(e.target.checked);
   };
+
   const addToPurchasesArray = (
     name: string,
     amount: number,
@@ -323,6 +323,7 @@ export const HomePage: FC = () => {
           )
         }
       />
+      {/* PURCHASE LIST */}
 
       <PurchasesList purchases={purchases} deletePurchase={deletePurchase} />
       {/* PURCHASE TOTALS */}
@@ -333,8 +334,11 @@ export const HomePage: FC = () => {
         wantsPurchasesAmount={wantsPurchasesAmount}
       />
       {/* PURCHASE CATEGORIES*/}
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        {/* Keep the box or the categories list isn't centered */}
+      <Box
+        id="purchaseCategoriesListContainer"
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
+        {/* Keep the Box or the categories list isn't centered */}
         <PurchaseCategoriesList
           housingPurchasesList={housingPurchasesList}
           transportationPurchasesList={transportationPurchasesList}
