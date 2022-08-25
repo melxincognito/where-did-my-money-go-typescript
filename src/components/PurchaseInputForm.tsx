@@ -48,7 +48,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
   uniqueId,
 }) => {
   return (
-    <div style={styles.inputForm}>
+    <form id="purchaseInputForm" style={styles.inputForm}>
       <div style={styles.contentContainer}>
         <h2 style={styles.headerText}> Purchase Input Form</h2>
         <Box sx={styles.inputFieldContainer}>
@@ -68,6 +68,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
           and leaves the textfield empty then it'll break and you can't use the input
           field until you refresh the page.  */}
           <TextField
+            id="purchaseAmountInputField"
             aria-label="Purchase amount input"
             type="number"
             placeholder="0.00"
@@ -120,7 +121,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
       >
         submit purchase
       </Button>
-    </div>
+    </form>
   );
 };
 
