@@ -50,21 +50,24 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
   return (
     <div style={styles.inputForm}>
       <div style={styles.contentContainer}>
-        <h2 style={{ textDecoration: "underline" }}> Purchase Input Form</h2>
+        <h2 style={styles.headerText}> Purchase Input Form</h2>
         <Box sx={styles.inputFieldContainer}>
           <TextField
             aria-label="Purchase name input"
             label="Purchase Name"
+            placeholder="Coffee, Target, etc."
             value={purchaseName}
             onChange={handleChangePurchaseName}
-            sx={{ backgroundColor: "white" }}
+            InputLabelProps={{ shrink: true }}
+            sx={styles.textField}
           />
           <TextField
             aria-label="Purchase amount input"
-            sx={{ backgroundColor: "white" }}
+            placeholder="0.00"
             label="Purchase Amount"
-            InputLabelProps={{ shrink: true }}
             onChange={handleChangePurchaseAmount}
+            InputLabelProps={{ shrink: true }}
+            sx={styles.textField}
           />
 
           <FormControl sx={styles.categorySelectorFormControl}>
@@ -74,7 +77,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
               value={purchaseCategory}
               label="Purchase Category"
               onChange={handleChangePurchaseCategory}
-              sx={{ backgroundColor: "white" }}
+              sx={styles.categorySelector}
             >
               {purchaseCategories.map((category) => (
                 <MenuItem key={category} value={category}>
@@ -97,7 +100,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
       </div>
       <Button
         variant="contained"
-        sx={{ borderRadius: "30px" }}
+        sx={styles.submitPurchaseButton}
         onClick={() =>
           addToPurchasesArray(
             purchaseName,
@@ -138,6 +141,9 @@ const styles = {
     justifyContent: "center",
     gap: "20px",
   },
+  headerText: {
+    textDecoration: "underline",
+  },
   inputFieldContainer: {
     display: { xs: "grid", md: "flex" },
     gap: "2rem",
@@ -146,5 +152,14 @@ const styles = {
   categorySelectorFormControl: {
     minWidth: "200px",
     textAlign: "left",
+  },
+  textField: {
+    backgroundColor: "white",
+  },
+  categorySelector: {
+    backgroundColor: "white",
+  },
+  submitPurchaseButton: {
+    borderRadius: "30px",
   },
 } as const;
