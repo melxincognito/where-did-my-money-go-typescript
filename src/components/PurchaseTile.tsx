@@ -24,7 +24,7 @@ export const PurchaseTile: FC<Props> = ({
       <div style={styles.headerContent}>
         <h2 style={{ color: "#2D023F" }}>{name}</h2>{" "}
         <h3 style={{ color: "white", textDecoration: "underline" }}>
-          <span> ${amount} </span>
+          <span> ${amount.toFixed(2)} </span>
         </h3>{" "}
       </div>
 

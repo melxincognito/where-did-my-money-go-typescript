@@ -1,34 +1,18 @@
 import { FC, useState, ChangeEvent } from "react";
 import "./App.css";
-import {
-  TextField,
-  Checkbox,
-  Button,
-  InputLabel,
-  MenuItem,
-  FormControl,
-  Box,
-} from "@mui/material";
+import { Box } from "@mui/material";
 import { Navigation } from "./components/Navigation";
 import { Purchase } from "./Interfaces";
 import { nanoid } from "nanoid";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 
 import { PurchasesList } from "./components/PurchasesList";
 import { PurchaseTotals } from "./components/PurchaseTotals";
 import { PurchaseCategoriesList } from "./components/PurchaseCategoriesList";
-
-const purchaseCategories: Array<string> = [
-  "Housing",
-  "Transportation",
-  "Medical",
-  "Food",
-  "Entertainment",
-  "Pets",
-  "Other",
-];
+import { PurchaseInputForm } from "./components/PurchaseInputForm";
 
 const App: FC = () => {
+  // uniqueId is used to generate a unique id for each purchase entered in the purchase input form
   const uniqueId: string = nanoid();
 
   // purchases is an array of objects that takes in a purchase name and purchase amount
@@ -321,78 +305,27 @@ const App: FC = () => {
     <div className="App">
       <Navigation />
 
-      <div style={styles.inputForm}>
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-            gap: "20px",
-          }}
-        >
-          <h2 style={{ textDecoration: "underline" }}> Purchase Input Form</h2>
-          <Box
-            sx={{
-              display: { xs: "grid", md: "flex" },
-              gap: "2rem",
-              width: { xs: "100%", md: "130%" },
-            }}
-          >
-            <TextField
-              label="Purchase Name"
-              value={purchaseName}
-              onChange={handleChangePurchaseName}
-              sx={{ backgroundColor: "white" }}
-            />
-            <TextField
-              sx={{ backgroundColor: "white" }}
-              label="Purchase Amount"
-              InputLabelProps={{ shrink: true }}
-              onChange={handleChangePurchaseAmount}
-            />
-
-            <FormControl sx={{ minWidth: "200px", textAlign: "left" }}>
-              <InputLabel>Purchase Category</InputLabel>
-              <Select
-                value={purchaseCategory}
-                label="Purchase Category"
-                onChange={handleChangePurchaseCategory}
-                sx={{ backgroundColor: "white" }}
-              >
-                {purchaseCategories.map((category) => (
-                  <MenuItem key={category} value={category}>
-                    {category}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
-
-          <div>
-            <Checkbox
-              aria-label="necessary purchase indicator"
-              checked={necessaryPurchase}
-              onChange={handleChangeSetNecessaryPurchase}
-            />
-
-            <label> Necessary purchase?</label>
-          </div>
-        </div>
-        <Button
-          variant="contained"
-          sx={{ borderRadius: "30px" }}
-          onClick={() =>
-            addToPurchasesArray(
-              purchaseName,
-              purchaseAmount,
-              necessaryPurchase,
-              uniqueId,
-              purchaseCategory
-            )
-          }
-        >
-          submit purchase
-        </Button>
-      </div>
+      {/* PURCHASE INPUT FORM */}
+      <PurchaseInputForm
+        uniqueId={uniqueId}
+        purchaseName={purchaseName}
+        purchaseCategory={purchaseCategory}
+        necessaryPurchase={necessaryPurchase}
+        handleChangePurchaseAmount={handleChangePurchaseAmount}
+        handleChangePurchaseName={handleChangePurchaseName}
+        handleChangeSetNecessaryPurchase={handleChangeSetNecessaryPurchase}
+        handleChangePurchaseCategory={handleChangePurchaseCategory}
+        purchaseAmount={purchaseAmount}
+        addToPurchasesArray={() =>
+          addToPurchasesArray(
+            purchaseName,
+            purchaseAmount,
+            necessaryPurchase,
+            uniqueId,
+            purchaseCategory
+          )
+        }
+      />
 
       <PurchasesList purchases={purchases} deletePurchase={deletePurchase} />
       {/* PURCHASE TOTALS */}
@@ -426,16 +359,5 @@ const App: FC = () => {
     </div>
   );
 };
-
-const styles = {
-  inputForm: {
-    backgroundColor: "#FFE4E4",
-    padding: "1rem",
-    margin: "1rem",
-    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
-    borderRadius: "30px",
-    display: "grid",
-  },
-} as const;
 
 export default App;
