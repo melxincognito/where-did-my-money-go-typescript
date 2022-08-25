@@ -1,9 +1,14 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import purchaseAmountInput from "./inputValueSlice";
+
+import purchaseTotal from "./reducers/purchase-totals/purchaseTotalReducer";
+import necessaryTotal from "./reducers/purchase-totals/necessityTotalReducer";
+import wantsTotal from "./reducers/purchase-totals/wantsTotalReducer";
 
 export const store = configureStore({
   reducer: {
-    counter: purchaseAmountInput,
+    totalPurchasesAmount: purchaseTotal,
+    necessaryPurchasesAmount: necessaryTotal,
+    wantsPurchasesAmount: wantsTotal,
   },
 });
 
