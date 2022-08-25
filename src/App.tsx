@@ -1,6 +1,5 @@
 import { FC } from "react";
 import "./App.css";
-
 import { Layout } from "./components/navigation/Layout";
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
