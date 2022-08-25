@@ -8,6 +8,8 @@ import { PurchaseTotals } from "../components/PurchaseTotals";
 import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
 
+import { Card } from "../redux/Card";
+
 import { Box } from "@mui/material";
 
 export const HomePage: FC = () => {
@@ -319,6 +321,7 @@ export const HomePage: FC = () => {
   return (
     <>
       {/* PURCHASE INPUT FORM */}
+      <Card />
       <PurchaseInputForm
         uniqueId={uniqueId}
         purchaseName={purchaseName}
