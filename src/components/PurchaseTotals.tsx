@@ -1,28 +1,26 @@
 import { FC } from "react";
 import { Paper, Box } from "@mui/material";
+import { useAppSelector } from "../redux/hooks";
 
-interface Props {
-  totalPurchasesAmount: number;
-  necessaryPurchasesAmount: number;
-  wantsPurchasesAmount: number;
-}
+import { totalPurchasesCount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
+import { necessaryPurchasesCount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
+import { wantsPurchasesCount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
 
-export const PurchaseTotals: FC<Props> = ({
-  totalPurchasesAmount,
-  necessaryPurchasesAmount,
-  wantsPurchasesAmount,
-}) => {
+export const PurchaseTotals: FC = () => {
+  const totalCount: number = useAppSelector(totalPurchasesCount);
+  const necessaryCount: number = useAppSelector(necessaryPurchasesCount);
+  const wantsCount: number = useAppSelector(wantsPurchasesCount);
+
   return (
     <Box sx={styles.purchaseTotalsContainer}>
       <Paper sx={styles.paper}>
-        Total purchases amount: <span>${totalPurchasesAmount.toFixed(2)}</span>
+        Total purchases amount: <span>${totalCount.toFixed(2)}</span>
       </Paper>
       <Paper sx={styles.paper}>
-        Necessary purchases amount:{" "}
-        <span>${necessaryPurchasesAmount.toFixed(2)} </span>
+        Necessary purchases amount: <span>${necessaryCount.toFixed(2)} </span>
       </Paper>
       <Paper sx={styles.paper}>
-        Wants purchases amount: <span>${wantsPurchasesAmount.toFixed(2)} </span>
+        Wants purchases amount: <span>${wantsCount.toFixed(2)} </span>
       </Paper>
     </Box>
   );
