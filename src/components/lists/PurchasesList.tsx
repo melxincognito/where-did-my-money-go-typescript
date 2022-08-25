@@ -17,7 +17,7 @@ interface Props {
 export const PurchasesList: FC<Props> = ({ purchases, deletePurchase }) => {
   return (
     <div style={styles.purchasesList}>
-      <h1> All Purchases</h1>
+      <h1 style={styles.allPurchasesHeader}> All Purchases</h1>
       <div style={styles.purchases}>
         {purchases.map((purchase, index) => (
           <>
@@ -61,5 +61,8 @@ const styles = {
     flexWrap: "wrap",
     gap: "1rem",
     justifyContent: "center",
+  },
+  allPurchasesHeader: {
+    textDecoration: "underline",
   },
 } as const;
