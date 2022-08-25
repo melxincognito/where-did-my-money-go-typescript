@@ -5,3 +5,7 @@ export interface Purchase {
   id: string;
   category: string;
 }
+
+export interface PurchasesAmountStates {
+  value: number;
+}
