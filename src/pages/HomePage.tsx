@@ -14,42 +14,17 @@ export const HomePage: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
   const uniqueId: string = nanoid();
 
-  // purchases is an array of objects that takes in a purchase name and purchase amount
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
+  // selecting the input form so it  deletes the purchaseAmountInputField after an item has been added
+  var purchaseAmountInputField = document.getElementById(
+    "purchaseInputForm"
+  ) as HTMLFormElement;
+
+  // purchase totals
+
   const [totalPurchasesAmount, setTotalPurchasesAmount] = useState<number>(0);
-  const [necessaryPurchase, setNecessaryPurchase] = useState<boolean>(false);
-
-  const [purchaseName, setPurchaseName] = useState<string>("");
-
-  const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
-  const [neccesaryPurchasesList, setNecessaryPurchasesList] = useState<
-    Purchase[]
-  >([]);
-
-  const [wantPurchasesList, setWantPurchasesList] = useState<Purchase[]>([]);
-
   const [necessaryPurchasesAmount, setNecessaryPurchasesAmount] =
     useState<number>(0);
-
   const [wantsPurchasesAmount, setWantsPurchasesAmount] = useState<number>(0);
-
-  const [purchaseCategory, setPurchaseCategory] = useState<string>("");
-
-  const [housingPurchasesList, setHousingPurchasesList] = useState<Purchase[]>(
-    []
-  );
-  const [transportationPurchasesList, setTransportationPurchasesList] =
-    useState<Purchase[]>([]);
-  const [medicalPurchasesList, setMedicalPurchasesList] = useState<Purchase[]>(
-    []
-  );
-  const [foodPurchasesList, setFoodPurchasesList] = useState<Purchase[]>([]);
-  const [entertainmentPurchasesList, setEntertainmentPurchasesList] = useState<
-    Purchase[]
-  >([]);
-  const [petsPurchasesList, setPetsPurchasesList] = useState<Purchase[]>([]);
-  const [otherPurchasesList, setOtherPurchasesList] = useState<Purchase[]>([]);
-
   const [housingPurchasesTotal, setHousingPurchasesTotal] = useState<number>(0);
   const [transportationPurchasesTotal, setTransportationPurchasesTotal] =
     useState<number>(0);
@@ -60,9 +35,42 @@ export const HomePage: FC = () => {
   const [petsPurchasesTotal, setPetsPurchasesTotal] = useState<number>(0);
   const [otherPurchasesTotal, setOtherPurchasesTotal] = useState<number>(0);
 
-  const handleChangePurchaseCategory = (event: SelectChangeEvent) => {
-    setPurchaseCategory(event.target.value as string);
-  };
+  // purchase input form
+
+  const [purchaseName, setPurchaseName] = useState<string>("");
+  const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
+  const [necessaryPurchase, setNecessaryPurchase] = useState<boolean>(false);
+  const [purchaseCategory, setPurchaseCategory] = useState<string>("");
+
+  // input purchases arrays
+
+  const [purchases, setPurchases] = useState<Purchase[]>([]);
+
+  const [neccesaryPurchasesList, setNecessaryPurchasesList] = useState<
+    Purchase[]
+  >([]);
+
+  const [wantPurchasesList, setWantPurchasesList] = useState<Purchase[]>([]);
+
+  const [housingPurchasesList, setHousingPurchasesList] = useState<Purchase[]>(
+    []
+  );
+  const [transportationPurchasesList, setTransportationPurchasesList] =
+    useState<Purchase[]>([]);
+
+  const [medicalPurchasesList, setMedicalPurchasesList] = useState<Purchase[]>(
+    []
+  );
+
+  const [foodPurchasesList, setFoodPurchasesList] = useState<Purchase[]>([]);
+  const [entertainmentPurchasesList, setEntertainmentPurchasesList] = useState<
+    Purchase[]
+  >([]);
+
+  const [petsPurchasesList, setPetsPurchasesList] = useState<Purchase[]>([]);
+  const [otherPurchasesList, setOtherPurchasesList] = useState<Purchase[]>([]);
+
+  // handleChange input form data
 
   const handleChangePurchaseName = (e: ChangeEvent<HTMLInputElement>) => {
     setPurchaseName(e.target.value);
@@ -79,6 +87,11 @@ export const HomePage: FC = () => {
     setNecessaryPurchase(e.target.checked);
   };
 
+  const handleChangePurchaseCategory = (event: SelectChangeEvent) => {
+    setPurchaseCategory(event.target.value as string);
+  };
+
+  // add purchase to array, set totals, reset input form and categorize purchase
   const addToPurchasesArray = (
     name: string,
     amount: number,
@@ -101,6 +114,7 @@ export const HomePage: FC = () => {
     setPurchaseAmount(0);
     setNecessaryPurchase(false);
     setPurchaseCategory("");
+    if (purchaseAmountInputField) purchaseAmountInputField.reset();
 
     if (isNecessity) {
       setNecessaryPurchasesList([
@@ -230,6 +244,8 @@ export const HomePage: FC = () => {
       }
     }
   };
+
+  // delete purchase from all UI and reset all totals.
 
   const deletePurchase = (
     id: string,
