@@ -15,14 +15,14 @@ export const PurchaseTotals: FC<Props> = ({
   return (
     <Box sx={styles.purchaseTotalsContainer}>
       <Paper sx={styles.paper}>
-        Total purchases amount: <div>${totalPurchasesAmount.toFixed(2)}</div>
+        Total purchases amount: <span>${totalPurchasesAmount.toFixed(2)}</span>
       </Paper>
       <Paper sx={styles.paper}>
         Necessary purchases amount:{" "}
-        <div>${necessaryPurchasesAmount.toFixed(2)} </div>
+        <span>${necessaryPurchasesAmount.toFixed(2)} </span>
       </Paper>
       <Paper sx={styles.paper}>
-        Wants purchases amount: <div>${wantsPurchasesAmount.toFixed(2)} </div>
+        Wants purchases amount: <span>${wantsPurchasesAmount.toFixed(2)} </span>
       </Paper>
     </Box>
   );
@@ -36,7 +36,6 @@ const styles = {
     alignContent: "center",
     marginTop: "2rem",
   },
-
   paper: {
     padding: { xs: "1rem 3rem", md: "1rem" },
     backgroundColor: "secondary.main",
