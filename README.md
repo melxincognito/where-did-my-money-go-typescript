@@ -14,7 +14,7 @@
 
 ## Preview
 
-[See live application](https://6305aac866ca152a76d61936--precious-pixie-9c2bf8.netlify.app/)
+[See live application](https://melxincognito-where-did-my-money-go.netlify.app/)
 
 Purchase input form with all submitted purchases displayed directly below along with displayed purchase totals.
 
