@@ -53,12 +53,14 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
         <h2 style={{ textDecoration: "underline" }}> Purchase Input Form</h2>
         <Box sx={styles.inputFieldContainer}>
           <TextField
+            aria-label="Purchase name input"
             label="Purchase Name"
             value={purchaseName}
             onChange={handleChangePurchaseName}
             sx={{ backgroundColor: "white" }}
           />
           <TextField
+            aria-label="Purchase amount input"
             sx={{ backgroundColor: "white" }}
             label="Purchase Amount"
             InputLabelProps={{ shrink: true }}
@@ -68,6 +70,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
           <FormControl sx={styles.categorySelectorFormControl}>
             <InputLabel>Purchase Category</InputLabel>
             <Select
+              aria-label="Purchase category selector"
               value={purchaseCategory}
               label="Purchase Category"
               onChange={handleChangePurchaseCategory}
@@ -84,7 +87,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
 
         <div>
           <Checkbox
-            aria-label="necessary purchase indicator"
+            aria-label="Necessary purchase indicator"
             checked={necessaryPurchase}
             onChange={handleChangeSetNecessaryPurchase}
           />
