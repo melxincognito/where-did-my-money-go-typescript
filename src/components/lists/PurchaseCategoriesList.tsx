@@ -74,7 +74,7 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
   otherPurchasesTotal,
   deletePurchase,
 }) => {
-  const housingPurchaseCategories: PurchaseCategoriesInformation[] = [
+  const purchaseCategories: PurchaseCategoriesInformation[] = [
     {
       purchaseCategory: "Housing",
       purchaseCategoryTotal: housingPurchasesTotal,
@@ -114,7 +114,7 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
 
   return (
     <Box id="purchase categories list" sx={styles.purchaseCategoryContainer}>
-      {housingPurchaseCategories.map((purchaseCategory, index) => (
+      {purchaseCategories.map((purchaseCategory, index) => (
         <PurchaseCategoriesTile
           key={index}
           purchaseCategory={purchaseCategory.purchaseCategory}
