@@ -69,6 +69,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
           field until you refresh the page.  */}
           <TextField
             aria-label="Purchase amount input"
+            type="number"
             placeholder="0.00"
             label="Purchase Amount"
             onChange={handleChangePurchaseAmount}
