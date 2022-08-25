@@ -8,9 +8,24 @@ import { PurchaseTotals } from "../components/PurchaseTotals";
 import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
 
-import { Card } from "../redux/Card";
-
 import { Box } from "@mui/material";
+
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+
+import {
+  increaseTotalPurchasesAmount,
+  decreaseTotalPurchasesAmount,
+} from "../redux/reducers/purchase-totals/purchaseTotalReducer";
+
+import {
+  increaseNecessaryPurchasesAmount,
+  decreaseNecessaryPurchasesAmount,
+} from "../redux/reducers/purchase-totals/necessityTotalReducer";
+
+import {
+  increaseWantsPurchasesAmount,
+  decreaseWantsPurchasesAmount,
+} from "../redux/reducers/purchase-totals/wantsTotalReducer";
 
 export const HomePage: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
@@ -27,6 +42,7 @@ export const HomePage: FC = () => {
   const [necessaryPurchasesAmount, setNecessaryPurchasesAmount] =
     useState<number>(0);
   const [wantsPurchasesAmount, setWantsPurchasesAmount] = useState<number>(0);
+
   const [housingPurchasesTotal, setHousingPurchasesTotal] = useState<number>(0);
   const [transportationPurchasesTotal, setTransportationPurchasesTotal] =
     useState<number>(0);
@@ -93,6 +109,8 @@ export const HomePage: FC = () => {
     setPurchaseCategory(event.target.value as string);
   };
 
+  const dispatch = useAppDispatch();
+
   // add purchase to array, set totals, reset input form and categorize purchase
   const addToPurchasesArray = (
     name: string,
@@ -111,7 +129,9 @@ export const HomePage: FC = () => {
         category: category,
       },
     ]);
-    setTotalPurchasesAmount(totalPurchasesAmount + amount);
+
+    dispatch(increaseTotalPurchasesAmount(amount));
+
     setPurchaseName("");
     setPurchaseAmount(0);
     setNecessaryPurchase(false);
@@ -119,6 +139,7 @@ export const HomePage: FC = () => {
     if (purchaseAmountInputField) purchaseAmountInputField.reset();
 
     if (isNecessity) {
+      dispatch(increaseNecessaryPurchasesAmount(amount));
       setNecessaryPurchasesList([
         ...neccesaryPurchasesList,
         {
@@ -129,7 +150,6 @@ export const HomePage: FC = () => {
           category: category,
         },
       ]);
-      setNecessaryPurchasesAmount(necessaryPurchasesAmount + amount);
     } else {
       setWantPurchasesList([
         ...wantPurchasesList,
@@ -141,7 +161,7 @@ export const HomePage: FC = () => {
           category: category,
         },
       ]);
-      setWantsPurchasesAmount(wantsPurchasesAmount + amount);
+      dispatch(increaseWantsPurchasesAmount(amount));
     }
     switch (category) {
       case "Housing": {
@@ -256,13 +276,12 @@ export const HomePage: FC = () => {
     purchaseCategory: string
   ): void => {
     setPurchases(purchases.filter((purchase) => purchase.id !== id));
-
-    setTotalPurchasesAmount(totalPurchasesAmount - amount);
+    dispatch(decreaseTotalPurchasesAmount(amount));
 
     if (isNecessity) {
-      setNecessaryPurchasesAmount(necessaryPurchasesAmount - amount);
+      dispatch(decreaseNecessaryPurchasesAmount(amount));
     } else {
-      setWantsPurchasesAmount(wantsPurchasesAmount - amount);
+      dispatch(decreaseWantsPurchasesAmount(amount));
     }
 
     switch (purchaseCategory) {
@@ -321,7 +340,7 @@ export const HomePage: FC = () => {
   return (
     <>
       {/* PURCHASE INPUT FORM */}
-      <Card />
+
       <PurchaseInputForm
         uniqueId={uniqueId}
         purchaseName={purchaseName}
@@ -347,11 +366,7 @@ export const HomePage: FC = () => {
       <PurchasesList purchases={purchases} deletePurchase={deletePurchase} />
       {/* PURCHASE TOTALS */}
 
-      <PurchaseTotals
-        totalPurchasesAmount={totalPurchasesAmount}
-        necessaryPurchasesAmount={necessaryPurchasesAmount}
-        wantsPurchasesAmount={wantsPurchasesAmount}
-      />
+      <PurchaseTotals />
       {/* PURCHASE CATEGORIES*/}
       <Box
         id="purchaseCategoriesListContainer"
