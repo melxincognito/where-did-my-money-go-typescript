@@ -29,7 +29,7 @@ Purchases sorted into their purchase categories along with the purchase category
 
 ```
 git clone https://github.com/melxincognito/where-did-my-money-go-typescript.git
-cd where-did-my-money-go
+cd where-did-my-money-go-typescript
 npm i
 ```
 
