@@ -61,6 +61,12 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
             InputLabelProps={{ shrink: true }}
             sx={styles.textField}
           />
+          {/* the purchase amount input doesn't have a value because it 
+          wont allow you to input a number with cents. It also creates 
+          a bug where it'll break the input field if it's set to the purchaseAmount
+          state. On the initial page load it's set to 0 but if the user backspaces 
+          and leaves the textfield empty then it'll break and you can't use the input
+          field until you refresh the page.  */}
           <TextField
             aria-label="Purchase amount input"
             placeholder="0.00"
