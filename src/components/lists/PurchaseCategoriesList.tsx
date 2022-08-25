@@ -48,7 +48,7 @@ const PurchaseCategoriesTile: FC<PurchaseCategoriesTileProps> = ({
       <Box sx={styles.purchaseCategoryTile}>
         <div style={styles.purchaseCategoryTileHeader}>
           <h1>{purchaseCategory} Purchases</h1>
-          <h3>${purchaseCategoryTotal}</h3>
+          <h3>${purchaseCategoryTotal.toFixed(2)}</h3>
         </div>
 
         {children}
