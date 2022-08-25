@@ -115,7 +115,7 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
   ];
 
   return (
-    <Box id="purchase categories list" sx={styles.purchaseCategoryContainer}>
+    <Box id="purchaseCategoriesList" sx={styles.purchaseCategoryContainer}>
       {purchaseCategories.map((purchaseCategory, index) => (
         <PurchaseCategoriesTile
           key={index}
