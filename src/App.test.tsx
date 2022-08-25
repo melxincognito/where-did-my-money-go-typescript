@@ -12,7 +12,7 @@ describe("Purchase Tile", () => {
     return;
   };
 
-  it("should render the purchase information", () => {
+  it("should render the purchase information for wants purchase", () => {
     render(
       <PurchaseTile
         id="1"
@@ -32,6 +32,27 @@ describe("Purchase Tile", () => {
     expect(purchaseAmountElement).toBeInTheDocument();
 
     const isNecessityElement = screen.getByText(/wants purchase/i);
+    expect(isNecessityElement).toBeInTheDocument();
+  });
+
+  it("should render the purchase information for needs purchase", () => {
+    render(
+      <PurchaseTile
+        id="1"
+        name="Groceries"
+        amount={77.22}
+        isNecessity={true}
+        category="Food"
+        deletePurchase={() => deletePurchase("1", 77.22, true, "Food")}
+      />
+    );
+    const purchaseNameElement = screen.getByText(/groceries/i);
+    expect(purchaseNameElement).toBeInTheDocument();
+
+    const purchaseAmountElement = screen.getByText(/77.22/i);
+    expect(purchaseAmountElement).toBeInTheDocument();
+
+    const isNecessityElement = screen.getByText(/necessary purchase/i);
     expect(isNecessityElement).toBeInTheDocument();
   });
 });
