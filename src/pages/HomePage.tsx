@@ -10,6 +10,8 @@ import { PurchaseInputForm } from "../components/PurchaseInputForm";
 import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
 
+import { ChartsPage } from "./ChartsPage";
+
 // reducer actions imports
 import {
   increaseTotalPurchasesAmount,
@@ -52,6 +54,8 @@ import {
   decreaseOtherPurchasesAmount,
 } from "../redux/reducers/purchase-totals/otherTotalReducer";
 
+const mermaid = require("mermaid");
+
 export const HomePage: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
   const uniqueId: string = nanoid();
@@ -60,6 +64,8 @@ export const HomePage: FC = () => {
   var purchaseAmountInputField = document.getElementById(
     "purchaseInputForm"
   ) as HTMLFormElement;
+
+  var mermaidDiv = document.getElementById("mermaid") as any;
 
   // purchase input form
 
@@ -277,6 +283,9 @@ export const HomePage: FC = () => {
         break;
       }
     }
+
+    mermaidDiv.html.removeAttribute("data-processed");
+    mermaid.init(undefined, mermaidDiv);
   };
 
   // delete purchase from all UI and reset all totals.
@@ -396,6 +405,7 @@ export const HomePage: FC = () => {
           deletePurchase={deletePurchase}
         />
       </Box>
+      <ChartsPage />
     </>
   );
 };

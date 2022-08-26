@@ -6,16 +6,11 @@ export enum Currencies {
 }
 
 export enum PurchaseCategories {
-  house = "HOUSING",
-  transport = "TRANSPORTATION",
+  housing = "HOUSING",
+  transportation = "TRANSPORTATION",
   food = "FOOD",
   medical = "MEDICAL",
   entertainment = "ENTERTAINMENT",
-  personalCare = "PERSONAL CARE",
-  clothes = "CLOTHING",
-  householdPurchases = "HOUSEHOLD",
-  hobbies = "HOBBIES",
-  alcohol = "ALCOHOL",
   pets = "PETS",
   other = "OTHER",
 }
