@@ -72,7 +72,7 @@ export const HomePage: FC = () => {
 
   const [purchases, setPurchases] = useState<Purchase[]>([]);
 
-  const [neccesaryPurchasesList, setNecessaryPurchasesList] = useState<
+  const [necessaryPurchasesList, setNecessaryPurchasesList] = useState<
     Purchase[]
   >([]);
 
@@ -148,7 +148,7 @@ export const HomePage: FC = () => {
 
     if (isNecessity) {
       setNecessaryPurchasesList([
-        ...neccesaryPurchasesList,
+        ...necessaryPurchasesList,
         {
           purchase: name,
           amount: amount,
