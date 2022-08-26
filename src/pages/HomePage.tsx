@@ -7,25 +7,50 @@ import { PurchasesList } from "../components/lists/PurchasesList";
 import { PurchaseTotals } from "../components/PurchaseTotals";
 import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
-
+import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
 
-import { useAppSelector, useAppDispatch } from "../redux/hooks";
-
+// reducer actions imports
 import {
   increaseTotalPurchasesAmount,
   decreaseTotalPurchasesAmount,
 } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
-
 import {
   increaseNecessaryPurchasesAmount,
   decreaseNecessaryPurchasesAmount,
 } from "../redux/reducers/purchase-totals/necessityTotalReducer";
-
 import {
   increaseWantsPurchasesAmount,
   decreaseWantsPurchasesAmount,
 } from "../redux/reducers/purchase-totals/wantsTotalReducer";
+import {
+  increaseHousingPurchasesAmount,
+  decreaseHousingPurchasesAmount,
+} from "../redux/reducers/purchase-totals/housingTotalReducer";
+import {
+  increaseTransportationPurchasesAmount,
+  decreaseTransportationPurchasesAmount,
+} from "../redux/reducers/purchase-totals/transportationTotalReducer";
+import {
+  increaseFoodPurchasesAmount,
+  decreaseFoodPurchasesAmount,
+} from "../redux/reducers/purchase-totals/foodTotalReducer";
+import {
+  increaseMedicalPurchasesAmount,
+  decreaseMedicalPurchasesAmount,
+} from "../redux/reducers/purchase-totals/medicalTotalReducer";
+import {
+  increaseEntertainmentPurchasesAmount,
+  decreaseEntertainmentPurchasesAmount,
+} from "../redux/reducers/purchase-totals/entertainmentTotalReducer";
+import {
+  increasePetsPurchasesAmount,
+  decreasePetsPurchasesAmount,
+} from "../redux/reducers/purchase-totals/petsTotalReducer";
+import {
+  increaseOtherPurchasesAmount,
+  decreaseOtherPurchasesAmount,
+} from "../redux/reducers/purchase-totals/otherTotalReducer";
 
 export const HomePage: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
@@ -35,23 +60,6 @@ export const HomePage: FC = () => {
   var purchaseAmountInputField = document.getElementById(
     "purchaseInputForm"
   ) as HTMLFormElement;
-
-  // purchase totals
-
-  const [totalPurchasesAmount, setTotalPurchasesAmount] = useState<number>(0);
-  const [necessaryPurchasesAmount, setNecessaryPurchasesAmount] =
-    useState<number>(0);
-  const [wantsPurchasesAmount, setWantsPurchasesAmount] = useState<number>(0);
-
-  const [housingPurchasesTotal, setHousingPurchasesTotal] = useState<number>(0);
-  const [transportationPurchasesTotal, setTransportationPurchasesTotal] =
-    useState<number>(0);
-  const [medicalPurchasesTotal, setMedicalPurchasesTotal] = useState<number>(0);
-  const [foodPurchasesTotal, setFoodPurchasesTotal] = useState<number>(0);
-  const [entertainmentPurchasesTotal, setEntertainmentPurchasesTotal] =
-    useState<number>(0);
-  const [petsPurchasesTotal, setPetsPurchasesTotal] = useState<number>(0);
-  const [otherPurchasesTotal, setOtherPurchasesTotal] = useState<number>(0);
 
   // purchase input form
 
@@ -139,7 +147,6 @@ export const HomePage: FC = () => {
     if (purchaseAmountInputField) purchaseAmountInputField.reset();
 
     if (isNecessity) {
-      dispatch(increaseNecessaryPurchasesAmount(amount));
       setNecessaryPurchasesList([
         ...neccesaryPurchasesList,
         {
@@ -150,6 +157,7 @@ export const HomePage: FC = () => {
           category: category,
         },
       ]);
+      dispatch(increaseNecessaryPurchasesAmount(amount));
     } else {
       setWantPurchasesList([
         ...wantPurchasesList,
@@ -175,7 +183,7 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setHousingPurchasesTotal(housingPurchasesTotal + amount);
+        dispatch(increaseHousingPurchasesAmount(amount));
 
         break;
       }
@@ -190,7 +198,7 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setTransportationPurchasesTotal(transportationPurchasesTotal + amount);
+        dispatch(increaseTransportationPurchasesAmount(amount));
 
         break;
       }
@@ -205,7 +213,8 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setMedicalPurchasesTotal(medicalPurchasesTotal + amount);
+        dispatch(increaseMedicalPurchasesAmount(amount));
+
         break;
       }
       case "Food": {
@@ -219,7 +228,8 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setFoodPurchasesTotal(foodPurchasesTotal + amount);
+        dispatch(increaseFoodPurchasesAmount(amount));
+
         break;
       }
       case "Entertainment": {
@@ -233,7 +243,7 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setEntertainmentPurchasesTotal(entertainmentPurchasesTotal + amount);
+        dispatch(increaseEntertainmentPurchasesAmount(amount));
         break;
       }
       case "Pets": {
@@ -247,7 +257,8 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setPetsPurchasesTotal(petsPurchasesTotal + amount);
+        dispatch(increasePetsPurchasesAmount(amount));
+
         break;
       }
       default: {
@@ -261,7 +272,8 @@ export const HomePage: FC = () => {
             category: category,
           },
         ]);
-        setOtherPurchasesTotal(otherPurchasesTotal + amount);
+        dispatch(increaseOtherPurchasesAmount(amount));
+
         break;
       }
     }
@@ -286,52 +298,52 @@ export const HomePage: FC = () => {
 
     switch (purchaseCategory) {
       case "Housing": {
-        setHousingPurchasesTotal(housingPurchasesTotal - amount);
         setHousingPurchasesList(
           housingPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreaseHousingPurchasesAmount(amount));
         break;
       }
       case "Transportation": {
-        setTransportationPurchasesTotal(transportationPurchasesTotal - amount);
         setTransportationPurchasesList(
           transportationPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreaseTransportationPurchasesAmount(amount));
         break;
       }
       case "Medical": {
-        setMedicalPurchasesTotal(medicalPurchasesTotal - amount);
         setMedicalPurchasesList(
           medicalPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreaseMedicalPurchasesAmount(amount));
         break;
       }
       case "Food": {
-        setFoodPurchasesTotal(foodPurchasesTotal - amount);
         setFoodPurchasesList(
           foodPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreaseFoodPurchasesAmount(amount));
         break;
       }
       case "Entertainment": {
-        setEntertainmentPurchasesTotal(entertainmentPurchasesTotal - amount);
         setEntertainmentPurchasesList(
           entertainmentPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreaseEntertainmentPurchasesAmount(amount));
         break;
       }
       case "Pets": {
-        setPetsPurchasesTotal(petsPurchasesTotal - amount);
         setPetsPurchasesList(
           petsPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreasePetsPurchasesAmount(amount));
         break;
       }
       default: {
-        setOtherPurchasesTotal(otherPurchasesTotal - amount);
         setOtherPurchasesList(
           otherPurchasesList.filter((purchase) => purchase.id !== id)
         );
+        dispatch(decreaseOtherPurchasesAmount(amount));
         break;
       }
     }
@@ -381,13 +393,6 @@ export const HomePage: FC = () => {
           entertainmentPurchasesList={entertainmentPurchasesList}
           petsPurchasesList={petsPurchasesList}
           otherPurchasesList={otherPurchasesList}
-          housingPurchasesTotal={housingPurchasesTotal}
-          foodPurchasesTotal={foodPurchasesTotal}
-          medicalPurchasesTotal={medicalPurchasesTotal}
-          transportationPurchasesTotal={transportationPurchasesTotal}
-          entertainmentPurchasesTotal={entertainmentPurchasesTotal}
-          petsPurchasesTotal={petsPurchasesTotal}
-          otherPurchasesTotal={otherPurchasesTotal}
           deletePurchase={deletePurchase}
         />
       </Box>
