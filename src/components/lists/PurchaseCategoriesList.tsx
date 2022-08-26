@@ -2,6 +2,14 @@ import { FC, Fragment } from "react";
 import { Purchase } from "../../Interfaces";
 import { Box } from "@mui/material";
 import { PurchaseTile } from "../PurchaseTile";
+import { useAppSelector } from "../../redux/hooks";
+import { housingPurchasesCount } from "../../redux/reducers/purchase-totals/housingTotalReducer";
+import { transportationPurchasesCount } from "../../redux/reducers/purchase-totals/transportationTotalReducer";
+import { medicalPurchasesCount } from "../../redux/reducers/purchase-totals/medicalTotalReducer";
+import { foodPurchasesCount } from "../../redux/reducers/purchase-totals/foodTotalReducer";
+import { entertainmentPurchasesCount } from "../../redux/reducers/purchase-totals/entertainmentTotalReducer";
+import { petsPurchasesCount } from "../../redux/reducers/purchase-totals/petsTotalReducer";
+import { otherPurchasesCount } from "../../redux/reducers/purchase-totals/otherTotalReducer";
 
 interface PurchaseCategoriesListProps {
   housingPurchasesList: Purchase[];
@@ -11,13 +19,7 @@ interface PurchaseCategoriesListProps {
   entertainmentPurchasesList: Purchase[];
   petsPurchasesList: Purchase[];
   otherPurchasesList: Purchase[];
-  housingPurchasesTotal: number;
-  transportationPurchasesTotal: number;
-  medicalPurchasesTotal: number;
-  foodPurchasesTotal: number;
-  entertainmentPurchasesTotal: number;
-  petsPurchasesTotal: number;
-  otherPurchasesTotal: number;
+
   deletePurchase: (
     id: string,
     amount: number,
@@ -67,49 +69,55 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
   entertainmentPurchasesList,
   petsPurchasesList,
   otherPurchasesList,
-  housingPurchasesTotal,
-  transportationPurchasesTotal,
-  medicalPurchasesTotal,
-  foodPurchasesTotal,
-  entertainmentPurchasesTotal,
-  petsPurchasesTotal,
-  otherPurchasesTotal,
+
   deletePurchase,
 }) => {
+  const housingPurchaseTotal: number = useAppSelector(housingPurchasesCount);
+  const transportationPurchaseTotal: number = useAppSelector(
+    transportationPurchasesCount
+  );
+  const medicalPurchaseTotal: number = useAppSelector(medicalPurchasesCount);
+  const foodPurchaseTotal: number = useAppSelector(foodPurchasesCount);
+  const entertainmentPurchaseTotal: number = useAppSelector(
+    entertainmentPurchasesCount
+  );
+  const petsPurchaseTotal: number = useAppSelector(petsPurchasesCount);
+  const otherPurchaseTotal: number = useAppSelector(otherPurchasesCount);
+
   const purchaseCategories: PurchaseCategoriesInformation[] = [
     {
       purchaseCategory: "Housing",
-      purchaseCategoryTotal: housingPurchasesTotal,
+      purchaseCategoryTotal: housingPurchaseTotal,
       purchaseCategoryList: housingPurchasesList,
     },
     {
       purchaseCategory: "Transportation",
-      purchaseCategoryTotal: transportationPurchasesTotal,
+      purchaseCategoryTotal: transportationPurchaseTotal,
       purchaseCategoryList: transportationPurchasesList,
     },
     {
       purchaseCategory: "Medical",
-      purchaseCategoryTotal: medicalPurchasesTotal,
+      purchaseCategoryTotal: medicalPurchaseTotal,
       purchaseCategoryList: medicalPurchasesList,
     },
     {
       purchaseCategory: "Food",
-      purchaseCategoryTotal: foodPurchasesTotal,
+      purchaseCategoryTotal: foodPurchaseTotal,
       purchaseCategoryList: foodPurchasesList,
     },
     {
       purchaseCategory: "Entertainment",
-      purchaseCategoryTotal: entertainmentPurchasesTotal,
+      purchaseCategoryTotal: entertainmentPurchaseTotal,
       purchaseCategoryList: entertainmentPurchasesList,
     },
     {
       purchaseCategory: "Pets",
-      purchaseCategoryTotal: petsPurchasesTotal,
+      purchaseCategoryTotal: petsPurchaseTotal,
       purchaseCategoryList: petsPurchasesList,
     },
     {
       purchaseCategory: "Other",
-      purchaseCategoryTotal: otherPurchasesTotal,
+      purchaseCategoryTotal: otherPurchaseTotal,
       purchaseCategoryList: otherPurchasesList,
     },
   ];
