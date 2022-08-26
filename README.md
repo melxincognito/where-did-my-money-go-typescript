@@ -3,7 +3,7 @@
 ## Overview
 
 <ul>
-   <li> A spending calculator to track a users purchases and display them based on the selected purchase category and necessity status. </li>
+   <li> A spending tracker to track a users purchases and display them based on the selected purchase category and necessity status. </li>
    <li>The application consists of a single landing page. The top of the page displays a purchase input form where users input the details of their purchase. They need to input a name, an amount, select a category and then check the box if it's considered a necessary purchase or not. </li>
    <li>After a user submits a purchase using the form it is displayed below in the <b>All Purchases</b> section and its added purchase total is reflected in the <b>Total purchases amount</b>. Depending on other user inputs depends on how the input item is further displayed.</li>
    <li> If a user selects the purchase was a necessary purchase, the item card will be displayed with a <b>Necessary Purchase</b> tag and its total will get added to the <b>Necessary purchases amount</b>. If it was not selected as a necessary purchase, the item card will be displayed with a <b>Wants Purchase</b> tag and its total will be added to the <b> Wants purchases total</b>. </li>
@@ -55,6 +55,8 @@ Dependencies List:
 
 <ul>
 <li>typescript 4.7.4</li>
+<li>@reduxjs/toolkit</li>
+<li>react-redux</li>
 <li>react 18.2.0</li>
 <li>react-scripts </li>
 <li>react-router-dom</li>
