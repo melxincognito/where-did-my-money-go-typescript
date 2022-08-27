@@ -3,7 +3,7 @@ import { RootState } from "../../store";
 import { PurchasesAmountStates } from "../../../Interfaces";
 
 const initialWantsPurchaseAmountsState: PurchasesAmountStates = {
-  value: 4,
+  value: 0,
 };
 
 export const wantsPurchasesAmountSlice = createSlice({
