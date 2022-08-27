@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from "react";
+
 import { useAppSelector } from "../redux/hooks";
 import { necessaryPurchasesCount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
 import { wantsPurchasesCount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
@@ -16,6 +17,9 @@ const mermaid = require("mermaid");
 mermaid.initialize({
   startOnLoad: true,
   htmlLabels: true,
+  themeVariables: {
+    primaryColor: "#cc0000",
+  },
 });
 
 interface MermaidInterface {
