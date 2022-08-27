@@ -10,8 +10,6 @@ import { PurchaseInputForm } from "../components/PurchaseInputForm";
 import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
 
-import { ChartsPage } from "./ChartsPage";
-
 // reducer actions imports
 import {
   increaseTotalPurchasesAmount,
