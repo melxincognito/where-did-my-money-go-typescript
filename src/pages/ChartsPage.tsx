@@ -62,19 +62,17 @@ export const ChartsPage: FC = () => {
       `}
       />
 
-      {/*<Mermaid
-        piechart={`pie
-        ${PurchaseCategories.housing} : ${
-          housingPurchaseTotal ? housingPurchaseTotal : 0
-        }
-        ${PurchaseCategories.transportation} : ${transportationPurchaseTotal}
-        ${PurchaseCategories.medical} : ${medicalPurchaseTotal}
-        ${PurchaseCategories.food} : ${foodPurchaseTotal}
-        ${PurchaseCategories.entertainment} : ${entertainmentPurchaseTotal}
-        ${PurchaseCategories.pets} : ${petsPurchaseTotal}
-        ${PurchaseCategories.other} : ${otherPurchaseTotal}
+      <Mermaid
+        piechart={`pie 
+        "Housing" : ${housingPurchaseTotal}
+        "Transportation" : ${transportationPurchaseTotal}
+        "Medical" : ${medicalPurchaseTotal}
+        "Food" : ${foodPurchaseTotal}
+        "Entertainment" : ${entertainmentPurchaseTotal}
+        "Pets" : ${petsPurchaseTotal}
+        "Other" : ${otherPurchaseTotal}
       `}
-      />*/}
+      />
     </div>
   );
 };
