@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 export interface Props {}
 
@@ -7,6 +8,15 @@ export const Navigation: FC<Props> = () => {
   return (
     <Box sx={styles.navBarContainer}>
       <h1> Where did my money go?</h1>
+      <ul style={styles.list}>
+        {" "}
+        <li style={styles.listItem}>
+          <Link to="/">Home</Link>
+        </li>
+        <li style={styles.listItem}>
+          <Link to="/charts">Charts</Link>
+        </li>
+      </ul>
     </Box>
   );
 };
@@ -27,5 +37,16 @@ const styles = {
     color: "white",
     justifyContent: "center",
     textDecoration: "underline",
+  },
+  list: {
+    listStyleType: "none",
+    display: "flex",
+    gap: "1rem",
+  },
+  listItem: {
+    display: "inline",
+    backgroundColor: "white",
+    padding: "1rem",
+    borderRadius: "5px",
   },
 } as const;
