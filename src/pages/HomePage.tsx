@@ -405,7 +405,6 @@ export const HomePage: FC = () => {
           deletePurchase={deletePurchase}
         />
       </Box>
-      <ChartsPage />
     </>
   );
 };
