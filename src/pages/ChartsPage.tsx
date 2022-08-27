@@ -13,13 +13,15 @@ import { petsPurchasesCount } from "../redux/reducers/purchase-totals/petsTotalR
 import { otherPurchasesCount } from "../redux/reducers/purchase-totals/otherTotalReducer";
 
 const mermaid = require("mermaid");
+// mermaid is imported like this because it wasn't working with the regular import method
+
+// use mermaid.initialize to initialize anything in mermaid
+
+//https://mermaid-js.github.io/mermaid/#/theming
 
 mermaid.initialize({
   startOnLoad: true,
   htmlLabels: true,
-  themeVariables: {
-    primaryColor: "#cc0000",
-  },
 });
 
 interface MermaidInterface {
@@ -39,6 +41,7 @@ const Mermaid: FC<MermaidInterface> = ({ piechart }) => {
 };
 
 export const ChartsPage: FC = () => {
+  // purchase totals stored in redux
   const wantsPurchaseTotal: number = useAppSelector(wantsPurchasesCount);
   const necessaryPurchaseTotal: number = useAppSelector(
     necessaryPurchasesCount
