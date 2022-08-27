@@ -11,6 +11,7 @@ import { foodPurchasesCount } from "../redux/reducers/purchase-totals/foodTotalR
 import { entertainmentPurchasesCount } from "../redux/reducers/purchase-totals/entertainmentTotalReducer";
 import { petsPurchasesCount } from "../redux/reducers/purchase-totals/petsTotalReducer";
 import { otherPurchasesCount } from "../redux/reducers/purchase-totals/otherTotalReducer";
+import { Box } from "@mui/material";
 
 const mermaid = require("mermaid");
 // mermaid is imported like this because it wasn't working with the regular import method
@@ -61,15 +62,17 @@ export const ChartsPage: FC = () => {
 
   return (
     <div>
-      <Mermaid
-        piechart={`pie
+      <Box>
+        <Mermaid
+          piechart={`pie
         "Wants" : ${wantsPurchaseTotal}
         "Needs" : ${necessaryPurchaseTotal}
       `}
-      />
-
-      <Mermaid
-        piechart={`pie 
+        />
+      </Box>
+      <Box>
+        <Mermaid
+          piechart={`pie 
         "Housing" : ${housingPurchaseTotal}
         "Transportation" : ${transportationPurchaseTotal}
         "Medical" : ${medicalPurchaseTotal}
@@ -78,7 +81,8 @@ export const ChartsPage: FC = () => {
         "Pets" : ${petsPurchaseTotal}
         "Other" : ${otherPurchaseTotal}
       `}
-      />
+        />
+      </Box>
     </div>
   );
 };
