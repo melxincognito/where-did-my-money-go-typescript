@@ -33,7 +33,7 @@ const styles = {
     alignContent: "center",
     alignItems: "center",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.71)",
-    marginBottom: "5rem",
+    marginBottom: "2rem",
     color: "white",
     justifyContent: "center",
     textDecoration: "underline",
