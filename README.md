@@ -4,11 +4,11 @@
 
 <ul>
    <li> A spending tracker to track a users purchases and display them based on the selected purchase category and necessity status. </li>
-   <li>The application consists of a single landing page. The top of the page displays a purchase input form where users input the details of their purchase. They need to input a name, an amount, select a category and then check the box if it's considered a necessary purchase or not. </li>
+   <li>The application consists of two landing pages. On the home page, the top of the page displays a purchase input form where users input the details of their purchase. They need to input a name, an amount, select a category and then check the box if it's considered a necessary purchase or not. </li>
    <li>After a user submits a purchase using the form it is displayed below in the <b>All Purchases</b> section and its added purchase total is reflected in the <b>Total purchases amount</b>. Depending on other user inputs depends on how the input item is further displayed.</li>
    <li> If a user selects the purchase was a necessary purchase, the item card will be displayed with a <b>Necessary Purchase</b> tag and its total will get added to the <b>Necessary purchases amount</b>. If it was not selected as a necessary purchase, the item card will be displayed with a <b>Wants Purchase</b> tag and its total will be added to the <b> Wants purchases total</b>. </li>
    <li>Depending on what category the user selects will determine where its information is specifically displayed. For example, if a user selects the category “Housing” while entering a purchase, the purchase will be included in the “Housing Purchases” section and the purchase amount will be added to the housing purchases total. </li>
-   <li>There's a lot of throwaway code in here ATM I used this project to learn TypeScript</li>
+   <li>The second page displays data relevant to the users purchases. Currently there are two pie charts, one showing the users spending habits on wants vs needs and the other pie chart showing the users spending habits based on the input category. </li>
  
 </ul>
 
@@ -69,6 +69,7 @@ Dependencies List:
 <li>@testing-library/react </li>
 <li>@testing-library/jest-dom</li>
 <li>nanoid</li>
+<li>mermaid</li>
 <li>@mui/material </li>
 <li>@emotion/react </li>
 <li>@emotion/styled </li>
