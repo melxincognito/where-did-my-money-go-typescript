@@ -2,7 +2,6 @@ import React, { FC, useEffect } from "react";
 import { useAppSelector } from "../redux/hooks";
 import { necessaryPurchasesCount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
 import { wantsPurchasesCount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
-import { PurchaseCategories } from "../Enums";
 
 import { housingPurchasesCount } from "../redux/reducers/purchase-totals/housingTotalReducer";
 import { transportationPurchasesCount } from "../redux/reducers/purchase-totals/transportationTotalReducer";
