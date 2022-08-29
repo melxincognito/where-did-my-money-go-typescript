@@ -2,10 +2,11 @@ import { FC, Fragment } from "react";
 
 import { PurchaseTile } from "../PurchaseTile";
 
-import { Purchase } from "../../Interfaces";
+import { allPurchasesState } from "../../redux/reducers/purchase-states/allPurchases";
+
+import { useAppSelector } from "../../redux/hooks";
 
 interface Props {
-  purchases: Purchase[];
   deletePurchase: (
     id: string,
     amount: number,
@@ -14,12 +15,22 @@ interface Props {
   ) => void;
 }
 
-export const PurchasesList: FC<Props> = ({ purchases, deletePurchase }) => {
+// currently doesn't delete purchases
+
+export const PurchasesList: FC<Props> = ({ deletePurchase }) => {
+  const allPurchases: Array<{
+    purchase: string;
+    amount: number;
+    isNecessity: boolean;
+    id: string;
+    category: string;
+  }> = useAppSelector(allPurchasesState);
+
   return (
     <div style={styles.purchasesList}>
       <h1 style={styles.allPurchasesHeader}> All Purchases</h1>
       <div style={styles.purchases}>
-        {purchases.map((purchase, index) => (
+        {allPurchases.map((purchase, index) => (
           <Fragment key={index}>
             <PurchaseTile
               category={purchase.category}
