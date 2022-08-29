@@ -73,7 +73,7 @@ export const HomePage: FC = () => {
   var mermaidDiv = document.getElementById("mermaid") as any;
 
   const array1: Array<{
-    item: string;
+    purchase: string;
     amount: number;
     isNecessity: boolean;
     id: string;
@@ -146,6 +146,16 @@ export const HomePage: FC = () => {
     id: string,
     category: string
   ) => {
+    dispatch(
+      addToPurchases({
+        purchase: name,
+        amount: amount,
+        isNecessity: isNecessity,
+        id: id,
+        category: category,
+      })
+    );
+
     setPurchases([
       ...purchases,
       {
@@ -373,16 +383,16 @@ export const HomePage: FC = () => {
 
   const sendToPurchases = (): void => {
     const item = {
-      name: "Hookers",
-      amount: 420,
+      name: "Chicken wings",
+      amount: 33,
       isNecessity: true,
       id: "1",
-      category: "Housing",
+      category: "Food",
     };
 
     dispatch(
       addToPurchases({
-        item: item.name,
+        purchase: item.name,
         amount: item.amount,
         isNecessity: item.isNecessity,
         id: item.id,
@@ -392,7 +402,25 @@ export const HomePage: FC = () => {
   };
 
   const remove = (item: string, price: number) => {
-    dispatch(removeFromPurchases({ item: item, price: price }));
+    dispatch(removeFromPurchases({ purchase: item, price: price }));
+  };
+
+  const sendToAllPurchasesState = (
+    name: string,
+    amount: number,
+    isNecessity: boolean,
+    id: string,
+    category: string
+  ) => {
+    dispatch(
+      addToPurchases({
+        purchase: name,
+        amount: amount,
+        isNecessity: isNecessity,
+        id: id,
+        category: category,
+      })
+    );
   };
 
   return (
@@ -409,6 +437,21 @@ export const HomePage: FC = () => {
 
       <button onClick={sendToPurchases}>try this</button>
       <button onClick={() => remove("berry", 23)}> remove it now</button>
+
+      <button
+        onClick={() =>
+          sendToAllPurchasesState(
+            purchaseName,
+            purchaseAmount,
+            necessaryPurchase,
+            uniqueId,
+            purchaseCategory
+          )
+        }
+      >
+        {" "}
+        send from form
+      </button>
       <PurchaseInputForm
         uniqueId={uniqueId}
         purchaseName={purchaseName}
@@ -431,7 +474,7 @@ export const HomePage: FC = () => {
       />
       {/* PURCHASE LIST */}
 
-      <PurchasesList purchases={purchases} deletePurchase={deletePurchase} />
+      <PurchasesList deletePurchase={deletePurchase} />
       {/* PURCHASE TOTALS */}
 
       <PurchaseTotals />
