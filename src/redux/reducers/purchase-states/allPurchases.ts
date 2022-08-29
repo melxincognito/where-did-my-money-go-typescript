@@ -3,7 +3,7 @@ import { RootState } from "../../store";
 
 interface PurchaseState {
   purchases: Array<{
-    item: string;
+    purchase: string;
     amount: number;
     isNecessity: boolean;
     id: string;
@@ -13,7 +13,13 @@ interface PurchaseState {
 
 const initialPurchasesState: PurchaseState = {
   purchases: [
-    { item: "berry", amount: 23, isNecessity: true, id: "1", category: "Food" },
+    {
+      purchase: "berry",
+      amount: 23,
+      isNecessity: true,
+      id: "1",
+      category: "Food",
+    },
   ],
 };
 
@@ -24,7 +30,7 @@ export const allPurchases = createSlice({
     addToPurchases: (
       state,
       action: PayloadAction<{
-        item: string;
+        purchase: string;
         amount: number;
         isNecessity: boolean;
         id: string;
@@ -36,12 +42,14 @@ export const allPurchases = createSlice({
         purchases: [...state.purchases, action.payload],
       };
     },
+
+    // remove from purchases doesnt work currently
     removeFromPurchases: (
       state,
-      action: PayloadAction<{ item: string; price: number }>
+      action: PayloadAction<{ purchase: string; price: number }>
     ) => {
       state.purchases.filter(
-        (purchase) => purchase.item !== action.payload.item
+        (purchase) => purchase.purchase !== action.payload.purchase
       );
     },
   },
