@@ -12,6 +12,7 @@ import petsTotal from "./reducers/purchase-totals/petsTotalReducer";
 import otherTotal from "./reducers/purchase-totals/otherTotalReducer";
 
 import purchases from "./reducers/purchase-states/allPurchases";
+import purchasesCategorized from "./reducers/purchase-states/purchasesCategorized";
 
 export const store = configureStore({
   reducer: {
@@ -26,6 +27,7 @@ export const store = configureStore({
     petsPurchasesAmount: petsTotal,
     otherPurchasesAmount: otherTotal,
     allPurchases: purchases,
+    purchasesCategorized: purchasesCategorized,
   },
 });
 
