@@ -11,6 +11,8 @@ import entertainmentTotal from "./reducers/purchase-totals/entertainmentTotalRed
 import petsTotal from "./reducers/purchase-totals/petsTotalReducer";
 import otherTotal from "./reducers/purchase-totals/otherTotalReducer";
 
+import purchases from "./reducers/purchase-states/allPurchases";
+
 export const store = configureStore({
   reducer: {
     totalPurchasesAmount: purchaseTotal,
@@ -23,6 +25,7 @@ export const store = configureStore({
     entertainmentPurchasesAmount: entertainmentTotal,
     petsPurchasesAmount: petsTotal,
     otherPurchasesAmount: otherTotal,
+    allPurchases: purchases,
   },
 });
 
