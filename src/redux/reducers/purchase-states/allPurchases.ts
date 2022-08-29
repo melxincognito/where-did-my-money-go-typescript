@@ -1,42 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 
+import { Purchase } from "../../../Interfaces";
+
 interface PurchaseState {
-  purchases: Array<{
-    purchase: string;
-    amount: number;
-    isNecessity: boolean;
-    id: string;
-    category: string;
-  }>;
+  purchases: Array<Purchase>;
 }
 
 const initialPurchasesState: PurchaseState = {
-  purchases: [
-    {
-      purchase: "berry",
-      amount: 23,
-      isNecessity: true,
-      id: "1",
-      category: "Food",
-    },
-  ],
+  purchases: [],
 };
 
 export const allPurchases = createSlice({
   name: "purchasesArray",
   initialState: initialPurchasesState,
   reducers: {
-    addToPurchases: (
-      state,
-      action: PayloadAction<{
-        purchase: string;
-        amount: number;
-        isNecessity: boolean;
-        id: string;
-        category: string;
-      }>
-    ) => {
+    addToPurchases: (state, action: PayloadAction<Purchase>) => {
       return {
         ...state,
         purchases: [...state.purchases, action.payload],
@@ -44,13 +23,8 @@ export const allPurchases = createSlice({
     },
 
     // remove from purchases doesnt work currently
-    removeFromPurchases: (
-      state,
-      action: PayloadAction<{ purchase: string; price: number }>
-    ) => {
-      state.purchases.filter(
-        (purchase) => purchase.purchase !== action.payload.purchase
-      );
+    removeFromPurchases: (state, action: PayloadAction<Purchase>) => {
+      state.purchases.filter((purchase) => purchase.id !== action.payload.id);
     },
   },
 });
