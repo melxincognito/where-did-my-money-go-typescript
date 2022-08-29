@@ -7,8 +7,15 @@ import { PurchasesList } from "../components/lists/PurchasesList";
 import { PurchaseTotals } from "../components/PurchaseTotals";
 import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
-import { useAppDispatch } from "../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Box } from "@mui/material";
+
+import { allPurchasesState } from "../redux/reducers/purchase-states/allPurchases";
+
+import {
+  addToPurchases,
+  removeFromPurchases,
+} from "../redux/reducers/purchase-states/allPurchases";
 
 // reducer actions imports
 import {
@@ -64,6 +71,14 @@ export const HomePage: FC = () => {
   ) as HTMLFormElement;
 
   var mermaidDiv = document.getElementById("mermaid") as any;
+
+  const array1: Array<{
+    item: string;
+    amount: number;
+    isNecessity: boolean;
+    id: string;
+    category: string;
+  }> = useAppSelector(allPurchasesState);
 
   // purchase input form
 
@@ -356,10 +371,44 @@ export const HomePage: FC = () => {
     }
   };
 
+  const sendToPurchases = (): void => {
+    const item = {
+      name: "Hookers",
+      amount: 420,
+      isNecessity: true,
+      id: "1",
+      category: "Housing",
+    };
+
+    dispatch(
+      addToPurchases({
+        item: item.name,
+        amount: item.amount,
+        isNecessity: item.isNecessity,
+        id: item.id,
+        category: item.category,
+      })
+    );
+  };
+
+  const remove = (item: string, price: number) => {
+    dispatch(removeFromPurchases({ item: item, price: price }));
+  };
+
   return (
     <>
       {/* PURCHASE INPUT FORM */}
 
+      <button
+        onClick={() => {
+          console.log(array1);
+        }}
+      >
+        the other one
+      </button>
+
+      <button onClick={sendToPurchases}>try this</button>
+      <button onClick={() => remove("berry", 23)}> remove it now</button>
       <PurchaseInputForm
         uniqueId={uniqueId}
         purchaseName={purchaseName}
