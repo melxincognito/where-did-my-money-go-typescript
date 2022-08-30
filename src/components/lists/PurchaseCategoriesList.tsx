@@ -11,15 +11,26 @@ import { entertainmentPurchasesCount } from "../../redux/reducers/purchase-total
 import { petsPurchasesCount } from "../../redux/reducers/purchase-totals/petsTotalReducer";
 import { otherPurchasesCount } from "../../redux/reducers/purchase-totals/otherTotalReducer";
 
-interface PurchaseCategoriesListProps {
-  housingPurchasesList: Purchase[];
-  transportationPurchasesList: Purchase[];
-  medicalPurchasesList: Purchase[];
-  foodPurchasesList: Purchase[];
-  entertainmentPurchasesList: Purchase[];
-  petsPurchasesList: Purchase[];
-  otherPurchasesList: Purchase[];
+import {
+  housingPurchasesState,
+  transportationPurchasesState,
+  medicalPurchasesState,
+  foodPurchasesState,
+  entertainmentPurchasesState,
+  petsPurchasesState,
+  otherPurchasesState,
+} from "../../redux/reducers/purchase-states/purchasesCategorized";
 
+interface PurchaseCategoriesListProps {
+  deletePurchase: (
+    id: string,
+    amount: number,
+    isNecessity: boolean,
+    purchaseCategory: string
+  ) => void;
+}
+
+interface PurchaseCategoriesListProps {
   deletePurchase: (
     id: string,
     amount: number,
@@ -38,6 +49,12 @@ interface PurchaseCategoriesInformation {
   purchaseCategory: string;
   purchaseCategoryTotal: number;
   purchaseCategoryList: Purchase[];
+}
+
+interface PurchaseCategoriesTileProps {
+  purchaseCategory: string;
+  purchaseCategoryTotal: number;
+  children?: React.ReactNode;
 }
 
 const PurchaseCategoriesTile: FC<PurchaseCategoriesTileProps> = ({
@@ -62,16 +79,9 @@ const PurchaseCategoriesTile: FC<PurchaseCategoriesTileProps> = ({
 };
 
 export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
-  housingPurchasesList,
-  transportationPurchasesList,
-  medicalPurchasesList,
-  foodPurchasesList,
-  entertainmentPurchasesList,
-  petsPurchasesList,
-  otherPurchasesList,
-
   deletePurchase,
 }) => {
+  // total information
   const housingPurchaseTotal: number = useAppSelector(housingPurchasesCount);
   const transportationPurchaseTotal: number = useAppSelector(
     transportationPurchasesCount
@@ -84,41 +94,55 @@ export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
   const petsPurchaseTotal: number = useAppSelector(petsPurchasesCount);
   const otherPurchaseTotal: number = useAppSelector(otherPurchasesCount);
 
+  // stored purchases information
+
+  const housingPurchaseList: Purchase[] = useAppSelector(housingPurchasesState);
+  const transportationPurchaseList: Purchase[] = useAppSelector(
+    transportationPurchasesState
+  );
+  const medicalPurchaseList: Purchase[] = useAppSelector(medicalPurchasesState);
+  const foodPurchaseList: Purchase[] = useAppSelector(foodPurchasesState);
+  const entertainmentPurchaseList: Purchase[] = useAppSelector(
+    entertainmentPurchasesState
+  );
+  const petsPurchaseList: Purchase[] = useAppSelector(petsPurchasesState);
+  const otherPurchaseList: Purchase[] = useAppSelector(otherPurchasesState);
+
   const purchaseCategories: PurchaseCategoriesInformation[] = [
     {
       purchaseCategory: "Housing",
       purchaseCategoryTotal: housingPurchaseTotal,
-      purchaseCategoryList: housingPurchasesList,
+      purchaseCategoryList: housingPurchaseList,
     },
     {
       purchaseCategory: "Transportation",
       purchaseCategoryTotal: transportationPurchaseTotal,
-      purchaseCategoryList: transportationPurchasesList,
+      purchaseCategoryList: transportationPurchaseList,
     },
     {
       purchaseCategory: "Medical",
       purchaseCategoryTotal: medicalPurchaseTotal,
-      purchaseCategoryList: medicalPurchasesList,
+      purchaseCategoryList: medicalPurchaseList,
     },
     {
       purchaseCategory: "Food",
       purchaseCategoryTotal: foodPurchaseTotal,
-      purchaseCategoryList: foodPurchasesList,
+      purchaseCategoryList: foodPurchaseList,
     },
     {
       purchaseCategory: "Entertainment",
       purchaseCategoryTotal: entertainmentPurchaseTotal,
-      purchaseCategoryList: entertainmentPurchasesList,
+      purchaseCategoryList: entertainmentPurchaseList,
     },
     {
       purchaseCategory: "Pets",
       purchaseCategoryTotal: petsPurchaseTotal,
-      purchaseCategoryList: petsPurchasesList,
+      purchaseCategoryList: petsPurchaseList,
     },
     {
       purchaseCategory: "Other",
       purchaseCategoryTotal: otherPurchaseTotal,
-      purchaseCategoryList: otherPurchasesList,
+      purchaseCategoryList: otherPurchaseList,
     },
   ];
 
