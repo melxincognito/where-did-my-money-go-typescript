@@ -19,54 +19,19 @@ import {
   addToOtherPurchases,
 } from "../redux/reducers/purchase-states/purchasesCategorized";
 
-import {
-  addToPurchases,
-  removeFromPurchases,
-} from "../redux/reducers/purchase-states/allPurchases";
+import { addToPurchases } from "../redux/reducers/purchase-states/allPurchases";
 
 // reducer actions imports
-import {
-  increaseTotalPurchasesAmount,
-  decreaseTotalPurchasesAmount,
-} from "../redux/reducers/purchase-totals/purchaseTotalReducer";
-import {
-  increaseNecessaryPurchasesAmount,
-  decreaseNecessaryPurchasesAmount,
-} from "../redux/reducers/purchase-totals/necessityTotalReducer";
-import {
-  increaseWantsPurchasesAmount,
-  decreaseWantsPurchasesAmount,
-} from "../redux/reducers/purchase-totals/wantsTotalReducer";
-import {
-  increaseHousingPurchasesAmount,
-  decreaseHousingPurchasesAmount,
-} from "../redux/reducers/purchase-totals/housingTotalReducer";
-import {
-  increaseTransportationPurchasesAmount,
-  decreaseTransportationPurchasesAmount,
-} from "../redux/reducers/purchase-totals/transportationTotalReducer";
-import {
-  increaseFoodPurchasesAmount,
-  decreaseFoodPurchasesAmount,
-} from "../redux/reducers/purchase-totals/foodTotalReducer";
-import {
-  increaseMedicalPurchasesAmount,
-  decreaseMedicalPurchasesAmount,
-} from "../redux/reducers/purchase-totals/medicalTotalReducer";
-import {
-  increaseEntertainmentPurchasesAmount,
-  decreaseEntertainmentPurchasesAmount,
-} from "../redux/reducers/purchase-totals/entertainmentTotalReducer";
-import {
-  increasePetsPurchasesAmount,
-  decreasePetsPurchasesAmount,
-} from "../redux/reducers/purchase-totals/petsTotalReducer";
-import {
-  increaseOtherPurchasesAmount,
-  decreaseOtherPurchasesAmount,
-} from "../redux/reducers/purchase-totals/otherTotalReducer";
-
-// TODO get items to delete from the redux store
+import { increaseTotalPurchasesAmount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
+import { increaseNecessaryPurchasesAmount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
+import { increaseWantsPurchasesAmount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
+import { increaseHousingPurchasesAmount } from "../redux/reducers/purchase-totals/housingTotalReducer";
+import { increaseTransportationPurchasesAmount } from "../redux/reducers/purchase-totals/transportationTotalReducer";
+import { increaseFoodPurchasesAmount } from "../redux/reducers/purchase-totals/foodTotalReducer";
+import { increaseMedicalPurchasesAmount } from "../redux/reducers/purchase-totals/medicalTotalReducer";
+import { increaseEntertainmentPurchasesAmount } from "../redux/reducers/purchase-totals/entertainmentTotalReducer";
+import { increasePetsPurchasesAmount } from "../redux/reducers/purchase-totals/petsTotalReducer";
+import { increaseOtherPurchasesAmount } from "../redux/reducers/purchase-totals/otherTotalReducer";
 
 export const HomePage: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
@@ -270,85 +235,6 @@ export const HomePage: FC = () => {
     resetForm();
   };
 
-  // delete purchase from all UI and reset all totals.
-  /*
-  const deletePurchase = (
-    id: string,
-    amount: number,
-    isNecessity: boolean,
-    purchaseCategory: string
-  ): void => {
-    setPurchases(purchases.filter((purchase) => purchase.id !== id));
-    decreaseTotalPurchasesAmountTile(amount);
-
-    if (isNecessity) {
-      decreaseNecessaryPurchasesAmountTile(amount);
-    } else {
-      decreaseWantsPurchasesAmountTile(amount);
-    }
-
-    switch (purchaseCategory) {
-      case "Housing": {
-        setHousingPurchasesList(
-          housingPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreaseHousingPurchasesAmount(amount));
-        break;
-      }
-      case "Transportation": {
-        setTransportationPurchasesList(
-          transportationPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreaseTransportationPurchasesAmount(amount));
-        break;
-      }
-      case "Medical": {
-        setMedicalPurchasesList(
-          medicalPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreaseMedicalPurchasesAmount(amount));
-        break;
-      }
-      case "Food": {
-        setFoodPurchasesList(
-          foodPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreaseFoodPurchasesAmount(amount));
-        break;
-      }
-      case "Entertainment": {
-        setEntertainmentPurchasesList(
-          entertainmentPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreaseEntertainmentPurchasesAmount(amount));
-        break;
-      }
-      case "Pets": {
-        setPetsPurchasesList(
-          petsPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreasePetsPurchasesAmount(amount));
-        break;
-      }
-      default: {
-        setOtherPurchasesList(
-          otherPurchasesList.filter((purchase) => purchase.id !== id)
-        );
-        dispatch(decreaseOtherPurchasesAmount(amount));
-        break;
-      }
-    }
-  };*/
-
-  const deletePurchase = (
-    id: string,
-    amount: number,
-    isNecessity: boolean,
-    purchaseCategory: string
-  ): void => {
-    console.log(id, amount, isNecessity, purchaseCategory);
-  };
-
   return (
     <>
       {/* PURCHASE INPUT FORM */}
@@ -375,7 +261,7 @@ export const HomePage: FC = () => {
       />
       {/* PURCHASE LIST */}
 
-      <PurchasesList deletePurchase={deletePurchase} />
+      <PurchasesList />
       {/* PURCHASE TOTALS */}
 
       <PurchaseTotals />
@@ -385,7 +271,7 @@ export const HomePage: FC = () => {
         sx={{ display: "flex", justifyContent: "center" }}
       >
         {/* Keep the Box or the categories list isn't centered */}
-        <PurchaseCategoriesList deletePurchase={deletePurchase} />
+        <PurchaseCategoriesList />
       </Box>
     </>
   );

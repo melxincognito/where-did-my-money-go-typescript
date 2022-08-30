@@ -68,11 +68,9 @@ export const PurchaseTile: FC<Props> = ({
     switch (isNecessity) {
       case true:
         dispatch(decreaseNecessaryPurchasesAmount(amount));
-        console.log("true");
         break;
       case false:
         dispatch(decreaseWantsPurchasesAmount(amount));
-        console.log("false");
         break;
       default:
         break;
