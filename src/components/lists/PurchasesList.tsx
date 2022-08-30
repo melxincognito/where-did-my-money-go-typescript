@@ -38,14 +38,6 @@ export const PurchasesList: FC<Props> = ({ deletePurchase }) => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
-              deletePurchase={() =>
-                deletePurchase(
-                  purchase.id,
-                  purchase.amount,
-                  purchase.isNecessity,
-                  purchase.category
-                )
-              }
             />
           </Fragment>
         ))}
