@@ -32,6 +32,7 @@ export interface Props {
   amount: number;
   isNecessity: boolean;
   category: string;
+  date: string;
 }
 
 export const PurchaseTile: FC<Props> = ({
@@ -40,6 +41,7 @@ export const PurchaseTile: FC<Props> = ({
   amount,
   isNecessity,
   category,
+  date,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -49,7 +51,8 @@ export const PurchaseTile: FC<Props> = ({
     amount: number,
     isNecessity: boolean,
     id: string,
-    category: string
+    category: string,
+    date: string
   ) => {
     dispatch(
       removeFromPurchases({
@@ -58,6 +61,7 @@ export const PurchaseTile: FC<Props> = ({
         isNecessity: isNecessity,
         id: id,
         category: category,
+        date: date,
       })
     );
   };
@@ -93,6 +97,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreaseHousingPurchasesAmount(amount));
@@ -106,6 +111,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreaseTransportationPurchasesAmount(amount));
@@ -119,6 +125,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreaseMedicalPurchasesAmount(amount));
@@ -132,6 +139,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreaseFoodPurchasesAmount(amount));
@@ -145,6 +153,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreaseEntertainmentPurchasesAmount(amount));
@@ -158,6 +167,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreasePetsPurchasesAmount(amount));
@@ -171,6 +181,7 @@ export const PurchaseTile: FC<Props> = ({
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(decreaseOtherPurchasesAmount(amount));
@@ -186,16 +197,21 @@ export const PurchaseTile: FC<Props> = ({
     id: string,
     category: string
   ) => {
-    removeFromPurchasesRedux(name, amount, isNecessity, id, category);
+    removeFromPurchasesRedux(name, amount, isNecessity, id, category, date);
     removeFromPurchaseCategoryRedux(name, amount, isNecessity, id, category);
     adjustPurchaseAmount(amount, isNecessity);
   };
 
+  const capitalizePurchaseName = (name: string) => {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
   return (
     <Box sx={styles.purchaseTile} id={category}>
+      <span style={styles.dateSpan}>{date} </span>
       <div style={styles.headerContent}>
         <h2 style={styles.purchaseName}>
-          <span aria-label="Purchase name">{name}</span>
+          <span aria-label="Purchase name">{capitalizePurchaseName(name)}</span>
         </h2>{" "}
         <h3 style={styles.purchaseAmount}>
           <span aria-label="Purchase amount"> ${amount.toFixed(2)} </span>
@@ -233,13 +249,21 @@ const styles = {
     backdropFilter: "blur(5px)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
     border: "2px solid rgba(255, 255, 255, 0.1)",
-    //boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "20px",
   },
   headerContent: {
     display: "block",
     justifyContent: "center",
     alignItems: "center",
+  },
+  dateSpan: {
+    display: "flex",
+    position: "absolute",
+    left: "1rem",
+    top: "0.7rem",
+    color: "#b0b0b0",
+    textDecoration: "underline",
+    fontWeight: "bold",
   },
   purchaseName: {
     color: "white",

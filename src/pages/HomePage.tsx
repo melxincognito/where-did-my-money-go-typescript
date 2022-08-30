@@ -4,7 +4,6 @@ import { nanoid } from "nanoid";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { PurchasesList } from "../components/lists/PurchasesList";
 import { PurchaseTotals } from "../components/PurchaseTotals";
-import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
 import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
@@ -32,6 +31,20 @@ import { increaseOtherPurchasesAmount } from "../redux/reducers/purchase-totals/
 export const HomePage: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
   const uniqueId: string = nanoid();
+
+  // create the date so you can timestamp the purchase
+  const createDate = () => {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1;
+    let dd = today.getDate();
+    const formattedToday = mm + "-" + dd + "-" + yyyy;
+
+    return formattedToday;
+  };
+
+  // create variable name for date
+  const date = createDate();
 
   // purchase input form
 
@@ -69,7 +82,8 @@ export const HomePage: FC = () => {
     amount: number,
     isNecessity: boolean,
     id: string,
-    category: string
+    category: string,
+    date: string
   ) => {
     // add to all purchases state in redux store
     dispatch(
@@ -79,6 +93,7 @@ export const HomePage: FC = () => {
         isNecessity: isNecessity,
         id: id,
         category: category,
+        date: date,
       })
     );
 
@@ -96,7 +111,8 @@ export const HomePage: FC = () => {
     amount: number,
     isNecessity: boolean,
     id: string,
-    category: string
+    category: string,
+    date: string
   ) => {
     switch (category) {
       case "Housing": {
@@ -107,6 +123,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(increaseHousingPurchasesAmount(amount));
@@ -121,6 +138,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
 
@@ -136,6 +154,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
 
@@ -151,6 +170,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(increaseFoodPurchasesAmount(amount));
@@ -165,6 +185,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(increaseEntertainmentPurchasesAmount(amount));
@@ -178,6 +199,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(increasePetsPurchasesAmount(amount));
@@ -192,6 +214,7 @@ export const HomePage: FC = () => {
             isNecessity: isNecessity,
             id: id,
             category: category,
+            date: date,
           })
         );
         dispatch(increaseOtherPurchasesAmount(amount));
@@ -224,9 +247,9 @@ export const HomePage: FC = () => {
     id: string,
     category: string
   ) => {
-    addPurchaseFromForm(name, amount, isNecessity, id, category);
+    addPurchaseFromForm(name, amount, isNecessity, id, category, date);
 
-    addPurchaseToCategory(name, amount, isNecessity, id, category);
+    addPurchaseToCategory(name, amount, isNecessity, id, category, date);
 
     resetForm();
   };

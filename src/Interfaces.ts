@@ -4,6 +4,7 @@ export interface Purchase {
   isNecessity: boolean;
   id: string;
   category: string;
+  date: string;
 }
 
 export interface PurchasesAmountStates {

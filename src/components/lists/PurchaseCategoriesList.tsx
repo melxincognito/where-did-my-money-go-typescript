@@ -142,6 +142,7 @@ export const PurchaseCategoriesList: FC = () => {
                 name={purchase.purchase}
                 amount={purchase.amount}
                 isNecessity={purchase.isNecessity}
+                date={purchase.date}
               />
             </Fragment>
           ))}

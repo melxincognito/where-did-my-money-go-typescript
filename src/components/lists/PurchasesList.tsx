@@ -15,6 +15,7 @@ export const PurchasesList: FC = () => {
     isNecessity: boolean;
     id: string;
     category: string;
+    date: string;
   }> = useAppSelector(allPurchasesState);
 
   return (
@@ -29,6 +30,7 @@ export const PurchasesList: FC = () => {
               name={purchase.purchase}
               amount={purchase.amount}
               isNecessity={purchase.isNecessity}
+              date={purchase.date}
             />
           </Fragment>
         ))}

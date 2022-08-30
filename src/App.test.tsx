@@ -11,6 +11,7 @@ describe("Purchase Tile", () => {
         amount={420.22}
         isNecessity={false}
         category="Entertainment"
+        date="2020-01-01"
       />
     );
     const purchaseNameElement = screen.getByText(/movie tickets/i);
@@ -31,6 +32,7 @@ describe("Purchase Tile", () => {
         amount={77.22}
         isNecessity={true}
         category="Food"
+        date="2020-01-01"
       />
     );
     const purchaseNameElement = screen.getByText(/groceries/i);
