@@ -129,21 +129,6 @@ export const HomePage: FC = () => {
     }
   };
 
-  const resetForm = () => {
-    setPurchaseName("");
-    setPurchaseAmount(0);
-    setNecessaryPurchase(false);
-    setPurchaseCategory("");
-    // selecting the input form so it  deletes the purchaseAmountInputField after
-    // an item has been added it's not set to the value of the
-    // state so it needs to be reset with the if statement.
-    var purchaseAmountInputField = document.getElementById(
-      "purchaseInputForm"
-    ) as HTMLFormElement;
-
-    if (purchaseAmountInputField) purchaseAmountInputField.reset();
-  };
-
   const addPurchaseToCategory = (
     name: string,
     amount: number,
@@ -254,6 +239,21 @@ export const HomePage: FC = () => {
     }
   };
 
+  const resetForm = () => {
+    setPurchaseName("");
+    setPurchaseAmount(0);
+    setNecessaryPurchase(false);
+    setPurchaseCategory("");
+    // selecting the input form so it  deletes the purchaseAmountInputField after
+    // an item has been added it's not set to the value of the
+    // state so it needs to be reset with the if statement.
+    var purchaseAmountInputField = document.getElementById(
+      "purchaseInputForm"
+    ) as HTMLFormElement;
+
+    if (purchaseAmountInputField) purchaseAmountInputField.reset();
+  };
+
   // add purchase to array, set totals, reset input form and categorize purchase
   const addToPurchasesArray = (
     name: string,
@@ -264,9 +264,9 @@ export const HomePage: FC = () => {
   ) => {
     addPurchaseFromForm(name, amount, isNecessity, id, category);
 
-    resetForm();
-
     addPurchaseToCategory(name, amount, isNecessity, id, category);
+
+    resetForm();
   };
 
   // delete purchase from all UI and reset all totals.
