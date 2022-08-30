@@ -6,18 +6,9 @@ import { allPurchasesState } from "../../redux/reducers/purchase-states/allPurch
 
 import { useAppSelector } from "../../redux/hooks";
 
-interface Props {
-  deletePurchase: (
-    id: string,
-    amount: number,
-    isNecessity: boolean,
-    purchaseCategory: string
-  ) => void;
-}
-
 // currently doesn't delete purchases
 
-export const PurchasesList: FC<Props> = ({ deletePurchase }) => {
+export const PurchasesList: FC = () => {
   const allPurchases: Array<{
     purchase: string;
     amount: number;

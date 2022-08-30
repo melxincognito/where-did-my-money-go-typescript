@@ -21,24 +21,6 @@ import {
   otherPurchasesState,
 } from "../../redux/reducers/purchase-states/purchasesCategorized";
 
-interface PurchaseCategoriesListProps {
-  deletePurchase: (
-    id: string,
-    amount: number,
-    isNecessity: boolean,
-    purchaseCategory: string
-  ) => void;
-}
-
-interface PurchaseCategoriesListProps {
-  deletePurchase: (
-    id: string,
-    amount: number,
-    isNecessity: boolean,
-    purchaseCategory: string
-  ) => void;
-}
-
 interface PurchaseCategoriesTileProps {
   purchaseCategory: string;
   purchaseCategoryTotal: number;
@@ -78,9 +60,7 @@ const PurchaseCategoriesTile: FC<PurchaseCategoriesTileProps> = ({
   );
 };
 
-export const PurchaseCategoriesList: FC<PurchaseCategoriesListProps> = ({
-  deletePurchase,
-}) => {
+export const PurchaseCategoriesList: FC = () => {
   // total information
   const housingPurchaseTotal: number = useAppSelector(housingPurchasesCount);
   const transportationPurchaseTotal: number = useAppSelector(
