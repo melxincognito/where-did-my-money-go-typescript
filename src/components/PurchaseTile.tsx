@@ -194,10 +194,10 @@ export const PurchaseTile: FC<Props> = ({
   return (
     <Box sx={styles.purchaseTile} id={category}>
       <div style={styles.headerContent}>
-        <h2 style={styles.purchaseNameFontTag}>
+        <h2 style={styles.purchaseName}>
           <span aria-label="Purchase name">{name}</span>
         </h2>{" "}
-        <h3 style={styles.purchaseAmountFontTag}>
+        <h3 style={styles.purchaseAmount}>
           <span aria-label="Purchase amount"> ${amount.toFixed(2)} </span>
         </h3>{" "}
       </div>
@@ -223,20 +223,30 @@ const styles = {
   purchaseTile: {
     width: { xs: "200px", md: "300px" },
     height: "10rem",
-    backgroundColor: "palevioletred",
+    backgroundColor: "rgba(255, 255, 255, 0.13)",
     display: "grid",
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
     textAlign: "center",
     padding: "1.5rem",
-    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
+    backdropFilter: "blur(5px)",
+    boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
+    border: "2px solid rgba(255, 255, 255, 0.1)",
+    //boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "20px",
   },
   headerContent: {
     display: "block",
     justifyContent: "center",
     alignItems: "center",
+  },
+  purchaseName: {
+    color: "white",
+  },
+  purchaseAmount: {
+    color: "white",
+    textDecoration: "underline",
   },
   necessaryPurchaseTile: {
     color: "black",
@@ -251,13 +261,6 @@ const styles = {
     marginBottom: "5px",
     padding: "0.1rem 1rem",
     borderRadius: "30px",
-  },
-  purchaseNameFontTag: {
-    color: "#2D023F",
-  },
-  purchaseAmountFontTag: {
-    color: "white",
-    textDecoration: "underline",
   },
   deletePurchaseButton: {
     borderRadius: "30px",

@@ -40,12 +40,12 @@ export const PurchasesList: FC = () => {
 const styles = {
   purchasesList: {
     display: "grid",
-    backgroundColor: "pink",
+    backgroundColor: "#37273f",
     margin: "1rem",
     borderRadius: "30px",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     justifyContent: "center",
-    height: "32vh",
+    height: "47vh",
     overflow: "scroll",
     paddingBottom: "2rem",
   },
@@ -57,5 +57,6 @@ const styles = {
   },
   allPurchasesHeader: {
     textDecoration: "underline",
+    color: "white",
   },
 } as const;

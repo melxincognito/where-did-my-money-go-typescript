@@ -162,8 +162,8 @@ const styles = {
   },
 
   purchaseCategoryTile: {
-    width: { xs: "23rem", md: "30rem" },
-    height: "400px",
+    width: { xs: "23rem", md: "40rem" },
+    height: { xs: "470px", md: "500px" },
     backgroundColor: "#141414",
     display: "grid",
     justifyContent: "center",
