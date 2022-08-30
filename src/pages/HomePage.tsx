@@ -6,7 +6,7 @@ import { PurchasesList } from "../components/lists/PurchasesList";
 import { PurchaseTotals } from "../components/PurchaseTotals";
 import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
-import { useAppDispatch, useAppSelector } from "../redux/hooks";
+import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
 
 import {
@@ -100,6 +100,7 @@ export const HomePage: FC = () => {
     setPurchaseCategory(event.target.value as string);
   };
 
+  // redux actions
   const dispatch = useAppDispatch();
 
   const addPurchaseFromForm = (
