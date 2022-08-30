@@ -23,8 +23,6 @@ Purchase input form with all submitted purchases displayed directly below along 
 
 ![Preview of the first part of the application featuring an input form and the purchase totals](./public/money-1.png?raw=true)
 
-![Preview of the first part of the application featuring all the entered purchases](./public/money-2.png?raw=true)
-
 Purchases sorted into their purchase categories along with the purchase category totals.
 ![Preview of second part of application where the purchases are displayed by category ](./public/money-3.png?raw=true)
 
