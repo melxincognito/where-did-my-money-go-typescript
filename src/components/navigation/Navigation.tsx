@@ -1,13 +1,8 @@
 import { FC, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, IconButton, Menu, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
-
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import MenuItem from "@mui/material/MenuItem";
 export interface Props {}
 
 export const Navigation: FC<Props> = () => {
