@@ -139,7 +139,7 @@ const purchaseCategories: Array<string> = [
 
 const styles = {
   inputFormContainer: {
-    backgroundColor: "rgba(122, 0, 61, 0.37)",
+    backgroundColor: "rgba(173, 0, 87, 0.37)",
     padding: "1rem",
     margin: "1rem",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
