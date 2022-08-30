@@ -38,8 +38,8 @@ const styles = {
     gap: "3rem",
     justifyContent: "center",
     alignContent: "center",
-    marginTop: "2rem",
-    width: { xs: "100%", md: "50%" },
+    marginTop: { xs: "1rem", md: 0 },
+    width: { xs: "100%", md: "40%" },
   },
   paper: {
     borderRadius: "20px",
