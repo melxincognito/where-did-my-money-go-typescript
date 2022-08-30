@@ -42,6 +42,7 @@ const styles = {
     width: { xs: "100%", md: "50%" },
   },
   paper: {
+    borderRadius: "20px",
     padding: { xs: "0 3rem", md: "0 3rem" },
     color: "white",
     background:
