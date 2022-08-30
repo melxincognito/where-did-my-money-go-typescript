@@ -144,20 +144,13 @@ export const HomePage: FC = () => {
     if (purchaseAmountInputField) purchaseAmountInputField.reset();
   };
 
-  // add purchase to array, set totals, reset input form and categorize purchase
-  const addToPurchasesArray = (
+  const addPurchaseToCategory = (
     name: string,
     amount: number,
     isNecessity: boolean,
     id: string,
     category: string
   ) => {
-    addPurchaseFromForm(name, amount, isNecessity, id, category);
-
-    resetForm();
-
-    // categorize purchase
-
     switch (category) {
       case "Housing": {
         dispatch(
@@ -259,6 +252,21 @@ export const HomePage: FC = () => {
         break;
       }
     }
+  };
+
+  // add purchase to array, set totals, reset input form and categorize purchase
+  const addToPurchasesArray = (
+    name: string,
+    amount: number,
+    isNecessity: boolean,
+    id: string,
+    category: string
+  ) => {
+    addPurchaseFromForm(name, amount, isNecessity, id, category);
+
+    resetForm();
+
+    addPurchaseToCategory(name, amount, isNecessity, id, category);
   };
 
   // delete purchase from all UI and reset all totals.
