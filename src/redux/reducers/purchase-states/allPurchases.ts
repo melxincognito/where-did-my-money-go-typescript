@@ -22,9 +22,13 @@ export const allPurchases = createSlice({
       };
     },
 
-    // remove from purchases doesnt work currently
     removeFromPurchases: (state, action: PayloadAction<Purchase>) => {
-      state.purchases.filter((purchase) => purchase.id !== action.payload.id);
+      return {
+        ...state,
+        purchases: state.purchases.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
     },
   },
 });
