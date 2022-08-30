@@ -48,80 +48,82 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
   uniqueId,
 }) => {
   return (
-    <form id="purchaseInputForm" style={styles.inputForm}>
-      <div style={styles.contentContainer}>
-        <h2 style={styles.headerText}> Purchase Input Form</h2>
-        <Box sx={styles.inputFieldContainer}>
-          <TextField
-            aria-label="Purchase name input"
-            label="Purchase Name"
-            placeholder="Coffee, Target, etc."
-            value={purchaseName}
-            onChange={handleChangePurchaseName}
-            InputLabelProps={{ shrink: true }}
-            sx={styles.textField}
-          />
-          {/* the purchase amount input doesn't have a value because it 
+    <Box sx={styles.inputFormContainer}>
+      <form id="purchaseInputForm" style={styles.inputForm}>
+        <div style={styles.contentContainer}>
+          <h2 style={styles.headerText}> Purchase Input Form</h2>
+          <Box sx={styles.inputFieldContainer}>
+            <TextField
+              aria-label="Purchase name input"
+              label="Purchase Name"
+              placeholder="Coffee, Target, etc."
+              value={purchaseName}
+              onChange={handleChangePurchaseName}
+              InputLabelProps={{ shrink: true }}
+              sx={styles.textField}
+            />
+            {/* the purchase amount input doesn't have a value because it 
           wont allow you to input a number with cents. It also creates 
           a bug where it'll break the input field if it's set to the purchaseAmount
           state. On the initial page load it's set to 0 but if the user backspaces 
           and leaves the textfield empty then it'll break and you can't use the input
           field until you refresh the page.  */}
-          <TextField
-            id="purchaseAmountInputField"
-            aria-label="Purchase amount input"
-            type="number"
-            placeholder="0.00"
-            label="Purchase Amount"
-            onChange={handleChangePurchaseAmount}
-            InputLabelProps={{ shrink: true }}
-            sx={styles.textField}
-          />
+            <TextField
+              id="purchaseAmountInputField"
+              aria-label="Purchase amount input"
+              type="number"
+              placeholder="0.00"
+              label="Purchase Amount"
+              onChange={handleChangePurchaseAmount}
+              InputLabelProps={{ shrink: true }}
+              sx={styles.textField}
+            />
 
-          <FormControl sx={styles.categorySelectorFormControl}>
-            <InputLabel>Purchase Category</InputLabel>
-            <Select
-              aria-label="Purchase category selector"
-              value={purchaseCategory}
-              label="Purchase Category"
-              onChange={handleChangePurchaseCategory}
-              sx={styles.categorySelector}
-            >
-              {purchaseCategories.map((category) => (
-                <MenuItem key={category} value={category}>
-                  {category}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+            <FormControl sx={styles.categorySelectorFormControl}>
+              <InputLabel>Purchase Category</InputLabel>
+              <Select
+                aria-label="Purchase category selector"
+                value={purchaseCategory}
+                label="Purchase Category"
+                onChange={handleChangePurchaseCategory}
+                sx={styles.categorySelector}
+              >
+                {purchaseCategories.map((category) => (
+                  <MenuItem key={category} value={category}>
+                    {category}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
 
-        <div>
-          <Checkbox
-            aria-label="Necessary purchase indicator"
-            checked={necessaryPurchase}
-            onChange={handleChangeSetNecessaryPurchase}
-          />
+          <div>
+            <Checkbox
+              aria-label="Necessary purchase indicator"
+              checked={necessaryPurchase}
+              onChange={handleChangeSetNecessaryPurchase}
+            />
 
-          <label> Necessary purchase?</label>
+            <label> Necessary purchase?</label>
+          </div>
         </div>
-      </div>
-      <Button
-        variant="contained"
-        sx={styles.submitPurchaseButton}
-        onClick={() =>
-          addToPurchasesArray(
-            purchaseName,
-            purchaseAmount,
-            necessaryPurchase,
-            uniqueId,
-            purchaseCategory
-          )
-        }
-      >
-        submit purchase
-      </Button>
-    </form>
+        <Button
+          variant="contained"
+          sx={styles.submitPurchaseButton}
+          onClick={() =>
+            addToPurchasesArray(
+              purchaseName,
+              purchaseAmount,
+              necessaryPurchase,
+              uniqueId,
+              purchaseCategory
+            )
+          }
+        >
+          submit purchase
+        </Button>
+      </form>
+    </Box>
   );
 };
 
@@ -136,28 +138,33 @@ const purchaseCategories: Array<string> = [
 ];
 
 const styles = {
-  inputForm: {
-    backgroundColor: "#FFE4E4",
+  inputFormContainer: {
+    backgroundColor: "rgba(122, 0, 61, 0.37)",
     padding: "1rem",
     margin: "1rem",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "30px",
+    width: { xs: "110%", md: "80%" },
     display: "grid",
-    justifyContent: "center",
+  },
+  inputForm: {
+    display: "grid",
+    justifyItems: "center",
     gap: "0.5rem",
   },
   contentContainer: {
     display: "grid",
-    justifyContent: "center",
+    width: "100%",
     gap: "20px",
   },
   headerText: {
     textDecoration: "underline",
+    color: "#1f000f",
   },
   inputFieldContainer: {
-    display: { xs: "grid", md: "flex" },
+    display: "grid",
     gap: "2rem",
-    width: { xs: "100%", md: "130%" },
+    width: "100%",
   },
   categorySelectorFormControl: {
     minWidth: "200px",
@@ -173,5 +180,6 @@ const styles = {
   submitPurchaseButton: {
     borderRadius: "30px",
     padding: "0.7rem",
+    width: "100%",
   },
 } as const;
