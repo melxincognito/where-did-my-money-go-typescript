@@ -81,10 +81,72 @@ export const purchasesCategorized = createSlice({
     },
 
     // remove from purchases doesnt work currently
+
     removeFromHousingPurchases: (state, action: PayloadAction<Purchase>) => {
-      state.housingPurchasesArray.filter(
-        (purchase) => purchase.id !== action.payload.id
-      );
+      return {
+        ...state,
+        housingPurchasesArray: state.housingPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
+    },
+    removeFromTransportationPurchases: (
+      state,
+      action: PayloadAction<Purchase>
+    ) => {
+      return {
+        ...state,
+        transportationPurchasesArray: state.transportationPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
+    },
+
+    removeFromMedicalPurchases: (state, action: PayloadAction<Purchase>) => {
+      return {
+        ...state,
+        medicalPurchasesArray: state.medicalPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
+    },
+
+    removeFromFoodPurchases: (state, action: PayloadAction<Purchase>) => {
+      return {
+        ...state,
+        foodPurchasesArray: state.foodPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
+    },
+    removeFromEntertainmentPurchases: (
+      state,
+      action: PayloadAction<Purchase>
+    ) => {
+      return {
+        ...state,
+        entertainmentPurchasesArray: state.entertainmentPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
+    },
+
+    removeFromPetsPurchases: (state, action: PayloadAction<Purchase>) => {
+      return {
+        ...state,
+        petsPurchasesArray: state.petsPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
+    },
+
+    removeFromOtherPurchases: (state, action: PayloadAction<Purchase>) => {
+      return {
+        ...state,
+        otherPurchasesArray: state.otherPurchasesArray.filter(
+          (purchase) => purchase.id !== action.payload.id
+        ),
+      };
     },
   },
 });
@@ -98,6 +160,12 @@ export const {
   addToPetsPurchases,
   addToOtherPurchases,
   removeFromHousingPurchases,
+  removeFromTransportationPurchases,
+  removeFromMedicalPurchases,
+  removeFromFoodPurchases,
+  removeFromEntertainmentPurchases,
+  removeFromPetsPurchases,
+  removeFromOtherPurchases,
 } = purchasesCategorized.actions;
 
 export default purchasesCategorized.reducer;
