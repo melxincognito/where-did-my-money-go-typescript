@@ -18,10 +18,13 @@
 
 Purchase input form with all submitted purchases displayed directly below along with displayed purchase totals.
 
-![Alt text](./public/money-1.png?raw=true)
+![Preview of the first part of the application featuring an input form, a list of the purchases and the purchase totals](./public/money-1.png?raw=true)
 
 Purchases sorted into their purchase categories along with the purchase category totals.
-![Alt text](./public/money-2.png?raw=true)
+![Preview of second part of application where the purchases are displayed by category ](./public/money-2.png?raw=true)
+
+Purchase data used to show users info about their spending habits such as how much of it is wants vs needs based and which category most of their money is going towards
+![Preview of third part of application where the purchase data is used to show pie charts based on their purchase habits ](./public/money-3.png?raw=true)
 
 ## Getting Started
 
