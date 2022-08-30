@@ -2,13 +2,16 @@ import { FC } from "react";
 
 import { Box, Button } from "@mui/material";
 
+import { removeFromPurchases } from "../redux/reducers/purchase-states/allPurchases";
+
+import { useAppDispatch } from "../redux/hooks";
+
 export interface Props {
   id: string;
   name: string;
   amount: number;
   isNecessity: boolean;
   category: string;
-  deletePurchase: (id: string, amount: number, isNecessity: boolean) => void;
 }
 
 export const PurchaseTile: FC<Props> = ({
@@ -16,9 +19,29 @@ export const PurchaseTile: FC<Props> = ({
   name,
   amount,
   isNecessity,
-  deletePurchase,
+
   category,
 }) => {
+  const dispatch = useAppDispatch();
+  const removeFromPurchasesRedux = (
+    name: string,
+    amount: number,
+    isNecessity: boolean,
+    id: string,
+    category: string
+  ) => {
+    dispatch(
+      removeFromPurchases({
+        purchase: name,
+        amount: amount,
+        isNecessity: isNecessity,
+        id: id,
+        category: category,
+      })
+    );
+    console.log("remove from purchases");
+  };
+
   return (
     <Box sx={styles.purchaseTile} id={category}>
       <div style={styles.headerContent}>
@@ -39,7 +62,9 @@ export const PurchaseTile: FC<Props> = ({
         sx={styles.deletePurchaseButton}
         aria-label="Delete purchase"
         variant="contained"
-        onClick={() => deletePurchase(id, amount, isNecessity)}
+        onClick={() =>
+          removeFromPurchasesRedux(name, amount, isNecessity, id, category)
+        }
       >
         delete
       </Button>
