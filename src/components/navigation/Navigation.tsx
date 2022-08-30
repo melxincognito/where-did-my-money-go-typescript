@@ -59,8 +59,13 @@ export const Navigation: FC<Props> = () => {
               </Link>
             </MenuItem>
             <MenuItem sx={styles.mobileMenuItems}>
+              <Link to="/categorized-purchases" style={styles.mobileLinkItem}>
+                Categorized Purchases
+              </Link>
+            </MenuItem>
+            <MenuItem sx={styles.mobileMenuItems}>
               <Link to="/charts" style={styles.mobileLinkItem}>
-                Charts
+                Purchase Data
               </Link>
             </MenuItem>
           </Box>
@@ -83,8 +88,13 @@ export const Navigation: FC<Props> = () => {
             </Link>
           </li>
           <li style={styles.listItem}>
+            <Link to="/categorized-purchases" style={styles.linkItem}>
+              Categorized Purchases
+            </Link>
+          </li>
+          <li style={styles.listItem}>
             <Link to="/charts" style={styles.linkItem}>
-              Charts
+              Purchase Data
             </Link>
           </li>
         </ul>
@@ -113,7 +123,7 @@ const styles = {
     display: { xs: "flex", md: "none" },
   },
   mobileMenuItemsContainer: {
-    backgroundColor: "secondary.light",
+    backgroundColor: "#37273f",
     width: "30vh",
     display: "grid",
     justifyContent: "center",
@@ -122,17 +132,18 @@ const styles = {
     width: "30vh",
     display: "flex",
     justifyContent: "center",
+    height: "7vh",
   },
   mobileLinkItem: {
     textDecoration: "none",
-    color: "black",
+    color: "white",
   },
 
   logoContainer: {
     flexGrow: { xs: 0.8, md: 0.5 },
   },
   listContainer: {
-    width: "60%",
+    width: "65%",
     display: { xs: "none", md: "flex" },
     justifyContent: "end",
   },
@@ -143,9 +154,13 @@ const styles = {
     gap: "1rem",
   },
   listItem: {
-    display: "inline",
+    display: "flex",
+    flexWrap: "wrap",
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "white",
-    padding: "0.6rem 2.8rem",
+    padding: "0.4rem 1.8rem",
     borderRadius: "5px",
     cursor: "pointer",
   },
