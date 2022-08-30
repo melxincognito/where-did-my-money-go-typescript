@@ -1,5 +1,4 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-
 import purchaseTotal from "./reducers/purchase-totals/purchaseTotalReducer";
 import necessaryTotal from "./reducers/purchase-totals/necessityTotalReducer";
 import wantsTotal from "./reducers/purchase-totals/wantsTotalReducer";
@@ -10,7 +9,6 @@ import foodTotal from "./reducers/purchase-totals/foodTotalReducer";
 import entertainmentTotal from "./reducers/purchase-totals/entertainmentTotalReducer";
 import petsTotal from "./reducers/purchase-totals/petsTotalReducer";
 import otherTotal from "./reducers/purchase-totals/otherTotalReducer";
-
 import purchases from "./reducers/purchase-states/allPurchases";
 import purchasesCategorized from "./reducers/purchase-states/purchasesCategorized";
 
