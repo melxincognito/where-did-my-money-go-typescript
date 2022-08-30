@@ -78,12 +78,14 @@ export const Navigation: FC<Props> = () => {
         <ul style={styles.list}>
           {" "}
           <li style={styles.listItem}>
-            <Link to="/" color="secondary">
+            <Link to="/" style={styles.linkItem}>
               Home
             </Link>
           </li>
-          <li style={styles.listItem} color="secondary">
-            <Link to="/charts">Charts</Link>
+          <li style={styles.listItem}>
+            <Link to="/charts" style={styles.linkItem}>
+              Charts
+            </Link>
           </li>
         </ul>
       </Box>
@@ -146,5 +148,8 @@ const styles = {
     padding: "0.6rem 2.8rem",
     borderRadius: "5px",
     cursor: "pointer",
+  },
+  linkItem: {
+    color: "black",
   },
 } as const;
