@@ -233,42 +233,44 @@ export const HomePage: FC = () => {
 
   return (
     <>
-      {/* PURCHASE INPUT FORM */}
+      {/* PURCHASE INPUT FORM AND TOTALS */}
+      <Box sx={styles.purchaseInputFormAndTotalsContainer}>
+        <PurchaseInputForm
+          uniqueId={uniqueId}
+          purchaseName={purchaseName}
+          purchaseCategory={purchaseCategory}
+          necessaryPurchase={necessaryPurchase}
+          handleChangePurchaseAmount={handleChangePurchaseAmount}
+          handleChangePurchaseName={handleChangePurchaseName}
+          handleChangeSetNecessaryPurchase={handleChangeSetNecessaryPurchase}
+          handleChangePurchaseCategory={handleChangePurchaseCategory}
+          purchaseAmount={purchaseAmount}
+          addToPurchasesArray={() =>
+            addToPurchasesArray(
+              purchaseName,
+              purchaseAmount,
+              necessaryPurchase,
+              uniqueId,
+              purchaseCategory
+            )
+          }
+        />
+        <PurchaseTotals />
+      </Box>
 
-      <PurchaseInputForm
-        uniqueId={uniqueId}
-        purchaseName={purchaseName}
-        purchaseCategory={purchaseCategory}
-        necessaryPurchase={necessaryPurchase}
-        handleChangePurchaseAmount={handleChangePurchaseAmount}
-        handleChangePurchaseName={handleChangePurchaseName}
-        handleChangeSetNecessaryPurchase={handleChangeSetNecessaryPurchase}
-        handleChangePurchaseCategory={handleChangePurchaseCategory}
-        purchaseAmount={purchaseAmount}
-        addToPurchasesArray={() =>
-          addToPurchasesArray(
-            purchaseName,
-            purchaseAmount,
-            necessaryPurchase,
-            uniqueId,
-            purchaseCategory
-          )
-        }
-      />
       {/* PURCHASE LIST */}
 
       <PurchasesList />
-      {/* PURCHASE TOTALS */}
-
-      <PurchaseTotals />
-      {/* PURCHASE CATEGORIES*/}
-      <Box
-        id="purchaseCategoriesListContainer"
-        sx={{ display: "flex", justifyContent: "center" }}
-      >
-        {/* Keep the Box or the categories list isn't centered */}
-        <PurchaseCategoriesList />
-      </Box>
     </>
   );
 };
+
+const styles = {
+  purchaseInputFormAndTotalsContainer: {
+    display: { xs: "grid", md: "flex" },
+    justifyContent: "center",
+    justifyItems: "center",
+    marginBottom: "3rem",
+    width: "100%",
+  },
+} as const;
