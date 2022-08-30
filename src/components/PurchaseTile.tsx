@@ -1,10 +1,30 @@
 import { FC } from "react";
 
-import { Box, Button } from "@mui/material";
-
+import { useAppDispatch } from "../redux/hooks";
 import { removeFromPurchases } from "../redux/reducers/purchase-states/allPurchases";
 
-import { useAppDispatch } from "../redux/hooks";
+import {
+  removeFromHousingPurchases,
+  removeFromMedicalPurchases,
+  removeFromTransportationPurchases,
+  removeFromFoodPurchases,
+  removeFromEntertainmentPurchases,
+  removeFromPetsPurchases,
+  removeFromOtherPurchases,
+} from "../redux/reducers/purchase-states/purchasesCategorized";
+import { decreaseTotalPurchasesAmount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
+import { decreaseNecessaryPurchasesAmount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
+import { decreaseWantsPurchasesAmount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
+
+import { decreaseHousingPurchasesAmount } from "../redux/reducers/purchase-totals/housingTotalReducer";
+import { decreaseTransportationPurchasesAmount } from "../redux/reducers/purchase-totals/transportationTotalReducer";
+import { decreaseFoodPurchasesAmount } from "../redux/reducers/purchase-totals/foodTotalReducer";
+import { decreaseMedicalPurchasesAmount } from "../redux/reducers/purchase-totals/medicalTotalReducer";
+import { decreaseEntertainmentPurchasesAmount } from "../redux/reducers/purchase-totals/entertainmentTotalReducer";
+import { decreasePetsPurchasesAmount } from "../redux/reducers/purchase-totals/petsTotalReducer";
+import { decreaseOtherPurchasesAmount } from "../redux/reducers/purchase-totals/otherTotalReducer";
+
+import { Box, Button } from "@mui/material";
 
 export interface Props {
   id: string;
@@ -19,10 +39,11 @@ export const PurchaseTile: FC<Props> = ({
   name,
   amount,
   isNecessity,
-
   category,
 }) => {
   const dispatch = useAppDispatch();
+
+  // remove from the main purchases list and update the total purchase amounts
   const removeFromPurchasesRedux = (
     name: string,
     amount: number,
@@ -39,7 +60,137 @@ export const PurchaseTile: FC<Props> = ({
         category: category,
       })
     );
-    console.log("remove from purchases");
+  };
+
+  const adjustPurchaseAmount = (amount: number, isNecessity: boolean) => {
+    dispatch(decreaseTotalPurchasesAmount(amount));
+
+    switch (isNecessity) {
+      case true:
+        dispatch(decreaseNecessaryPurchasesAmount(amount));
+        console.log("true");
+        break;
+      case false:
+        dispatch(decreaseWantsPurchasesAmount(amount));
+        console.log("false");
+        break;
+      default:
+        break;
+    }
+  };
+
+  const removeFromPurchaseCategoryRedux = (
+    name: string,
+    amount: number,
+    isNecessity: boolean,
+    id: string,
+    category: string
+  ) => {
+    switch (category) {
+      case "Housing": {
+        dispatch(
+          removeFromHousingPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreaseHousingPurchasesAmount(amount));
+        break;
+      }
+      case "Transportation": {
+        dispatch(
+          removeFromTransportationPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreaseTransportationPurchasesAmount(amount));
+        break;
+      }
+      case "Medical": {
+        dispatch(
+          removeFromMedicalPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreaseMedicalPurchasesAmount(amount));
+        break;
+      }
+      case "Food": {
+        dispatch(
+          removeFromFoodPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreaseFoodPurchasesAmount(amount));
+        break;
+      }
+      case "Entertainment": {
+        dispatch(
+          removeFromEntertainmentPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreaseEntertainmentPurchasesAmount(amount));
+        break;
+      }
+      case "Pets": {
+        dispatch(
+          removeFromPetsPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreasePetsPurchasesAmount(amount));
+        break;
+      }
+      default: {
+        dispatch(
+          removeFromOtherPurchases({
+            purchase: name,
+            amount: amount,
+            isNecessity: isNecessity,
+            id: id,
+            category: category,
+          })
+        );
+        dispatch(decreaseOtherPurchasesAmount(amount));
+        break;
+      }
+    }
+  };
+
+  const deletePurchase = (
+    name: string,
+    amount: number,
+    isNecessity: boolean,
+    id: string,
+    category: string
+  ) => {
+    removeFromPurchasesRedux(name, amount, isNecessity, id, category);
+    removeFromPurchaseCategoryRedux(name, amount, isNecessity, id, category);
+    adjustPurchaseAmount(amount, isNecessity);
   };
 
   return (
@@ -62,9 +213,7 @@ export const PurchaseTile: FC<Props> = ({
         sx={styles.deletePurchaseButton}
         aria-label="Delete purchase"
         variant="contained"
-        onClick={() =>
-          removeFromPurchasesRedux(name, amount, isNecessity, id, category)
-        }
+        onClick={() => deletePurchase(name, amount, isNecessity, id, category)}
       >
         delete
       </Button>
