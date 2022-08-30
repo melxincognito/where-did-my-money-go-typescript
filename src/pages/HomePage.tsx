@@ -8,7 +8,6 @@ import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesLi
 import { PurchaseInputForm } from "../components/PurchaseInputForm";
 import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
-
 import {
   addToHousingPurchases,
   addToTransportationPurchases,
@@ -18,10 +17,7 @@ import {
   addToPetsPurchases,
   addToOtherPurchases,
 } from "../redux/reducers/purchase-states/purchasesCategorized";
-
 import { addToPurchases } from "../redux/reducers/purchase-states/allPurchases";
-
-// reducer actions imports
 import { increaseTotalPurchasesAmount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
 import { increaseNecessaryPurchasesAmount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
 import { increaseWantsPurchasesAmount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
