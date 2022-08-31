@@ -2,7 +2,6 @@ import { FC } from "react";
 
 import { useAppDispatch } from "../redux/hooks";
 import { removeFromPurchases } from "../redux/reducers/purchase-states/allPurchases";
-
 import {
   removeFromHousingPurchases,
   removeFromMedicalPurchases,
@@ -15,7 +14,6 @@ import {
 import { decreaseTotalPurchasesAmount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
 import { decreaseNecessaryPurchasesAmount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
 import { decreaseWantsPurchasesAmount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
-
 import { decreaseHousingPurchasesAmount } from "../redux/reducers/purchase-totals/housingTotalReducer";
 import { decreaseTransportationPurchasesAmount } from "../redux/reducers/purchase-totals/transportationTotalReducer";
 import { decreaseFoodPurchasesAmount } from "../redux/reducers/purchase-totals/foodTotalReducer";
@@ -25,6 +23,14 @@ import { decreasePetsPurchasesAmount } from "../redux/reducers/purchase-totals/p
 import { decreaseOtherPurchasesAmount } from "../redux/reducers/purchase-totals/otherTotalReducer";
 
 import { Box, Button } from "@mui/material";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+
+import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFilledOutlined";
+import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
+import RestaurantOutlinedIcon from "@mui/icons-material/RestaurantOutlined";
+import EmojiEmotionsOutlinedIcon from "@mui/icons-material/EmojiEmotionsOutlined";
+import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
+import YardOutlinedIcon from "@mui/icons-material/YardOutlined";
 
 export interface Props {
   id: string;
@@ -206,9 +212,41 @@ export const PurchaseTile: FC<Props> = ({
     return name.charAt(0).toUpperCase() + name.slice(1);
   };
 
+  const choosePurchaseCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Housing": {
+        return <HomeOutlinedIcon fontSize="large" />;
+      }
+      case "Transportation": {
+        return <DirectionsCarFilledOutlinedIcon fontSize="large" />;
+      }
+      case "Medical": {
+        return <LocalHospitalOutlinedIcon fontSize="large" />;
+      }
+      case "Food": {
+        return <RestaurantOutlinedIcon fontSize="large" />;
+      }
+      case "Entertainment": {
+        return <EmojiEmotionsOutlinedIcon fontSize="large" />;
+      }
+      case "Pets": {
+        return <PetsOutlinedIcon fontSize="large" />;
+      }
+      case "Other": {
+        return <YardOutlinedIcon fontSize="large" />;
+      }
+      default: {
+        return <YardOutlinedIcon fontSize="large" />;
+      }
+    }
+  };
+
+  var categoryIcon = choosePurchaseCategoryIcon(category);
+
   return (
     <Box sx={styles.purchaseTile} id={category}>
-      <span style={styles.dateSpan}>{date} </span>
+      <span style={styles.dateSpan}>{date} </span>{" "}
+      <span style={styles.categoryIconSpan}> {categoryIcon} </span>
       <div style={styles.headerContent}>
         <h2 style={styles.purchaseName}>
           <span aria-label="Purchase name">{capitalizePurchaseName(name)}</span>
@@ -217,20 +255,24 @@ export const PurchaseTile: FC<Props> = ({
           <span aria-label="Purchase amount"> ${amount.toFixed(2)} </span>
         </h3>{" "}
       </div>
+      <div style={styles.extraContent}>
+        {isNecessity ? (
+          <div style={styles.necessaryPurchaseTile}> Necessary Purchase </div>
+        ) : (
+          <div style={styles.wantsPurchaseTile}> Wants Purchase </div>
+        )}
 
-      {isNecessity ? (
-        <div style={styles.necessaryPurchaseTile}> Necessary Purchase </div>
-      ) : (
-        <div style={styles.wantsPurchaseTile}> Wants Purchase </div>
-      )}
-      <Button
-        sx={styles.deletePurchaseButton}
-        aria-label="Delete purchase"
-        variant="contained"
-        onClick={() => deletePurchase(name, amount, isNecessity, id, category)}
-      >
-        delete
-      </Button>
+        <Button
+          sx={styles.deletePurchaseButton}
+          aria-label="Delete purchase"
+          variant="contained"
+          onClick={() =>
+            deletePurchase(name, amount, isNecessity, id, category)
+          }
+        >
+          delete
+        </Button>
+      </div>
     </Box>
   );
 };
@@ -238,7 +280,7 @@ export const PurchaseTile: FC<Props> = ({
 const styles = {
   purchaseTile: {
     width: { xs: "200px", md: "300px" },
-    height: "10rem",
+    height: "11rem",
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     display: "grid",
     justifyContent: "center",
@@ -256,6 +298,10 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
+  extraContent: {
+    position: "relative",
+    top: "0.5rem",
+  },
   dateSpan: {
     display: "flex",
     position: "absolute",
@@ -265,11 +311,17 @@ const styles = {
     textDecoration: "underline",
     fontWeight: "bold",
   },
+  categoryIconSpan: {
+    position: "absolute",
+    right: "1rem",
+    top: "0.3rem",
+    color: "black",
+  },
   purchaseName: {
     color: "white",
   },
   purchaseAmount: {
-    color: "white",
+    color: "#4ead00",
     textDecoration: "underline",
   },
   necessaryPurchaseTile: {
@@ -288,5 +340,6 @@ const styles = {
   },
   deletePurchaseButton: {
     borderRadius: "30px",
+    width: "100%",
   },
 } as const;
