@@ -144,7 +144,7 @@ const styles = {
     margin: "1rem",
     boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.4)",
     borderRadius: "30px",
-    width: { xs: "110%", md: "80%" },
+    width: { xs: "90%", md: "80%" },
     display: "grid",
   },
   inputForm: {
