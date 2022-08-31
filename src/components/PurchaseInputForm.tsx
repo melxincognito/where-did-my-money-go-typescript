@@ -48,7 +48,7 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
   uniqueId,
 }) => {
   return (
-    <Box sx={styles.inputFormContainer}>
+    <Box sx={styles.inputFormContainer} aria-label="purchase-input-form">
       <form id="purchaseInputForm" style={styles.inputForm}>
         <div style={styles.contentContainer}>
           <h2 style={styles.headerText}> Purchase Input Form</h2>
