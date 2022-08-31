@@ -162,6 +162,7 @@ const styles = {
 
   logoContainer: {
     flexGrow: { xs: 0.8, md: 0.5 },
+    width: { xs: "50%", md: "30%" },
   },
   listContainer: {
     width: "65%",
