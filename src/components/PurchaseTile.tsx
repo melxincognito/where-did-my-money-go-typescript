@@ -49,6 +49,37 @@ export const PurchaseTile: FC<Props> = ({
   category,
   date,
 }) => {
+  const choosePurchaseCategoryIcon = (category: string) => {
+    switch (category) {
+      case "Housing": {
+        return <HomeOutlinedIcon fontSize="large" />;
+      }
+      case "Transportation": {
+        return <DirectionsCarFilledOutlinedIcon fontSize="large" />;
+      }
+      case "Medical": {
+        return <LocalHospitalOutlinedIcon fontSize="large" />;
+      }
+      case "Food": {
+        return <RestaurantOutlinedIcon fontSize="large" />;
+      }
+      case "Entertainment": {
+        return <EmojiEmotionsOutlinedIcon fontSize="large" />;
+      }
+      case "Pets": {
+        return <PetsOutlinedIcon fontSize="large" />;
+      }
+      case "Other": {
+        return <YardOutlinedIcon fontSize="large" />;
+      }
+      default: {
+        return <YardOutlinedIcon fontSize="large" />;
+      }
+    }
+  };
+
+  var categoryIcon = choosePurchaseCategoryIcon(category);
+
   const dispatch = useAppDispatch();
 
   // remove from the main purchases list and update the total purchase amounts
@@ -211,37 +242,6 @@ export const PurchaseTile: FC<Props> = ({
   const capitalizePurchaseName = (name: string) => {
     return name.charAt(0).toUpperCase() + name.slice(1);
   };
-
-  const choosePurchaseCategoryIcon = (category: string) => {
-    switch (category) {
-      case "Housing": {
-        return <HomeOutlinedIcon fontSize="large" />;
-      }
-      case "Transportation": {
-        return <DirectionsCarFilledOutlinedIcon fontSize="large" />;
-      }
-      case "Medical": {
-        return <LocalHospitalOutlinedIcon fontSize="large" />;
-      }
-      case "Food": {
-        return <RestaurantOutlinedIcon fontSize="large" />;
-      }
-      case "Entertainment": {
-        return <EmojiEmotionsOutlinedIcon fontSize="large" />;
-      }
-      case "Pets": {
-        return <PetsOutlinedIcon fontSize="large" />;
-      }
-      case "Other": {
-        return <YardOutlinedIcon fontSize="large" />;
-      }
-      default: {
-        return <YardOutlinedIcon fontSize="large" />;
-      }
-    }
-  };
-
-  var categoryIcon = choosePurchaseCategoryIcon(category);
 
   return (
     <Box sx={styles.purchaseTile} id={category}>
