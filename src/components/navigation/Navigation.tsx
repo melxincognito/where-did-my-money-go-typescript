@@ -1,12 +1,23 @@
-import { FC, useState } from "react";
-import { Box, IconButton, Menu, MenuItem } from "@mui/material";
+import React, { FC, useState } from "react";
+import { Box, IconButton, Menu, MenuItem, Tabs, Tab } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 
-export interface Props {}
+function a11yProps(index: number) {
+  return {
+    id: `navigation-tab-${index}`,
+    "aria-controls": `navigation-tabpanel-${index}`,
+  };
+}
 
-export const Navigation: FC<Props> = () => {
+export const Navigation: FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -15,6 +26,25 @@ export const Navigation: FC<Props> = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const navigationMenu: Array<{ label: string; route: string; index: number }> =
+    [
+      {
+        label: "Home",
+        route: "/",
+        index: 0,
+      },
+      {
+        label: "Categorized Purchases",
+        route: "/categorized-purchases",
+        index: 1,
+      },
+      {
+        label: "Purchase Data",
+        route: "/charts",
+        index: 2,
+      },
+    ];
 
   return (
     <Box sx={styles.navBarContainer}>
@@ -52,22 +82,13 @@ export const Navigation: FC<Props> = () => {
             className="mobile-menu-items"
             sx={styles.mobileMenuItemsContainer}
           >
-            {" "}
-            <MenuItem sx={styles.mobileMenuItems}>
-              <Link to="/" style={styles.mobileLinkItem}>
-                Home
-              </Link>
-            </MenuItem>
-            <MenuItem sx={styles.mobileMenuItems}>
-              <Link to="/categorized-purchases" style={styles.mobileLinkItem}>
-                Categorized Purchases
-              </Link>
-            </MenuItem>
-            <MenuItem sx={styles.mobileMenuItems}>
-              <Link to="/charts" style={styles.mobileLinkItem}>
-                Purchase Data
-              </Link>
-            </MenuItem>
+            {navigationMenu.map((menuItem) => (
+              <MenuItem sx={styles.mobileMenuItems} key={menuItem.index}>
+                <Link to={menuItem.route} style={styles.mobileLinkItem}>
+                  {menuItem.label}
+                </Link>
+              </MenuItem>
+            ))}{" "}
           </Box>
         </Menu>
       </Box>
@@ -80,24 +101,24 @@ export const Navigation: FC<Props> = () => {
         aria-controls="desktop-menu-navigation"
         aria-haspopup="false"
       >
-        <ul style={styles.list}>
-          {" "}
-          <li style={styles.listItem}>
-            <Link to="/" style={styles.linkItem}>
-              Home
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <Link to="/categorized-purchases" style={styles.linkItem}>
-              Categorized Purchases
-            </Link>
-          </li>
-          <li style={styles.listItem}>
-            <Link to="/charts" style={styles.linkItem}>
-              Purchase Data
-            </Link>
-          </li>
-        </ul>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          sx={styles.tabs}
+          aria-label="navigation tabs"
+          indicatorColor="secondary"
+          role="navigation-list"
+        >
+          {navigationMenu.map((item) => (
+            <Tab
+              key={item.index}
+              label={<span style={styles.tabLabel}>{item.label}</span>}
+              to={item.route}
+              component={Link}
+              {...a11yProps(item.index)}
+            />
+          ))}
+        </Tabs>
       </Box>
     </Box>
   );
@@ -147,24 +168,14 @@ const styles = {
     display: { xs: "none", md: "flex" },
     justifyContent: "end",
   },
-  list: {
-    listStyleType: "none",
-    display: "flex",
-    justifyContent: "flex-start",
-    gap: "1rem",
+
+  tabs: {
+    backgroundColor: "rgba(255, 255, 255, 0.19)",
+    border: "2px solid rgba(255, 255, 255, 0.1)",
+    borderRadius: "20px",
+    boxShadow: "0 0 40px rgba(255, 255, 255, 0.1)",
   },
-  listItem: {
-    display: "flex",
-    flexWrap: "wrap",
-    width: "50%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "white",
-    padding: "0.4rem 1.8rem",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  linkItem: {
-    color: "black",
+  tabLabel: {
+    color: "white",
   },
 } as const;
