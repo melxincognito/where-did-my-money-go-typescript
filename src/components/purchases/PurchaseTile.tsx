@@ -290,7 +290,7 @@ const styles = {
     padding: "1.5rem",
     backdropFilter: "blur(5px)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
-    border: "2px solid rgba(255, 255, 255, 0.1)",
+    border: "2px solid rgba(255, 255, 255, 0.17)",
     borderRadius: "20px",
   },
   headerContent: {
@@ -341,5 +341,6 @@ const styles = {
   deletePurchaseButton: {
     borderRadius: "30px",
     width: "100%",
+    border: "1px solid rgba(255, 255, 255, 0.27)",
   },
 } as const;

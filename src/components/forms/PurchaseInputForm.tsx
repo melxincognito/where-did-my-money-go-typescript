@@ -286,7 +286,7 @@ export const PurchaseInputForm: FC = () => {
               id="purchaseAmountInputField"
               aria-label="Purchase amount input"
               type="number"
-              placeholder="0.00"
+              placeholder="$0.00"
               label="Purchase Amount"
               variant="standard"
               onChange={handleChangePurchaseAmount}
@@ -366,7 +366,7 @@ const styles = {
   inputFormContainer: {
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
-    border: "2px solid rgba(255, 255, 255, 0.1)",
+    border: "2px solid rgba(255, 255, 255, 0.17)",
     padding: "1rem",
     margin: "1rem",
     borderRadius: "30px",
@@ -399,7 +399,7 @@ const styles = {
   textField: {
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
-    border: "2px solid rgba(255, 255, 255, 0.1)",
+    border: "2px solid rgba(255, 255, 255, 0.17)",
     borderRadius: "20px",
     padding: 0.12,
     paddingLeft: "1.1rem",
@@ -408,7 +408,7 @@ const styles = {
   categorySelector: {
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
-    border: "2px solid rgba(255, 255, 255, 0.1)",
+    border: "2px solid rgba(255, 255, 255, 0.17)",
     borderRadius: "20px",
     padding: 0.22,
     display: "flex",
@@ -422,5 +422,6 @@ const styles = {
     borderRadius: "30px",
     padding: "0.7rem",
     width: "100%",
+    border: "2px solid rgba(255, 255, 255, 0.37)",
   },
 } as const;
