@@ -6,6 +6,8 @@ import { HomePage } from "./pages/HomePage";
 import { ChartsPage } from "./pages/ChartsPage";
 import { CategorizedPurchasesPage } from "./pages/CategorizedPurchasesPage";
 import { LoginPage } from "./pages/LoginPage";
+import { UserProfilePage } from "./pages/UserProfilePage";
+import { UserAccountPage } from "./pages/UserAccountPage";
 import ProtectedRoutes from "./ProtectedRoutes";
 
 const App: FC = () => {
@@ -20,6 +22,8 @@ const App: FC = () => {
               path="/categorized-purchases"
               element={<CategorizedPurchasesPage />}
             />
+            <Route path="/user-profile" element={<UserProfilePage />} />
+            <Route path="/user-account" element={<UserAccountPage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
         </Routes>
