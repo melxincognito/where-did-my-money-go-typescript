@@ -39,19 +39,32 @@ cd where-did-my-money-go-typescript
 npm i
 ```
 
-### 2. Run the app locally
+### 2. Create a .env file in the main directory
+
+```
+touch .env
+```
+
+### 3. Configure the following secret keys in your .env file
+
+```
+REACT_APP_AUTH0_DOMAIN
+REACT_APP_AUTH0_CLIENT_ID
+```
+
+### 4. Run the app locally
 
 ```
 npm start
 ```
 
-### 3. Run all automated tests
+### 5. Run all automated tests
 
 ```
 npm test
 ```
 
-### 4. View application locally
+### 6. View application locally
 
 Open your browser to <b>localhost:3000</b> to view the application locally
 
@@ -63,6 +76,7 @@ Dependencies List:
 <li>typescript 4.7.4</li>
 <li>@reduxjs/toolkit</li>
 <li>react-redux</li>
+<li>@auth0/auth0-react</li>
 <li>react 18.2.0</li>
 <li>react-scripts </li>
 <li>react-router-dom</li>
