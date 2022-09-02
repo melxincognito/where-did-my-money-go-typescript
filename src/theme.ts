@@ -9,4 +9,7 @@ export const theme = createTheme({
       main: "#CEBBD6",
     },
   },
+  typography: {
+    fontFamily: "Libre Bodoni",
+  },
 });
