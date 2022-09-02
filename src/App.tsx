@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { ChartsPage } from "./pages/ChartsPage";
 import { CategorizedPurchasesPage } from "./pages/CategorizedPurchasesPage";
-
+import { LoginPage } from "./pages/LoginPage";
 const App: FC = () => {
   return (
     <div className="App">
@@ -17,6 +17,7 @@ const App: FC = () => {
             path="/categorized-purchases"
             element={<CategorizedPurchasesPage />}
           />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Layout>
     </div>
