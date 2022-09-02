@@ -1,7 +1,17 @@
 import React, { FC, useState } from "react";
-import { Box, IconButton, Menu, MenuItem, Tabs, Tab } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  Tabs,
+  Tab,
+  Container,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import { CheckUserAuthentication } from "../../ProtectedRoutes";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function a11yProps(index: number) {
   return {
@@ -10,10 +20,22 @@ function a11yProps(index: number) {
   };
 }
 
+const LogoutTab = (): JSX.Element => {
+  const { logout } = useAuth0();
+  return (
+    <Tab
+      label={<span style={styles.tabLabel}>Logout</span>}
+      aria-label="logout"
+      onClick={() => logout({ returnTo: window.location.origin })}
+    />
+  );
+};
+
 export const Navigation: FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const [value, setValue] = useState(0);
+  const userIsAuthenticated: boolean = CheckUserAuthentication();
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -48,78 +70,102 @@ export const Navigation: FC = () => {
 
   return (
     <Box sx={styles.navBarContainer}>
-      <Box sx={styles.mobileNavMenu}>
-        <IconButton
-          size="large"
-          aria-label="mobile-navigation-menu"
-          aria-controls="mobile-menu-navigation"
-          aria-haspopup="true"
-          onClick={handleOpenNavMenu}
-          color="inherit"
-        >
-          <MenuIcon />
-        </IconButton>
+      {/** display the nav bar if the user is authenticated */}
 
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorElNav}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          open={Boolean(anchorElNav)}
-          onClose={handleCloseNavMenu}
-          sx={{
-            display: { xs: "block", md: "none" },
-          }}
-        >
-          <Box
-            className="mobile-menu-items"
-            sx={styles.mobileMenuItemsContainer}
-          >
-            {navigationMenu.map((menuItem) => (
-              <MenuItem sx={styles.mobileMenuItems} key={menuItem.index}>
-                <Link to={menuItem.route} style={styles.mobileLinkItem}>
-                  {menuItem.label}
-                </Link>
-              </MenuItem>
-            ))}{" "}
-          </Box>
-        </Menu>
-      </Box>
-      <Box sx={styles.logoContainer}>
-        <h1> Where did my money go?</h1>
-      </Box>
-      <Box
-        sx={styles.listContainer}
-        aria-label="desktop-navigation-menu"
-        aria-controls="desktop-menu-navigation"
-        aria-haspopup="false"
+      <Container
+        className="navDisplayIfUserIsAuthenticated"
+        sx={{
+          display: userIsAuthenticated ? "flex" : "none",
+          alignItems: "center",
+        }}
       >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          sx={styles.tabs}
-          aria-label="navigation tabs"
-          indicatorColor="secondary"
-          role="navigation-list"
+        <Box sx={styles.mobileNavMenu}>
+          <IconButton
+            size="large"
+            aria-label="mobile-navigation-menu"
+            aria-controls="mobile-menu-navigation"
+            aria-haspopup="true"
+            onClick={handleOpenNavMenu}
+            color="inherit"
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorElNav}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "left",
+            }}
+            open={Boolean(anchorElNav)}
+            onClose={handleCloseNavMenu}
+            sx={{
+              display: { xs: "block", md: "none" },
+            }}
+          >
+            <Box
+              className="mobile-menu-items"
+              sx={styles.mobileMenuItemsContainer}
+            >
+              {navigationMenu.map((menuItem) => (
+                <MenuItem sx={styles.mobileMenuItems} key={menuItem.index}>
+                  <Link to={menuItem.route} style={styles.mobileLinkItem}>
+                    {menuItem.label}
+                  </Link>
+                </MenuItem>
+              ))}{" "}
+            </Box>
+          </Menu>
+        </Box>
+
+        <Box sx={styles.logoContainer}>
+          <h1> Where did my money go?</h1>
+        </Box>
+        <Box
+          sx={styles.listContainer}
+          aria-label="desktop-navigation-menu"
+          aria-controls="desktop-menu-navigation"
+          aria-haspopup="false"
         >
-          {navigationMenu.map((item) => (
-            <Tab
-              key={item.index}
-              label={<span style={styles.tabLabel}>{item.label}</span>}
-              to={item.route}
-              component={Link}
-              {...a11yProps(item.index)}
-            />
-          ))}
-        </Tabs>
-      </Box>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            sx={styles.tabs}
+            aria-label="navigation tabs"
+            indicatorColor="secondary"
+            role="navigation-list"
+          >
+            {navigationMenu.map((item) => (
+              <Tab
+                key={item.index}
+                label={<span style={styles.tabLabel}>{item.label}</span>}
+                to={item.route}
+                component={Link}
+                {...a11yProps(item.index)}
+              />
+            ))}
+            <LogoutTab />
+          </Tabs>
+        </Box>
+      </Container>
+      {/* Display just the logo on the nav bar if the user isn't authenticated */}
+      <Container
+        className="navDisplayIfUserNotAuthenticated"
+        sx={{
+          display: userIsAuthenticated ? "none" : "flex",
+          alignItems: "center",
+        }}
+      >
+        <Box sx={styles.logoContainerNotAuthenticated}>
+          <h1> Where did my money go?</h1>
+        </Box>
+      </Container>
     </Box>
   );
 };
@@ -164,6 +210,9 @@ const styles = {
     flexGrow: { xs: 0.8, md: 0.5 },
     width: { xs: "50%", md: "30%" },
   },
+  logoContainerNotAuthenticated: {
+    width: "100%",
+  },
   listContainer: {
     width: "65%",
     display: { xs: "none", md: "flex" },
@@ -175,6 +224,7 @@ const styles = {
     border: "2px solid rgba(255, 255, 255, 0.1)",
     borderRadius: "20px",
     boxShadow: "0 0 40px rgba(255, 255, 255, 0.1)",
+    height: "50%",
   },
   tabLabel: {
     color: "white",
