@@ -71,6 +71,16 @@ export const UserAccountPage = (): JSX.Element => {
       <Card sx={styles.card}>
         <Box sx={styles.accountOptionsContainer}>
           <h1>Account Options</h1>
+          <FormControlLabel
+            control={
+              <Switch
+                sx={{ m: 1 }}
+                onClick={handleChangeTheme}
+                checked={darkTheme}
+              />
+            }
+            label={"Theme - " + createThemeLabel()}
+          />
 
           {accountSelectionOptions.map((option, index) => (
             <TextField
@@ -93,17 +103,6 @@ export const UserAccountPage = (): JSX.Element => {
               ))}
             </TextField>
           ))}
-
-          <FormControlLabel
-            control={
-              <Switch
-                sx={{ m: 1 }}
-                onClick={handleChangeTheme}
-                checked={darkTheme}
-              />
-            }
-            label={"Theme - " + createThemeLabel()}
-          />
         </Box>
       </Card>
     </Box>
@@ -160,6 +159,7 @@ const styles = {
     display: "grid",
     width: { xs: "90%", md: "50%" },
     gap: "1rem",
+    paddingBottom: "2rem",
   },
   card: {
     display: "flex",
