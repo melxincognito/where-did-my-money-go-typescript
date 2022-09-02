@@ -7,6 +7,7 @@ import {
   MenuItem,
   FormControl,
   Box,
+  Tooltip,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
@@ -98,11 +99,16 @@ export const PurchaseInputForm: FC<PurchaseInputFormProps> = ({
           </Box>
 
           <div>
-            <Checkbox
-              aria-label="Necessary purchase indicator"
-              checked={necessaryPurchase}
-              onChange={handleChangeSetNecessaryPurchase}
-            />
+            <Tooltip
+              title="Check box this was a necessary purchase"
+              placement="right"
+            >
+              <Checkbox
+                aria-label="Necessary purchase indicator"
+                checked={necessaryPurchase}
+                onChange={handleChangeSetNecessaryPurchase}
+              />
+            </Tooltip>
 
             <label> Necessary purchase?</label>
           </div>
