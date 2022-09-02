@@ -65,11 +65,7 @@ export const UserAvatar: FC = (): JSX.Element => {
           <Avatar
             alt={`${loggedInUserName}`}
             src={`${loggedInUserImageUrl}`}
-            sx={{
-              width: 56,
-              height: 56,
-              boxShadow: "0px 0px 15px 5px rgba(255,255,255,0.28)",
-            }}
+            sx={styles.userAvatar}
           />
         </IconButton>
       </Tooltip>
@@ -98,3 +94,11 @@ export const UserAvatar: FC = (): JSX.Element => {
     </Box>
   );
 };
+
+const styles = {
+  userAvatar: {
+    width: 56,
+    height: 56,
+    boxShadow: "0px 0px 15px 5px rgba(255,255,255,0.28)",
+  },
+} as const;
