@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-import { useAppDispatch } from "../redux/hooks";
-import { removeFromPurchases } from "../redux/reducers/purchase-states/allPurchases";
+import { useAppDispatch } from "../../redux/hooks";
+import { removeFromPurchases } from "../../redux/reducers/purchase-states/allPurchases";
 import {
   removeFromHousingPurchases,
   removeFromMedicalPurchases,
@@ -10,17 +10,17 @@ import {
   removeFromEntertainmentPurchases,
   removeFromPetsPurchases,
   removeFromOtherPurchases,
-} from "../redux/reducers/purchase-states/purchasesCategorized";
-import { decreaseTotalPurchasesAmount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
-import { decreaseNecessaryPurchasesAmount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
-import { decreaseWantsPurchasesAmount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
-import { decreaseHousingPurchasesAmount } from "../redux/reducers/purchase-totals/housingTotalReducer";
-import { decreaseTransportationPurchasesAmount } from "../redux/reducers/purchase-totals/transportationTotalReducer";
-import { decreaseFoodPurchasesAmount } from "../redux/reducers/purchase-totals/foodTotalReducer";
-import { decreaseMedicalPurchasesAmount } from "../redux/reducers/purchase-totals/medicalTotalReducer";
-import { decreaseEntertainmentPurchasesAmount } from "../redux/reducers/purchase-totals/entertainmentTotalReducer";
-import { decreasePetsPurchasesAmount } from "../redux/reducers/purchase-totals/petsTotalReducer";
-import { decreaseOtherPurchasesAmount } from "../redux/reducers/purchase-totals/otherTotalReducer";
+} from "../../redux/reducers/purchase-states/purchasesCategorized";
+import { decreaseTotalPurchasesAmount } from "../../redux/reducers/purchase-totals/purchaseTotalReducer";
+import { decreaseNecessaryPurchasesAmount } from "../../redux/reducers/purchase-totals/necessityTotalReducer";
+import { decreaseWantsPurchasesAmount } from "../../redux/reducers/purchase-totals/wantsTotalReducer";
+import { decreaseHousingPurchasesAmount } from "../../redux/reducers/purchase-totals/housingTotalReducer";
+import { decreaseTransportationPurchasesAmount } from "../../redux/reducers/purchase-totals/transportationTotalReducer";
+import { decreaseFoodPurchasesAmount } from "../../redux/reducers/purchase-totals/foodTotalReducer";
+import { decreaseMedicalPurchasesAmount } from "../../redux/reducers/purchase-totals/medicalTotalReducer";
+import { decreaseEntertainmentPurchasesAmount } from "../../redux/reducers/purchase-totals/entertainmentTotalReducer";
+import { decreasePetsPurchasesAmount } from "../../redux/reducers/purchase-totals/petsTotalReducer";
+import { decreaseOtherPurchasesAmount } from "../../redux/reducers/purchase-totals/otherTotalReducer";
 
 import { Box, Button } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";

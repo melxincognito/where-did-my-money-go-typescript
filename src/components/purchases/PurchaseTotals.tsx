@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Paper, Box } from "@mui/material";
-import { useAppSelector } from "../redux/hooks";
+import { useAppSelector } from "../../redux/hooks";
 
-import { totalPurchasesCount } from "../redux/reducers/purchase-totals/purchaseTotalReducer";
-import { necessaryPurchasesCount } from "../redux/reducers/purchase-totals/necessityTotalReducer";
-import { wantsPurchasesCount } from "../redux/reducers/purchase-totals/wantsTotalReducer";
+import { totalPurchasesCount } from "../../redux/reducers/purchase-totals/purchaseTotalReducer";
+import { necessaryPurchasesCount } from "../../redux/reducers/purchase-totals/necessityTotalReducer";
+import { wantsPurchasesCount } from "../../redux/reducers/purchase-totals/wantsTotalReducer";
 
 export const PurchaseTotals: FC = () => {
   const totalCount: number = useAppSelector(totalPurchasesCount);

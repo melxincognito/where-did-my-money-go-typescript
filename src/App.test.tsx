@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { PurchaseTile } from "./components/PurchaseTile";
+import { PurchaseTile } from "./components/purchases/PurchaseTile";
 
 describe("Purchase Tile", () => {
   it("should render the purchase information for wants purchase", () => {

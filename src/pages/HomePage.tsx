@@ -3,8 +3,8 @@ import { FC, useState, ChangeEvent } from "react";
 import { nanoid } from "nanoid";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { PurchasesList } from "../components/lists/PurchasesList";
-import { PurchaseTotals } from "../components/PurchaseTotals";
-import { PurchaseInputForm } from "../components/PurchaseInputForm";
+import { PurchaseTotals } from "../components/purchases/PurchaseTotals";
+import { PurchaseInputForm } from "../components/forms/PurchaseInputForm";
 import { useAppDispatch } from "../redux/hooks";
 import { Box } from "@mui/material";
 import {

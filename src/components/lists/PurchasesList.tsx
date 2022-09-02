@@ -1,6 +1,6 @@
 import { FC, Fragment } from "react";
 
-import { PurchaseTile } from "../PurchaseTile";
+import { PurchaseTile } from "../purchases/PurchaseTile";
 
 import { allPurchasesState } from "../../redux/reducers/purchase-states/allPurchases";
 

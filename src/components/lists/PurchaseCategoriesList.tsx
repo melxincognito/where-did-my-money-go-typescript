@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { Purchase } from "../../Interfaces";
 import { Box } from "@mui/material";
-import { PurchaseTile } from "../PurchaseTile";
+import { PurchaseTile } from "../purchases/PurchaseTile";
 import { useAppSelector } from "../../redux/hooks";
 import { housingPurchasesCount } from "../../redux/reducers/purchase-totals/housingTotalReducer";
 import { transportationPurchasesCount } from "../../redux/reducers/purchase-totals/transportationTotalReducer";
