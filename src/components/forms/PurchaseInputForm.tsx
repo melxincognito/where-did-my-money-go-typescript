@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState, ChangeEvent } from "react";
+import { FC, useState, ChangeEvent } from "react";
 import { nanoid } from "nanoid";
 import { useAppDispatch } from "../../redux/hooks";
 import {
@@ -26,13 +26,10 @@ import {
   TextField,
   Checkbox,
   Button,
-  InputLabel,
   MenuItem,
-  FormControl,
   Box,
   Tooltip,
 } from "@mui/material";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 export const PurchaseInputForm: FC = () => {
   // uniqueId is used to generate the id for each purchase entered in the purchase input form
@@ -49,7 +46,7 @@ export const PurchaseInputForm: FC = () => {
     return formattedToday;
   };
 
-  // create variable name for date
+  // create variable name for todays date
   const todaysDate = createTodaysDate();
 
   // purchase input form
@@ -57,7 +54,7 @@ export const PurchaseInputForm: FC = () => {
   const [purchaseName, setPurchaseName] = useState<string>("");
   const [purchaseAmount, setPurchaseAmount] = useState<number>(0);
   const [necessaryPurchase, setNecessaryPurchase] = useState<boolean>(false);
-  const [purchaseCategory, setPurchaseCategory] = useState<string>("");
+  const [purchaseCategory, setPurchaseCategory] = useState<string>("Housing");
 
   // handleChange input form data
 
@@ -77,10 +74,9 @@ export const PurchaseInputForm: FC = () => {
   };
 
   const handleChangePurchaseCategory = (
-    event: SelectChangeEvent<string>,
-    child: ReactNode
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setPurchaseCategory(event.target.value as string);
+    setPurchaseCategory(event.target.value);
   };
 
   // redux actions
@@ -278,7 +274,7 @@ export const PurchaseInputForm: FC = () => {
               onChange={handleChangePurchaseName}
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
-              sx={styles.textFieldNew}
+              sx={styles.textField}
             />
             {/* the purchase amount input doesn't have a value because it 
           wont allow you to input a number with cents. It also creates 
@@ -296,28 +292,29 @@ export const PurchaseInputForm: FC = () => {
               onChange={handleChangePurchaseAmount}
               InputLabelProps={{ shrink: true }}
               InputProps={{ disableUnderline: true }}
-              sx={styles.textFieldNew}
+              sx={styles.textField}
             />
 
-            <FormControl sx={styles.categorySelectorFormControl}>
-              <InputLabel>Purchase Category</InputLabel>
-              <Select
-                aria-label="Purchase category selector"
-                value={purchaseCategory}
-                label="Purchase Category"
-                variant="standard"
-                onChange={handleChangePurchaseCategory}
-                sx={styles.categorySelectorNew}
-                disableUnderline={true}
-                size="medium"
-              >
-                {purchaseCategories.map((category) => (
-                  <MenuItem key={category} value={category}>
-                    {category}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <TextField
+              id="purchaseCategorySelectInput"
+              aria-label="Purchase category input"
+              label="Purchase Category"
+              value={purchaseCategory}
+              onChange={handleChangePurchaseCategory}
+              InputProps={{
+                disableUnderline: true,
+                sx: styles.categorySelectorInputProps,
+              }}
+              sx={styles.categorySelector}
+              select
+              variant="standard"
+            >
+              {purchaseCategories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {category}
+                </MenuItem>
+              ))}
+            </TextField>
           </Box>
 
           <div>
@@ -400,10 +397,6 @@ const styles = {
     textAlign: "left",
   },
   textField: {
-    backgroundColor: "white",
-    borderRadius: "5px",
-  },
-  textFieldNew: {
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
     border: "2px solid rgba(255, 255, 255, 0.1)",
@@ -413,16 +406,17 @@ const styles = {
     "& label": { paddingLeft: "1rem" },
   },
   categorySelector: {
-    backgroundColor: "white",
-  },
-  categorySelectorNew: {
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
     border: "2px solid rgba(255, 255, 255, 0.1)",
     borderRadius: "20px",
-    padding: 0.92,
-    paddingLeft: "0.2rem",
-    "& label": { padding: "20rem" },
+    padding: 0.22,
+    display: "flex",
+    "& label": { paddingLeft: "1rem" },
+  },
+  categorySelectorInputProps: {
+    textAlign: "left",
+    paddingLeft: "1rem",
   },
   submitPurchaseButton: {
     borderRadius: "30px",
