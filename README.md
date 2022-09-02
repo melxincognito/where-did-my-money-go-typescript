@@ -77,9 +77,16 @@ Dependencies List:
 <li>@reduxjs/toolkit</li>
 <li>react-redux</li>
 <li>@auth0/auth0-react</li>
+<li>nanoid</li>
+<li>mermaid</li>
+<li>@mui/material </li>
+<li>@emotion/react </li>
+<li>@emotion/styled </li>
+<li>@mui/system </li>
+<li>@mui/icons-material </li>
+<li>react-router-dom</li>
 <li>react 18.2.0</li>
 <li>react-scripts </li>
-<li>react-router-dom</li>
 <li>react-dom</li>
 <li>@types/react-dom </li>
 <li>@types/react </li>
@@ -88,12 +95,4 @@ Dependencies List:
 <li>@testing-library/user-event</li>
 <li>@testing-library/react </li>
 <li>@testing-library/jest-dom</li>
-<li>nanoid</li>
-<li>mermaid</li>
-<li>@mui/material </li>
-<li>@emotion/react </li>
-<li>@emotion/styled </li>
-<li>@mui/system </li>
-<li>@mui/icons-material </li>
-
 </ul>
