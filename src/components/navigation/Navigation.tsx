@@ -1,4 +1,6 @@
 import React, { FC, useState } from "react";
+import { CheckUserAuthentication } from "../../ProtectedRoutes";
+import { UserAvatar } from "../authentication/UserAvatar";
 import {
   Box,
   IconButton,
@@ -10,8 +12,6 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
-import { CheckUserAuthentication } from "../../ProtectedRoutes";
-import { useAuth0 } from "@auth0/auth0-react";
 
 function a11yProps(index: number) {
   return {
@@ -19,17 +19,6 @@ function a11yProps(index: number) {
     "aria-controls": `navigation-tabpanel-${index}`,
   };
 }
-
-const LogoutTab = (): JSX.Element => {
-  const { logout } = useAuth0();
-  return (
-    <Tab
-      label={<span style={styles.tabLabel}>Logout</span>}
-      aria-label="logout"
-      onClick={() => logout({ returnTo: window.location.origin })}
-    />
-  );
-};
 
 export const Navigation: FC = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -147,8 +136,10 @@ export const Navigation: FC = () => {
                   {...a11yProps(item.index)}
                 />
               ))}
-              <LogoutTab />
             </Tabs>
+          </Box>
+          <Box sx={{ padding: "1rem" }}>
+            <UserAvatar />
           </Box>
         </>
       ) : (
