@@ -6,17 +6,21 @@ import { HomePage } from "./pages/HomePage";
 import { ChartsPage } from "./pages/ChartsPage";
 import { CategorizedPurchasesPage } from "./pages/CategorizedPurchasesPage";
 import { LoginPage } from "./pages/LoginPage";
+import ProtectedRoutes from "./ProtectedRoutes";
+
 const App: FC = () => {
   return (
     <div className="App">
       <Layout>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/charts" element={<ChartsPage />} />
-          <Route
-            path="/categorized-purchases"
-            element={<CategorizedPurchasesPage />}
-          />
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/charts" element={<ChartsPage />} />
+            <Route
+              path="/categorized-purchases"
+              element={<CategorizedPurchasesPage />}
+            />
+          </Route>
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Layout>
