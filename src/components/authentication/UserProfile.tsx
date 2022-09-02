@@ -1,9 +1,8 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-export const UserProfile: FC = () => {
+export const UserProfile: FC = (): JSX.Element => {
   const user = useAuth0().user;
-
   const name = user?.name;
   const email = user?.email;
   const imageUrl = user?.picture;
