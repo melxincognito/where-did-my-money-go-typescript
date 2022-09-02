@@ -23,6 +23,7 @@ const mermaid = require("mermaid");
 mermaid.initialize({
   startOnLoad: true,
   htmlLabels: true,
+  theme: "dark",
 });
 
 interface MermaidInterface {
