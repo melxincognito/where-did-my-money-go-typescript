@@ -3,11 +3,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { UserProfile } from "../components/authentication/UserProfile";
 import { Button, Card } from "@mui/material";
 
+import { ImageCarousel } from "../components/login/ImageCarousel";
+
 export const LoginPage: FC = (): JSX.Element => {
-  const { loginWithPopup } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
 
   return (
     <div style={{ display: "grid", justifyItems: "center" }}>
+      <ImageCarousel />
+
       <Card
         sx={{
           width: "90%",
@@ -29,7 +33,7 @@ export const LoginPage: FC = (): JSX.Element => {
             },
           }}
           variant="contained"
-          onClick={() => loginWithPopup()}
+          onClick={() => loginWithRedirect()}
         >
           Login / Sign Up
         </Button>
