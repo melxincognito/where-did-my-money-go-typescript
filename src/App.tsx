@@ -15,16 +15,15 @@ const App: FC = () => {
     <div className="App">
       <Layout>
         <Routes>
-          <Route element={<ProtectedRoutes />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/charts" element={<ChartsPage />} />
-            <Route
-              path="/categorized-purchases"
-              element={<CategorizedPurchasesPage />}
-            />
-            <Route path="/user-profile" element={<UserProfilePage />} />
-            <Route path="/user-account" element={<UserAccountPage />} />
-          </Route>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/charts" element={<ChartsPage />} />
+          <Route
+            path="/categorized-purchases"
+            element={<CategorizedPurchasesPage />}
+          />
+          <Route path="/user-profile" element={<UserProfilePage />} />
+          <Route path="/user-account" element={<UserAccountPage />} />
+
           <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Layout>
