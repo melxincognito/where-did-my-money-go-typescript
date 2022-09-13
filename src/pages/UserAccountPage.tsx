@@ -28,7 +28,7 @@ interface AccountSelectionOptions {
   options: Array<CurrencyOptions | LanguageOptions>;
 }
 
-export const UserAccountPage = (): JSX.Element => {
+export const UserAccountPage = () => {
   const [darkTheme, setDarkTheme] = useState<boolean>(true);
   const [language, setLanguage] = useState<string>("EN");
   const [currency, setCurrency] = useState<string>("USD");
