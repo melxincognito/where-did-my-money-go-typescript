@@ -35,7 +35,6 @@ export const UserAccountPage = () => {
 
   const handleChangeTheme = (): boolean => {
     setDarkTheme(!darkTheme);
-
     return darkTheme;
   };
 
