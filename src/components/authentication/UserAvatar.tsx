@@ -1,6 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useState, useContext } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/Auth";
+import { supabase } from "../../supabaseClient";
 
 import {
   Avatar,
@@ -22,10 +24,11 @@ export const UserAvatar: FC = (): JSX.Element => {
   const [userSettingsMenuOpen, setUserSettingsMenuOpen] =
     useState<null | HTMLElement>(null);
 
+  const { userLoggedIn, setUserLoggedIn } = useContext(AuthContext);
+
   const loggedInUser = useAuth0().user;
   const loggedInUserName = loggedInUser?.name;
   const loggedInUserImageUrl = loggedInUser?.picture;
-  const logoutUser = useAuth0().logout;
 
   let navigate = useNavigate();
 
@@ -38,6 +41,19 @@ export const UserAvatar: FC = (): JSX.Element => {
   };
   const handleCloseUserMenu = () => {
     setUserSettingsMenuOpen(null);
+  };
+
+  const handleChangeAuthContext = () => {
+    setUserLoggedIn(false);
+    return userLoggedIn;
+  };
+
+  const logoutUser = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) alert("Error: " + error);
+
+    handleChangeAuthContext();
+    handleCloseUserMenu();
   };
 
   const userSettings: Array<UserSettings> = [
@@ -53,7 +69,7 @@ export const UserAvatar: FC = (): JSX.Element => {
     },
     {
       label: "Logout",
-      onClick: () => logoutUser({ returnTo: window.location.origin }),
+      onClick: () => logoutUser(),
       index: 2,
     },
   ];
