@@ -1,6 +1,5 @@
-import React, { FC, useState } from "react";
-import { CheckUserAuthentication } from "../../ProtectedRoutes";
-import { supabase } from "../../supabaseClient";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../contexts/Auth";
 import { UserAvatar } from "../authentication/UserAvatar";
 import {
   Box,
@@ -21,12 +20,12 @@ function a11yProps(index: number) {
   };
 }
 
-export const Navigation: FC = () => {
+export const Navigation = () => {
+  const { userLoggedIn } = useContext(AuthContext);
+
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const [value, setValue] = useState(0);
-
-  const userIsAuthenticated: boolean = true;
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -39,11 +38,6 @@ export const Navigation: FC = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
-  async function signOut() {
-    const { error } = await supabase.auth.signOut();
-    if (error) alert("Error: " + error);
-  }
 
   const navigationMenu: Array<{ label: string; route: string; index: number }> =
     [
@@ -66,7 +60,7 @@ export const Navigation: FC = () => {
 
   return (
     <Box sx={styles.navBarContainer}>
-      {userIsAuthenticated ? (
+      {userLoggedIn ? (
         <>
           <Box
             className="navDisplayIfUserAuthenticated"
@@ -163,7 +157,6 @@ export const Navigation: FC = () => {
           </Container>
         </>
       )}
-      <button onClick={signOut}> Sign out </button>
     </Box>
   );
 };
