@@ -1,5 +1,15 @@
 import { createContext } from "react";
 
-export const AuthContext = createContext<any>(null);
+interface AuthContextProps {
+  userLoggedIn: boolean | null;
+  setUserLoggedIn: React.Dispatch<React.SetStateAction<boolean | null>>;
+}
 
-// change the any type
+const authContextInitialState = {
+  userLoggedIn: null,
+  setUserLoggedIn: () => {},
+};
+
+export const AuthContext = createContext<AuthContextProps>(
+  authContextInitialState
+);
