@@ -1,13 +1,32 @@
-import { LoginPage } from "./pages/LoginPage";
-import { Outlet } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext, useEffect } from "react";
+import { AuthContext } from "./contexts/Auth";
+import { supabase } from "./supabaseClient";
+import { useNavigate } from "react-router-dom";
 
-export function CheckUserAuthentication(): boolean {
-  const { isAuthenticated } = useAuth0();
-  return isAuthenticated;
+interface Props {
+  children: React.ReactNode;
 }
 
-export default function ProtectedRoutes(): JSX.Element {
-  const isUserAuthenticated: boolean = CheckUserAuthentication();
-  return isUserAuthenticated ? <Outlet /> : <LoginPage />;
+export function ProtectedRoutes({ children }: Props) {
+  const { userLoggedIn, setUserLoggedIn } = useContext(AuthContext);
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    const session = supabase.auth.getSession();
+
+    session.then((res) => {
+      const sessionData = res.data;
+
+      if (sessionData.session !== null) {
+        setUserLoggedIn(true);
+        return userLoggedIn;
+      } else {
+        return navigate(`/login`);
+      }
+    });
+  }, [userLoggedIn, setUserLoggedIn, navigate]);
+
+  return (
+    <AuthContext.Provider value={userLoggedIn}>{children}</AuthContext.Provider>
+  );
 }
