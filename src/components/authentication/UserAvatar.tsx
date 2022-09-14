@@ -1,5 +1,4 @@
-import { FC, useState, useContext } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { FC, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/Auth";
 import { supabase } from "../../supabaseClient";
@@ -24,11 +23,26 @@ export const UserAvatar: FC = (): JSX.Element => {
   const [userSettingsMenuOpen, setUserSettingsMenuOpen] =
     useState<null | HTMLElement>(null);
 
+  const [userName, setUserName] = useState<string>("");
+  const [userImageUrl, setUserImageUrl] = useState<string>("");
+
   const { userLoggedIn, setUserLoggedIn } = useContext(AuthContext);
 
-  const loggedInUser = useAuth0().user;
-  const loggedInUserName = loggedInUser?.name;
-  const loggedInUserImageUrl = loggedInUser?.picture;
+  useEffect(() => {
+    const user = supabase.auth.getUser();
+    user
+      .then((res) => {
+        const userData = res.data;
+        return userData;
+      })
+      .then((data) => {
+        const loggedInUserName = `${data.user?.user_metadata.name}`;
+        const loggedInUserImage = `${data.user?.user_metadata.avatar_url}`;
+        setUserName(loggedInUserName);
+        setUserImageUrl(loggedInUserImage);
+        return { userName, userImageUrl };
+      });
+  }, [userName, userImageUrl]);
 
   let navigate = useNavigate();
 
@@ -67,6 +81,7 @@ export const UserAvatar: FC = (): JSX.Element => {
       onClick: () => handleNavigate(`/user-account`),
       index: 1,
     },
+
     {
       label: "Logout",
       onClick: () => logoutUser(),
@@ -79,8 +94,8 @@ export const UserAvatar: FC = (): JSX.Element => {
       <Tooltip title="Open user settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
           <Avatar
-            alt={`${loggedInUserName}`}
-            src={`${loggedInUserImageUrl}`}
+            alt={`${userName}`}
+            src={`${userImageUrl}`}
             sx={styles.userAvatar}
           />
         </IconButton>
