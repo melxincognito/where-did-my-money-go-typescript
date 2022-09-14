@@ -1,26 +1,61 @@
-import React, { FC } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState, useCallback } from "react";
 
-export const UserProfile: FC = (): JSX.Element => {
-  const user = useAuth0().user;
-  const name = user?.name;
-  const email = user?.email;
-  const imageUrl = user?.picture;
+import { supabase } from "../../supabaseClient";
 
-  const { isAuthenticated, isLoading } = useAuth0();
+export const UserProfile = () => {
+  const [userName, setUserName] = useState<string>("");
+  const [userImageUrl, setUserImageUrl] = useState<string>("");
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
+  const checkIfUserInformationExists = useCallback(() => {
+    return userName === "" && userImageUrl === "" && userEmail === "";
+  }, [userName, userImageUrl, userEmail]);
+
+  const checkIfDataLoaded = useCallback(() => {
+    if (checkIfUserInformationExists()) {
+      setLoading(true);
+      return loading;
+    } else {
+      setLoading(false);
+      return loading;
+    }
+  }, [checkIfUserInformationExists, loading]);
+
+  useEffect(() => {
+    const user = supabase.auth.getUser();
+    user
+      .then((res) => {
+        const userData = res.data;
+        return userData;
+      })
+      .then((data) => {
+        const loggedInUserName = `${data.user?.user_metadata.name}`;
+        const loggedInUserImage = `${data.user?.user_metadata.avatar_url}`;
+        const loggedInUserEmail = `${data.user?.email}`;
+        setUserName(loggedInUserName);
+        setUserImageUrl(loggedInUserImage);
+        setUserEmail(loggedInUserEmail);
+        checkIfDataLoaded();
+        return { userName, userImageUrl, userEmail };
+      });
+  }, [userName, userImageUrl, userEmail, checkIfDataLoaded]);
 
   return (
     <>
-      {isAuthenticated && (
-        <div style={styles.userProfile}>
-          <img src={`${imageUrl}`} alt={`${name}`} style={styles.image} />
-          <h1>{name}</h1>
-
-          <p> {email} </p>
+      {loading ? (
+        <h3> Loading...</h3>
+      ) : (
+        <div style={styles.container}>
+          <div style={styles.userProfile}>
+            <img
+              src={`${userImageUrl}`}
+              alt={`${userName}`}
+              style={styles.image}
+            />
+            <h1>{userName}</h1>
+            <p> {userEmail} </p>
+          </div>
         </div>
       )}
     </>
@@ -28,11 +63,21 @@ export const UserProfile: FC = (): JSX.Element => {
 };
 
 const styles = {
+  container: {
+    display: "grid",
+    justifyItems: "center",
+  },
   userProfile: {
     padding: "2rem",
-    border: "3px solid #ccc",
+    width: "50%",
+    backgroundColor: "rgba(255, 255, 255, 0.13)",
+    backdropFilter: "blur(5px)",
+    boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
+    border: "2px solid rgba(255, 255, 255, 0.17)",
+    borderRadius: "20px",
   },
   image: {
     borderRadius: "50%",
+    boxShadow: "0px 0px 15px 5px rgba(0,0,0,0.29)",
   },
 } as const;
