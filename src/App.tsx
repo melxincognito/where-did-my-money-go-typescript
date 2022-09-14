@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { Layout } from "./components/navigation/Layout";
 import { Routes, Route } from "react-router-dom";
@@ -9,17 +9,16 @@ import { LoginPage } from "./pages/LoginPage";
 import { UserProfilePage } from "./pages/UserProfilePage";
 import { UserAccountPage } from "./pages/UserAccountPage";
 import { ProtectedRoutes } from "./ProtectedRoutes";
-
 import { AuthContext } from "./contexts/Auth";
 
-const App: FC = () => {
+const App = () => {
   const [userLoggedIn, setUserLoggedIn] = useState<boolean | null>(false);
 
   return (
     <div className="App">
       <AuthContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
-        <ProtectedRoutes>
-          <Layout>
+        <Layout>
+          <ProtectedRoutes>
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/charts" element={<ChartsPage />} />
@@ -29,11 +28,10 @@ const App: FC = () => {
               />
               <Route path="/user-profile" element={<UserProfilePage />} />
               <Route path="/user-account" element={<UserAccountPage />} />
-
               <Route path="/login" element={<LoginPage />} />
             </Routes>
-          </Layout>
-        </ProtectedRoutes>
+          </ProtectedRoutes>
+        </Layout>
       </AuthContext.Provider>
     </div>
   );
