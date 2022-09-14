@@ -36,9 +36,10 @@ export const UserProfile = () => {
         setUserName(loggedInUserName);
         setUserImageUrl(loggedInUserImage);
         setUserEmail(loggedInUserEmail);
-        checkIfDataLoaded();
+
         return { userName, userImageUrl, userEmail };
       });
+    checkIfDataLoaded();
   }, [userName, userImageUrl, userEmail, checkIfDataLoaded]);
 
   return (
