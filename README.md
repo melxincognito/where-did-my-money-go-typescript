@@ -48,8 +48,8 @@ touch .env
 ### 3. Configure the following secret keys in your .env file
 
 ```
-REACT_APP_AUTH0_DOMAIN
-REACT_APP_AUTH0_CLIENT_ID
+REACT_APP_SUPABASE_URL
+REACT_APP_SUPABASE_ANON_KEY
 ```
 
 ### 4. Run the app locally
@@ -77,6 +77,7 @@ Dependencies List:
 <li>@reduxjs/toolkit</li>
 <li>react-redux</li>
 <li>@auth0/auth0-react</li>
+<li>@supabase/supabase-js</li>
 <li>nanoid</li>
 <li>mermaid</li>
 <li>@mui/material </li>
