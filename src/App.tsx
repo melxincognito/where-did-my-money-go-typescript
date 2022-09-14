@@ -13,7 +13,7 @@ import { ProtectedRoutes } from "./ProtectedRoutes";
 import { AuthContext } from "./contexts/Auth";
 
 const App: FC = () => {
-  const [userLoggedIn, setUserLoggedIn] = useState<boolean>(false);
+  const [userLoggedIn, setUserLoggedIn] = useState<boolean | null>(false);
 
   return (
     <div className="App">
