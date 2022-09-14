@@ -8,8 +8,8 @@ interface Props {
 }
 
 export function ProtectedRoutes({ children }: Props) {
-  const { userLoggedIn, setUserLoggedIn } = useContext(AuthContext);
   let navigate = useNavigate();
+  const { userLoggedIn, setUserLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const session = supabase.auth.getSession();
@@ -27,6 +27,8 @@ export function ProtectedRoutes({ children }: Props) {
   }, [userLoggedIn, setUserLoggedIn, navigate]);
 
   return (
-    <AuthContext.Provider value={userLoggedIn}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ userLoggedIn, setUserLoggedIn }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
