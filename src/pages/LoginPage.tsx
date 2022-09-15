@@ -1,5 +1,8 @@
-import { Button, Card } from "@mui/material";
 import { supabase } from "../supabaseClient";
+import { useNavigate } from "react-router-dom";
+import { SignUpForm } from "../components/forms/SignUpForm";
+import { SignInForm } from "../components/forms/SignInForm";
+import { Button, Card } from "@mui/material";
 
 export const LoginPage = () => {
   async function signInWithGithub() {
@@ -17,8 +20,26 @@ export const LoginPage = () => {
     if (error) alert("Error: " + error);
   }
 
+  // used to redirect to homepage after login just for demo user
+  let navigate = useNavigate();
+
+  async function signInDemoUser() {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: `${process.env.REACT_APP_SUPABASE_DEMO_USER_EMAIL}`,
+      password: `${process.env.REACT_APP_SUPABASE_DEMO_USER_PASSWORD}`,
+    });
+    if (error) alert("Error: " + error.message);
+    navigate("/");
+  }
+
   return (
     <div style={styles.container}>
+      <Button variant="contained" onClick={signInDemoUser}>
+        {" "}
+        sign in demo user
+      </Button>
+      <SignUpForm />
+      <SignInForm />
       <Card style={styles.card}>
         <Button
           sx={styles.button}
