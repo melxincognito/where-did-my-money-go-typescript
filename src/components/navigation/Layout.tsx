@@ -10,7 +10,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <Navigation />
-      <main>{children}</main>
+      <main style={{ marginBottom: "2rem" }}>{children}</main>
     </div>
   );
 };
