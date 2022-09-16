@@ -3,8 +3,6 @@ import { supabase } from "../../supabaseClient";
 
 import { PurchaseTile } from "../purchases/PurchaseTile";
 
-// currently doesn't delete purchases
-
 export const SupabasePurchasesList: FC = () => {
   const pastDbPurchases: Array<any> = [];
   const [allPurchases, setAllPurchases] = useState<Array<any>>([]);
