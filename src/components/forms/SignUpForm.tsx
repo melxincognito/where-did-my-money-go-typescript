@@ -82,7 +82,7 @@ export const SignUpForm = () => {
       <Card sx={styles.card}>
         {" "}
         <Box>
-          <h3> Sign up using email & password</h3>
+          <h3> Sign up for an account</h3>
         </Box>
         <form onSubmit={signUpWithEmail} style={styles.form}>
           <TextField
@@ -179,7 +179,7 @@ export const SignUpForm = () => {
 const styles = {
   card: {
     display: "grid",
-    width: "50%",
+    width: { xs: "80%", md: "50%" },
     padding: "1rem",
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     backdropFilter: "blur(5px)",
@@ -187,28 +187,21 @@ const styles = {
     border: "2px solid rgba(255, 255, 255, 0.17)",
     borderRadius: "20px",
     gap: "1rem",
+    height: "fit-content",
   },
   form: {
     display: "grid",
     gap: "2.4rem",
   },
-
   textField: {
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     boxShadow: "0 0 40px rgba(8, 7, 16, 0.6)",
     border: "2px solid rgba(255, 255, 255, 0.17)",
     borderRadius: "20px",
+    padding: 0.12,
+    paddingBottom: "0.55rem",
     paddingLeft: "1.1rem",
-    paddingBottom: "0.5rem",
-    display: "flex",
-    alignContent: "center",
-    "& label": {
-      paddingLeft: "1rem",
-      position: "absolute",
-      top: "-1.4rem",
-      fontWeight: "bold",
-      fontSize: "1.3rem",
-    },
+    "& label": { paddingLeft: "1rem", fontWeight: "bold" },
   },
   visibilityIcon: {
     color: "black",
