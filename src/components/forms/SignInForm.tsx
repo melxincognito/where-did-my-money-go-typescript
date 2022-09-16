@@ -83,7 +83,7 @@ export const SignInForm = () => {
           />
 
           <Button variant="contained" type="submit" sx={styles.button}>
-            Sign in
+            Sign in using Email
           </Button>
         </form>
       </Card>
@@ -94,7 +94,7 @@ export const SignInForm = () => {
 const styles = {
   card: {
     display: "grid",
-    width: "50%",
+    width: { xs: "80%", md: "50%" },
     padding: "1rem",
     backgroundColor: "rgba(255, 255, 255, 0.13)",
     backdropFilter: "blur(5px)",
