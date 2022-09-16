@@ -103,6 +103,7 @@ const styles = {
     borderRadius: "20px",
     gap: "1rem",
     height: "fit-content",
+    marginRight: { xs: "0", md: "2rem" },
   },
   form: {
     display: "grid",
