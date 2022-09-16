@@ -58,35 +58,26 @@ export const PurchaseTile: FC<Props> = ({
   };
 
   const formatDate = (date: string) => {
-    if (date === undefined) {
-      return "01-01-2001";
-    } else {
-      // take the first 10 characters of the full date string
-      const sliceDate = date?.slice(0, 10).split("-");
-      // split each array element
-      const year = sliceDate[0];
-      const month = sliceDate[1];
-      const day = sliceDate[2];
+    let sliceDate = date ? date.slice(0, 10).split("-") : "";
+    let year = sliceDate ? sliceDate[0] : "2001";
+    let month = sliceDate ? sliceDate[1] : "01";
+    let day = sliceDate ? sliceDate[2] : "01";
+    let formattedDate = `${month}-${day}-${year}`;
 
-      // return the date in the format of MM/DD/YYYY
-      return `${month}-${day}-${year}`;
-    }
+    return formattedDate;
   };
 
   const capitalizePurchaseName = (name: string) => {
-    if (name === undefined) {
-      return "Name";
-    } else {
-      return name?.charAt(0).toUpperCase() + name.slice(1);
-    }
+    let capitalizedName = name
+      ? name.charAt(0).toUpperCase() + name.slice(1)
+      : "Purchase";
+
+    return capitalizedName;
   };
 
   const formatPurchaseAmount = (amount: number) => {
-    if (amount === undefined) {
-      return "$0.00";
-    } else {
-      return `$${amount.toFixed(2)}`;
-    }
+    let formattedAmount = amount ? `$${amount.toFixed(2)}` : "$0.00";
+    return formattedAmount;
   };
 
   const deleteItem = async () => {
