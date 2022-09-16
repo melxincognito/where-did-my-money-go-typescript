@@ -94,7 +94,7 @@ export const SupabasePurchasesList: FC = () => {
             </Fragment>
           ))
         ) : (
-          <>Loading...</>
+          <h4 style={styles.loadingPurchasesText}>Loading Purchases...</h4>
         )}
       </div>
     </div>
@@ -121,6 +121,9 @@ const styles = {
   },
   allPurchasesHeader: {
     textDecoration: "underline",
+    color: "white",
+  },
+  loadingPurchasesText: {
     color: "white",
   },
 } as const;
