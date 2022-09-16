@@ -78,8 +78,42 @@ export const PurchaseTile: FC<Props> = ({
     }
   };
 
-  var categoryIcon = choosePurchaseCategoryIcon(category);
+  const formatDate = (date: string) => {
+    if (date === undefined) {
+      return "01-01-2001";
+    } else {
+      // take the first 10 characters of the full date string
+      const sliceDate = date?.slice(0, 10).split("-");
+      // split each array element
+      const year = sliceDate[0];
+      const month = sliceDate[1];
+      const day = sliceDate[2];
 
+      // return the date in the format of MM/DD/YYYY
+      return `${month}-${day}-${year}`;
+    }
+  };
+
+  const capitalizePurchaseName = (name: string) => {
+    if (name === undefined) {
+      return "Name";
+    } else {
+      return name?.charAt(0).toUpperCase() + name.slice(1);
+    }
+  };
+
+  const formatPurchaseAmount = (amount: number) => {
+    if (amount === undefined) {
+      return "$0.00";
+    } else {
+      return `$${amount.toFixed(2)}`;
+    }
+  };
+
+  var categoryIcon = choosePurchaseCategoryIcon(category);
+  var formattedDate = formatDate(date);
+  var capitalizedPurchaseName = capitalizePurchaseName(name);
+  var formattedPurchaseAmount = formatPurchaseAmount(amount);
   const dispatch = useAppDispatch();
 
   // remove from the main purchases list and update the total purchase amounts
@@ -239,20 +273,19 @@ export const PurchaseTile: FC<Props> = ({
     adjustPurchaseAmount(amount, isNecessity);
   };
 
-  const capitalizePurchaseName = (name: string) => {
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  };
-
   return (
     <Box sx={styles.purchaseTile} id={category}>
-      <span style={styles.dateSpan}>{date} </span>{" "}
-      <span style={styles.categoryIconSpan}> {categoryIcon} </span>
+      <span style={styles.dateSpan}>{formattedDate} </span>{" "}
+      <span style={styles.categoryIconSpan}>
+        {" "}
+        {category} {categoryIcon}{" "}
+      </span>
       <div style={styles.headerContent}>
         <h2 style={styles.purchaseName}>
-          <span aria-label="Purchase name">{capitalizePurchaseName(name)}</span>
+          <span aria-label="Purchase name">{capitalizedPurchaseName}</span>
         </h2>{" "}
         <h3 style={styles.purchaseAmount}>
-          <span aria-label="Purchase amount"> ${amount.toFixed(2)} </span>
+          <span aria-label="Purchase amount"> {formattedPurchaseAmount} </span>
         </h3>{" "}
       </div>
       <div style={styles.extraContent}>
