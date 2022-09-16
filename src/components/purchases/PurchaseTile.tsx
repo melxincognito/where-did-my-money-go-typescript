@@ -102,10 +102,7 @@ export const PurchaseTile: FC<Props> = ({
   return (
     <Box sx={styles.purchaseTile} id={category}>
       <span style={styles.dateSpan}>{formattedDate} </span>{" "}
-      <span style={styles.categoryIconSpan}>
-        {" "}
-        {category} {categoryIcon}{" "}
-      </span>
+      <span style={styles.categoryIconSpan}> {categoryIcon} </span>
       <div style={styles.headerContent}>
         <h2 style={styles.purchaseName}>
           <span aria-label="Purchase name">{capitalizedPurchaseName}</span>
