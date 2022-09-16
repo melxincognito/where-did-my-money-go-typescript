@@ -80,18 +80,22 @@ export const SupabasePurchasesList: FC = () => {
     <div style={styles.purchasesList}>
       <h1 style={styles.allPurchasesHeader}> All Purchases</h1>
       <div style={styles.purchases}>
-        {allPurchases.map((purchase, index) => (
-          <Fragment key={index}>
-            <PurchaseTile
-              category={purchase.purchase_category}
-              id={purchase.id}
-              name={purchase.purchase_name}
-              amount={purchase.purchase_amount}
-              isNecessity={purchase.necessary_purchase}
-              date={purchase.created_at}
-            />
-          </Fragment>
-        ))}
+        {allPurchases.length > 0 ? (
+          allPurchases.map((purchase, index) => (
+            <Fragment key={index}>
+              <PurchaseTile
+                category={purchase.purchase_category}
+                id={purchase.id}
+                name={purchase.purchase_name}
+                amount={purchase.purchase_amount}
+                isNecessity={purchase.necessary_purchase}
+                date={purchase.created_at}
+              />
+            </Fragment>
+          ))
+        ) : (
+          <>Loading...</>
+        )}
       </div>
     </div>
   );
