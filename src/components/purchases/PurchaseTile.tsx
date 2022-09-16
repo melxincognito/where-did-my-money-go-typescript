@@ -1,26 +1,5 @@
 import { FC } from "react";
-
-import { useAppDispatch } from "../../redux/hooks";
-import { removeFromPurchases } from "../../redux/reducers/purchase-states/allPurchases";
-import {
-  removeFromHousingPurchases,
-  removeFromMedicalPurchases,
-  removeFromTransportationPurchases,
-  removeFromFoodPurchases,
-  removeFromEntertainmentPurchases,
-  removeFromPetsPurchases,
-  removeFromOtherPurchases,
-} from "../../redux/reducers/purchase-states/purchasesCategorized";
-import { decreaseTotalPurchasesAmount } from "../../redux/reducers/purchase-totals/purchaseTotalReducer";
-import { decreaseNecessaryPurchasesAmount } from "../../redux/reducers/purchase-totals/necessityTotalReducer";
-import { decreaseWantsPurchasesAmount } from "../../redux/reducers/purchase-totals/wantsTotalReducer";
-import { decreaseHousingPurchasesAmount } from "../../redux/reducers/purchase-totals/housingTotalReducer";
-import { decreaseTransportationPurchasesAmount } from "../../redux/reducers/purchase-totals/transportationTotalReducer";
-import { decreaseFoodPurchasesAmount } from "../../redux/reducers/purchase-totals/foodTotalReducer";
-import { decreaseMedicalPurchasesAmount } from "../../redux/reducers/purchase-totals/medicalTotalReducer";
-import { decreaseEntertainmentPurchasesAmount } from "../../redux/reducers/purchase-totals/entertainmentTotalReducer";
-import { decreasePetsPurchasesAmount } from "../../redux/reducers/purchase-totals/petsTotalReducer";
-import { decreaseOtherPurchasesAmount } from "../../redux/reducers/purchase-totals/otherTotalReducer";
+import { supabase } from "../../supabaseClient";
 
 import { Box, Button } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -110,168 +89,24 @@ export const PurchaseTile: FC<Props> = ({
     }
   };
 
-  var categoryIcon = choosePurchaseCategoryIcon(category);
-  var formattedDate = formatDate(date);
-  var capitalizedPurchaseName = capitalizePurchaseName(name);
-  var formattedPurchaseAmount = formatPurchaseAmount(amount);
-  const dispatch = useAppDispatch();
+  const deleteItem = async () => {
+    const { data, error } = await supabase
+      .from("purchase-inputs-development")
+      .delete()
+      .match({ id: id });
 
-  // remove from the main purchases list and update the total purchase amounts
-  const removeFromPurchasesRedux = (
-    name: string,
-    amount: number,
-    isNecessity: boolean,
-    id: string,
-    category: string,
-    date: string
-  ) => {
-    dispatch(
-      removeFromPurchases({
-        purchase: name,
-        amount: amount,
-        isNecessity: isNecessity,
-        id: id,
-        category: category,
-        date: date,
-      })
-    );
-  };
-
-  const adjustPurchaseAmount = (amount: number, isNecessity: boolean) => {
-    dispatch(decreaseTotalPurchasesAmount(amount));
-
-    switch (isNecessity) {
-      case true:
-        dispatch(decreaseNecessaryPurchasesAmount(amount));
-        break;
-      case false:
-        dispatch(decreaseWantsPurchasesAmount(amount));
-        break;
-      default:
-        break;
+    if (data) {
+      console.log(data);
+    }
+    if (error) {
+      console.log(error);
     }
   };
 
-  const removeFromPurchaseCategoryRedux = (
-    name: string,
-    amount: number,
-    isNecessity: boolean,
-    id: string,
-    category: string
-  ) => {
-    switch (category) {
-      case "Housing": {
-        dispatch(
-          removeFromHousingPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreaseHousingPurchasesAmount(amount));
-        break;
-      }
-      case "Transportation": {
-        dispatch(
-          removeFromTransportationPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreaseTransportationPurchasesAmount(amount));
-        break;
-      }
-      case "Medical": {
-        dispatch(
-          removeFromMedicalPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreaseMedicalPurchasesAmount(amount));
-        break;
-      }
-      case "Food": {
-        dispatch(
-          removeFromFoodPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreaseFoodPurchasesAmount(amount));
-        break;
-      }
-      case "Entertainment": {
-        dispatch(
-          removeFromEntertainmentPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreaseEntertainmentPurchasesAmount(amount));
-        break;
-      }
-      case "Pets": {
-        dispatch(
-          removeFromPetsPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreasePetsPurchasesAmount(amount));
-        break;
-      }
-      default: {
-        dispatch(
-          removeFromOtherPurchases({
-            purchase: name,
-            amount: amount,
-            isNecessity: isNecessity,
-            id: id,
-            category: category,
-            date: date,
-          })
-        );
-        dispatch(decreaseOtherPurchasesAmount(amount));
-        break;
-      }
-    }
-  };
-
-  const deletePurchase = (
-    name: string,
-    amount: number,
-    isNecessity: boolean,
-    id: string,
-    category: string
-  ) => {
-    removeFromPurchasesRedux(name, amount, isNecessity, id, category, date);
-    removeFromPurchaseCategoryRedux(name, amount, isNecessity, id, category);
-    adjustPurchaseAmount(amount, isNecessity);
-  };
+  const categoryIcon = choosePurchaseCategoryIcon(category);
+  const formattedDate = formatDate(date);
+  const capitalizedPurchaseName = capitalizePurchaseName(name);
+  const formattedPurchaseAmount = formatPurchaseAmount(amount);
 
   return (
     <Box sx={styles.purchaseTile} id={category}>
@@ -299,9 +134,7 @@ export const PurchaseTile: FC<Props> = ({
           sx={styles.deletePurchaseButton}
           aria-label="Delete purchase"
           variant="contained"
-          onClick={() =>
-            deletePurchase(name, amount, isNecessity, id, category)
-          }
+          onClick={deleteItem}
         >
           delete
         </Button>
