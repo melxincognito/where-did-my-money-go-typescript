@@ -1,9 +1,7 @@
 import { FC } from "react";
-
-import { PurchasesList } from "../components/lists/PurchasesList";
 import { PurchaseTotals } from "../components/purchases/PurchaseTotals";
-import { PurchaseInputForm } from "../components/forms/PurchaseInputForm";
-
+import { SupabasePurchaseInputForm } from "../components/forms/SupabasePurchaseInputForm";
+import { SupabasePurchasesList } from "../components/lists/SupabasePurchasesList";
 import { Box } from "@mui/material";
 
 export const HomePage: FC = () => {
@@ -11,13 +9,13 @@ export const HomePage: FC = () => {
     <>
       {/* PURCHASE INPUT FORM AND TOTALS */}
       <Box sx={styles.purchaseInputFormAndTotalsContainer}>
-        <PurchaseInputForm />
+        <SupabasePurchaseInputForm />
         <PurchaseTotals />
       </Box>
 
       {/* PURCHASE LIST */}
 
-      <PurchasesList />
+      <SupabasePurchasesList />
     </>
   );
 };
