@@ -35,6 +35,22 @@ export const SignInForm = () => {
     }
   }
 
+  async function signInWithGoogle() {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+    if (error) alert("Error: " + error);
+  }
+
+  async function signInDemoUser() {
+    const { error } = await supabase.auth.signInWithPassword({
+      email: `${process.env.REACT_APP_SUPABASE_DEMO_USER_EMAIL}`,
+      password: `${process.env.REACT_APP_SUPABASE_DEMO_USER_PASSWORD}`,
+    });
+    if (error) alert("Error: " + error.message);
+    navigate("/");
+  }
+
   return (
     <>
       <Card sx={styles.card}>
@@ -86,6 +102,13 @@ export const SignInForm = () => {
             Sign in using Email
           </Button>
         </form>
+        <button onClick={signInWithGoogle} style={styles.linkButton}>
+          {" "}
+          Sign in with Google
+        </button>
+        <button onClick={signInDemoUser} style={styles.linkButton}>
+          Sign in with demo account
+        </button>
       </Card>
     </>
   );
@@ -103,7 +126,6 @@ const styles = {
     borderRadius: "20px",
     gap: "1rem",
     height: "fit-content",
-    marginRight: { xs: "0", md: "2rem" },
   },
   form: {
     display: "grid",
@@ -134,5 +156,13 @@ const styles = {
       border: "2px solid rgba(255, 255, 255, 0.17)",
       color: "black",
     },
+  },
+  linkButton: {
+    background: "transparent",
+    border: " none",
+    padding: "0!important",
+    color: "#069",
+    textDecoration: "underline",
+    cursor: "pointer",
   },
 } as const;
