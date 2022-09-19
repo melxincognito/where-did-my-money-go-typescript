@@ -41,7 +41,6 @@ export function useSupabaseTotalsCalculator({ isNecessary }: Props) {
         const data = response.data;
 
         items.push(data);
-        console.log(items);
 
         return { data, items };
       })
