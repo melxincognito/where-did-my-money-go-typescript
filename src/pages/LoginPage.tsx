@@ -1,8 +1,6 @@
-import { supabase } from "../supabaseClient";
-import { useNavigate } from "react-router-dom";
 import { SignUpForm } from "../components/forms/SignUpForm";
 import { SignInForm } from "../components/forms/SignInForm";
-import { Button, Card, Box, Paper } from "@mui/material";
+import { Box, Paper } from "@mui/material";
 
 function HeaderTile() {
   return (
@@ -23,14 +21,6 @@ function HeaderTile() {
 
 export const LoginPage = () => {
   const imageUrl = "https://images2.imgbox.com/90/ba/l1xOb4VO_o.jpg";
-
-  async function signInWithGithub() {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-    });
-
-    if (error) alert("Error: " + error);
-  }
 
   return (
     <div>
