@@ -4,7 +4,7 @@ import { PurchaseTile } from "../purchases/PurchaseTile";
 
 import { useSupabasePurchaseCategoriesList } from "../../hooks/useSupabasePurchaseCategoriesList";
 
-import { useSupabaseTotalsCalculator } from "../../hooks/useSupabaseTotalsCalculator";
+import { useSupabasePurchaseCategoryTotalsCalculator } from "../../hooks/useSupabasePurchaseCategoryTotalsCalculator";
 
 interface PurchaseCategoriesTileProps {
   purchaseCategory: string;
@@ -78,49 +78,74 @@ export const SupabasePurchaseCategoriesList: FC = () => {
     category: "Other",
   });
 
-  const total = useSupabaseTotalsCalculator({ isNecessary: true });
+  const housingTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Housing",
+  });
+
+  const transportationTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Transportation",
+  });
+
+  const medicalTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Medical",
+  });
+
+  const foodTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Food",
+  });
+
+  const entertainmentTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Entertainment",
+  });
+
+  const petsTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Pets",
+  });
+
+  const otherTotal = useSupabasePurchaseCategoryTotalsCalculator({
+    category: "Other",
+  });
 
   const purchaseCategories: PurchaseCategoriesInformation[] = [
     {
       purchaseCategory: "Housing",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: housingTotal,
       purchaseCategoryList: housingItemsList,
     },
     {
       purchaseCategory: "Transportation",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: transportationTotal,
       purchaseCategoryList: transportationItemsList,
     },
     {
       purchaseCategory: "Medical",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: medicalTotal,
       purchaseCategoryList: medicalItemsList,
     },
     {
       purchaseCategory: "Food",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: foodTotal,
       purchaseCategoryList: foodItemsList,
     },
     {
       purchaseCategory: "Entertainment",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: entertainmentTotal,
       purchaseCategoryList: entertainmentItemsList,
     },
     {
       purchaseCategory: "Pets",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: petsTotal,
       purchaseCategoryList: petsItemsList,
     },
     {
       purchaseCategory: "Other",
-      purchaseCategoryTotal: 0,
+      purchaseCategoryTotal: otherTotal,
       purchaseCategoryList: otherItemsList,
     },
   ];
 
   return (
     <Box id="purchaseCategoriesList" sx={styles.purchaseCategoryContainer}>
-      <button onClick={() => console.log(total)}>c</button>
       {purchaseCategories.map((purchaseCategory, index) => (
         <PurchaseCategoriesTile
           key={index}
