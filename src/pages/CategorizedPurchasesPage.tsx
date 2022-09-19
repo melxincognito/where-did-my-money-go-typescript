@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
 import { FC } from "react";
-import { PurchaseCategoriesList } from "../components/lists/PurchaseCategoriesList";
+import { SupabasePurchaseCategoriesList } from "../components/lists/SupabasePurchaseCategoriesList";
 
 export const CategorizedPurchasesPage: FC = () => {
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <PurchaseCategoriesList />
+      <SupabasePurchaseCategoriesList />
     </Box>
   );
 };
