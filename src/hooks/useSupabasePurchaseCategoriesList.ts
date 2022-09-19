@@ -52,7 +52,7 @@ export function useSupabasePurchaseCategoriesList({ category }: Props) {
         setCategoryItems(data.items[0]);
         return categoryItems;
       });
-  });
+  }, [userId]);
 
   return categoryItems;
 }
