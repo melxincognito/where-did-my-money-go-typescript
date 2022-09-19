@@ -1,15 +1,18 @@
 import { FC } from "react";
 import { Paper, Box } from "@mui/material";
-import { useAppSelector } from "../../redux/hooks";
 
-import { totalPurchasesCount } from "../../redux/reducers/purchase-totals/purchaseTotalReducer";
-import { necessaryPurchasesCount } from "../../redux/reducers/purchase-totals/necessityTotalReducer";
-import { wantsPurchasesCount } from "../../redux/reducers/purchase-totals/wantsTotalReducer";
+import { useSupabaseTotalsCalculator } from "../../hooks/useSupabaseTotalsCalculator";
 
 export const PurchaseTotals: FC = () => {
-  const totalCount: number = useAppSelector(totalPurchasesCount);
-  const necessaryCount: number = useAppSelector(necessaryPurchasesCount);
-  const wantsCount: number = useAppSelector(wantsPurchasesCount);
+  const necessaryCount: number = useSupabaseTotalsCalculator({
+    isNecessary: true,
+  });
+
+  const wantsCount: number = useSupabaseTotalsCalculator({
+    isNecessary: false,
+  });
+
+  const totalCount: number = necessaryCount + wantsCount || 0;
 
   return (
     <Box sx={styles.purchaseTotalsContainer}>
